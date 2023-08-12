@@ -7,4 +7,7 @@ import jakarta.persistence.Id;
 public class Item {
     @Id
     private Long itemID;
+    private String name;
+    private String brand;
+    private TypeItem type;
 }
