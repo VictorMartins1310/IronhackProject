@@ -2,17 +2,19 @@ package com.bootcamp.project.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-/*** This Table surged from Relation Many to Many
- *
- */
 public class ShoppingListItems {
     @Id
     private Long tmpID; //TODO Changees here (This is only for starting the classes)
-    @Id @ManyToOne
+    //@Id
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "shoppingListID", name = "ShoppingList")
     private ShoppingList shoppingList;
-    @Id @ManyToOne
+    //@Id
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "itemID", name = "item")
     private Item item;
 }
