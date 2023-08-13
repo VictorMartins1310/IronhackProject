@@ -1,21 +1,39 @@
 package com.bootcamp.project.controller.WEB;
 
 import com.bootcamp.project.controller.API.TodoListAPIController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.bootcamp.project.model.ToDoList;
+import com.bootcamp.project.service.ToDoListService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
-@RequestMapping(name = "TodoListWEB", value = "web/todolist")
+@RequiredArgsConstructor
+@RequestMapping(name = "todoListWEB", value = "web")
 public class TodoListWEBController implements TodoListAPIController {
-    @GetMapping
+    final ToDoListService todoListService;
+    private final Map<String, Object> map = new HashMap<>();
+    @GetMapping(value = route)
     public ModelAndView showTodoList(){
-        return new ModelAndView();
+        map.put("todolist", "todolist");
+        map.put("Stupid","thing");
+        return new ModelAndView("index",map);
     }
-    @PostMapping("new")
+    @GetMapping(value = route + "/new" )
+    public ModelAndView newTodoList(ToDoList td){
+        map.put("todolist", "todolist");
+        return new ModelAndView("index.html",map);
+    }
+    @PostMapping(value = route + "/new" )
     public ModelAndView newTodoList(){
-        return new ModelAndView();
+        map.put("todolist", "todolist");
+        return new ModelAndView("index",map);
+    }
+    @GetMapping(value = "test")
+    public String test(){
+        return "Hello im on WEB Mode";
     }
 }

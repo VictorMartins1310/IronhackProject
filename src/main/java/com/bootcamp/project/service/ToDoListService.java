@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ToDoListService {
     private final TodoListRepository todoListRepository;
+
     public List<ToDoList> findAll(){
         return todoListRepository.findAll();
     }

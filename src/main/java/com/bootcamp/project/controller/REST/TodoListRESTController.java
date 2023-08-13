@@ -4,23 +4,24 @@ import com.bootcamp.project.controller.API.TodoListAPIController;
 import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.service.ToDoListService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RestController
+@RestController //Used for processing JSON with @Responsebody
 @RequiredArgsConstructor
-@RequestMapping(name = "TodoListREST", value = "rest/todolist")
+@RequestMapping(name = "todoListREST", value = "rest")
 public class TodoListRESTController implements TodoListAPIController {
     final ToDoListService todoListService;
-    @GetMapping
+    @GetMapping(route)
     public List<ToDoList> showTodoList() {
         return todoListService.findAll();
     }
-    @PostMapping("new")
+    @PostMapping(route + "/new")
     public ToDoList newTodoList(){
         return null;
+    }
+    @GetMapping("test")
+    public String test(){
+        return "Hello im on REST Mode";
     }
 }
