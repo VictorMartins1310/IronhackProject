@@ -15,8 +15,7 @@ public class TaskListRESTController implements TaskAPIController {
     private final TaskListService tasklistService;
     @GetMapping(value = route)
     List<TaskList> showTaskLists(){
-        // coding here
-        return null;
+        return tasklistService.findAll();
     }
     @PostMapping(value = route + "/new")
     TaskList newTaskList(@RequestBody TaskList tasklist){
