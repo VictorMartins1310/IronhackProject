@@ -1,12 +1,14 @@
 package com.bootcamp.project.model;
 
+import com.bootcamp.project.model.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
 
-@Entity
+@Entity(name = "TodoList")
 @Data
+@Table(name = "TodoList")
 public class ToDoList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

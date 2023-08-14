@@ -5,8 +5,9 @@ import lombok.Data;
 
 import java.util.UUID;
 
-@Entity
+@Entity(name = "User")
 @Data
+@Table(name = "User")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

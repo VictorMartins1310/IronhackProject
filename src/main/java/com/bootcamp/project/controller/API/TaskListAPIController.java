@@ -1,7 +1,6 @@
 package com.bootcamp.project.controller.API;
 
 import com.bootcamp.project.model.TaskList;
-import com.bootcamp.project.service.TaskListService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

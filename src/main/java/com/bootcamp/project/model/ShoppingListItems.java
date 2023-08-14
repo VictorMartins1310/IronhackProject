@@ -1,20 +1,19 @@
 package com.bootcamp.project.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
-@Entity
+@Entity(name = "ShoppingListItems")
+@Table(name = "ShoppingListItems")
 public class ShoppingListItems {
     @Id
-    private Long tmpID; //TODO Changees here (This is only for starting the classes)
+    private Long shoppingItemID; //TODO Changees here (This is only for starting the classes)
+    private String Item;
     //@Id
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "shoppingListID", name = "ShoppingList")
-    private ShoppingList shoppingList;
+//    @ManyToOne
+//    @JoinColumn(referencedColumnName = "shoppingListID", name = "ShoppingList")
+//    private ShoppingList shoppingList;
     //@Id
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "itemID", name = "item")
-    private Item item;
+//    @ManyToOne
+//    @JoinColumn(referencedColumnName = "itemID", name = "item")
+//    private Item item;
 }
