@@ -1,2 +1,22 @@
-### TodoLists
-GET http://localhost:8710/rest/todolist
+### Add an User
+POST http://localhost:8710/rest/users/new
+Content-Type: Application/json
+
+{
+  "email" : "VictorMartins@mail.de",
+  "password" : "badPassword"
+}
+
+### Add new TodoList
+POST http://localhost:8710/rest/todolist/new
+Content-Type: Application/json
+
+{
+  "creatonDate": "",
+  "todoListName": "firstTodoList",
+  "user": {
+    "userID": "76e3d6e8-886a-4db4-943a-2518b491debb",
+    "email" : "VictorMartins@mail.de",
+    "password" : "badPassword"
+  }
+}

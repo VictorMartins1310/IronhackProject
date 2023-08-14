@@ -1,9 +1,7 @@
 package com.bootcamp.project.controller.API;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.bootcamp.project.model.ToDoList;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(name = "todoListAPI", value = "api")
@@ -18,7 +16,7 @@ public interface TodoListAPIController {
      * Insert new TodoList
      */
     @PostMapping(route + "/new")
-    Object newTodoList();
+    Object newTodoList(@RequestBody ToDoList todoList);
     @GetMapping("test")
     String test();
 }

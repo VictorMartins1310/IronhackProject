@@ -17,8 +17,8 @@ public class TodoListRESTController implements TodoListAPIController {
         return todoListService.findAll();
     }
     @PostMapping(route + "/new")
-    public ToDoList newTodoList(){
-        return null;
+    public ToDoList newTodoList(@RequestBody ToDoList toDoList){
+        return todoListService.newToDoList(toDoList);
     }
     @GetMapping("test")
     public String test(){
