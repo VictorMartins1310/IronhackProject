@@ -1,6 +1,6 @@
 package com.bootcamp.project.model;
 
-public enum TypeItem {
+public enum ArticleType {
     Other, Drink, Hygienic, Alcohol,
     Fish, Ham, Fruit, Vegetables
 }

@@ -14,11 +14,15 @@ import java.util.List;
 public class TaskListRESTController implements TaskAPIController {
     private final TaskListService tasklistService;
     @GetMapping(value = route)
-    List<TaskList> showTaskLists(){
+    public List<TaskList> showTaskLists(){
         return tasklistService.findAll();
     }
     @PostMapping(value = route + "/new")
-    TaskList newTaskList(@RequestBody TaskList tasklist){
+    public TaskList newTaskList(@RequestBody TaskList tasklist){
         return tasklistService.newTaskList(tasklist);
+    }
+    @GetMapping(value = route + "/{id}")
+    public TaskList tasksByID(@PathVariable(name = "id") Long id){
+        return null;
     }
 }

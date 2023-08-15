@@ -10,7 +10,9 @@ import java.util.List;
 public interface TaskListAPIController {
     String route = "tasklist";
     @GetMapping(value = route)
-    List<TaskList> showTaskLists();
+    Object showTaskLists();
     @PostMapping(value = route + "/new")
-    TaskList newTaskList(@RequestBody TaskList tasklist);
+    Object newTaskList(@RequestBody TaskList tasklist);
+    @GetMapping(value = route + "/{id}")
+    Object tasksByID(@PathVariable(name = "id") Long id);
 }

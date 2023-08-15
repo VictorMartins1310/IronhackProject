@@ -11,5 +11,9 @@ import java.util.List;
 @Table(name = "TaskList")
 public class TaskList extends ToDoList{
     @OneToMany
-    private List<Task> task ;
+    private List<Task> tasklist ;
+
+    public void addTask(Task newTask){
+        tasklist.add(newTask);
+    }
 }

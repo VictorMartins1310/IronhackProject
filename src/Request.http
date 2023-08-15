@@ -6,6 +6,8 @@ Content-Type: Application/json
   "email" : "VictorMartins@mail.de",
   "password" : "badPassword"
 }
+### Get All Users
+GET http://localhost:8710/rest/users
 
 ### Add new TodoList
 POST http://localhost:8710/rest/todolist/new

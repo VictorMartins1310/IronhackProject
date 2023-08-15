@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(name = "todoListAPI", value = "api")
-public interface ItemAPIController {
-    String route = null;
+public interface ArticleAPIController {
+    String route = "articles";
 }

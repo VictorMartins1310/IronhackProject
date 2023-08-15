@@ -9,6 +9,6 @@ import java.util.List;
 public class ShoppingList extends ToDoList{
     private String marketName;
     @OneToMany
-    private List<ShoppingListItems> items;
+    private List<Article> articles;
 
 }
