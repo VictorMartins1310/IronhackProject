@@ -1,4 +1,4 @@
-package com.bootcamp.project.controller.API;
+package com.bootcamp.project.controller.api;
 
 import com.bootcamp.project.model.ToDoList;
 import org.springframework.web.bind.annotation.*;
@@ -10,13 +10,13 @@ public interface TodoListAPIController {
     /***
      Shows all TodoLists
      */
-    @GetMapping(route)
+    @GetMapping(value = route)
     Object showTodoList();
     /***
      * Insert new TodoList
      */
-    @PostMapping(route + "/new")
+    @PostMapping(value = route + "/new")
     Object newTodoList(@RequestBody ToDoList todoList);
-    @GetMapping("test")
+    @GetMapping(value = "test")
     String test();
 }

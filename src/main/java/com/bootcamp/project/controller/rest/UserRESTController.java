@@ -1,10 +1,9 @@
-package com.bootcamp.project.controller.REST;
+package com.bootcamp.project.controller.rest;
 
-import com.bootcamp.project.controller.API.UserAPIController;
+import com.bootcamp.project.controller.api.UserAPIController;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.LifecycleState;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +13,7 @@ import java.util.List;
 @RequestMapping(value = "rest")
 public class UserRESTController implements UserAPIController {
     final UserService userService;
+
     @PostMapping(value = route + "/new")
     public User newUser(@RequestBody User user){
         return userService.newUser(user);

@@ -1,9 +1,7 @@
-package com.bootcamp.project.controller.API;
+package com.bootcamp.project.controller.api;
 
 import com.bootcamp.project.model.TaskList;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "api")

@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Entity(name = "TodoList")
 @Data
-@Table(name = "TodoList")
 public class ToDoList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

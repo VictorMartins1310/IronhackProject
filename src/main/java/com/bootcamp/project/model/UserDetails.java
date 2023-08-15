@@ -6,8 +6,7 @@ import lombok.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-@Entity(name = "UserDetails")
-@Table(name = "UserDetails")
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,6 +15,6 @@ public class UserDetails extends User{
     private String firstName;
     private String lastName;
     private String birthDate;
-//    @OneToOne(targetEntity = User.class)
-//    private User user;
+    @OneToOne(targetEntity = User.class)
+    private User user;
 }

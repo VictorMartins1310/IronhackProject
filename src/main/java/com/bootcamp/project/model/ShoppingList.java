@@ -4,11 +4,9 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity(name = "ShoppingList")
-@Table(name = "ShoppingList")
+@Entity
 public class ShoppingList extends ToDoList{
     private String marketName;
     @OneToMany
-    private List<Article> articles;
-
+    private List<Product> products;
 }

@@ -1,6 +1,6 @@
-package com.bootcamp.project.controller.REST;
+package com.bootcamp.project.controller.rest;
 
-import com.bootcamp.project.controller.API.TodoListAPIController;
+import com.bootcamp.project.controller.api.TodoListAPIController;
 import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.service.ToDoListService;
 import lombok.RequiredArgsConstructor;
@@ -12,15 +12,15 @@ import java.util.List;
 @RequestMapping(name = "todoListREST", value = "rest")
 public class TodoListRESTController implements TodoListAPIController {
     final ToDoListService todoListService;
-    @GetMapping(route)
+    @GetMapping(value = route)
     public List<ToDoList> showTodoList() {
         return todoListService.findAll();
     }
-    @PostMapping(route + "/new")
+    @PostMapping(value = route + "/new")
     public ToDoList newTodoList(@RequestBody ToDoList toDoList){
         return todoListService.newToDoList(toDoList);
     }
-    @GetMapping("test")
+    @GetMapping(value = "test")
     public String test(){
         return "Hello im on REST Mode";
     }

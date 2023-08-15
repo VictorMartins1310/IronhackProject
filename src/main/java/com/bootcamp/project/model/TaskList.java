@@ -7,8 +7,7 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
-@Entity(name = "TaskList")
-@Table(name = "TaskList")
+@Entity
 public class TaskList extends ToDoList{
     @OneToMany
     private List<Task> tasklist ;

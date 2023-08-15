@@ -1,6 +1,6 @@
-package com.bootcamp.project.controller.WEB;
+package com.bootcamp.project.controller.web;
 
-import com.bootcamp.project.controller.API.TodoListAPIController;
+import com.bootcamp.project.controller.api.TodoListAPIController;
 import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.service.ToDoListService;
 import lombok.RequiredArgsConstructor;

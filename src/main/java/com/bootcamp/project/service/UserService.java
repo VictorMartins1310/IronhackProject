@@ -31,25 +31,27 @@ public class UserService {
     public User getUserByEmail(String email){
         return userRepo.getUserByEmail(email);
     }
-    public UUID getUUID(String email){
-        User u = getUserByEmail(email);
-        return u.getUserID();
-    }
 
     // UserDetails Section
 
     private final UserDetailsRepository userDetailsRepo;
-    public UserDetails findDetailsByUserID(UUID id){
-        return userDetailsRepo.findById(id).get();
+    public UserDetails findUserDetailsByUserID(UUID id){
+        return userDetailsRepo.findUserDetailsByUserID(id);
     }
 
     public UserDetails updateDetails(UUID id, UserDetails details){
-
+/*      Solution 1
         UserDetails userDetails = new UserDetails(details.getFirstName(), details.getLastName(), details.getBirthDate());
         UserDetails details2delete = userDetailsRepo.findById(id).get();
         userDetailsRepo.delete(details2delete);
+ */
+        UserDetails userDetails = userDetailsRepo.findUserDetailsByUserID(id);
+        userDetails.setFirstName(details.getFirstName());
+        userDetails.setLastName(details.getLastName());
+        userDetails.setBirthDate(details.getBirthDate());
         return userDetailsRepo.save(userDetails);
     }
-
-
+    public UserDetails addDetails(UserDetails userDetails) {
+        return userDetailsRepo.save(userDetails);
+    }
 }

@@ -9,6 +9,21 @@ Content-Type: Application/json
 ### Get All Users
 GET http://localhost:8710/rest/users
 
+### Update Userdetails
+PUT http://localhost:8710/rest/users/75224d8b-e47f-47d8-979b-7ef4a2d61296/d
+Content-Type: Application/json
+
+{
+  "email" : "VictorMartins@mail.de",
+  "password" : "badPassword",
+  "firstName" : "Victor",
+  "lastName" : "Fernandes Martins",
+  "birthdate" : "1987-10-13"
+}
+
+### Get UserDetails by an ID
+GET http://localhost:8710/rest/users/75224d8b-e47f-47d8-979b-7ef4a2d61296/d
+
 ### Add new TodoList
 POST http://localhost:8710/rest/todolist/new
 Content-Type: Application/json

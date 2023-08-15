@@ -1,6 +1,6 @@
-package com.bootcamp.project.controller.REST;
+package com.bootcamp.project.controller.rest;
 
-import com.bootcamp.project.controller.API.TaskAPIController;
+import com.bootcamp.project.controller.api.TaskAPIController;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.service.TaskListService;
 import lombok.RequiredArgsConstructor;
