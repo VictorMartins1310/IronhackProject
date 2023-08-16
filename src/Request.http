@@ -10,7 +10,7 @@ Content-Type: Application/json
 GET http://localhost:8710/rest/users
 
 ### Update Userdetails
-PUT http://localhost:8710/rest/users/75224d8b-e47f-47d8-979b-7ef4a2d61296/d
+PUT http://localhost:8710/rest/users/1273c390-17e9-4504-ac9c-1166c4ebea7b/d
 Content-Type: Application/json
 
 {
