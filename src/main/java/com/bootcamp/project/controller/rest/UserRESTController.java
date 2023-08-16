@@ -32,7 +32,7 @@ public class UserRESTController implements UserAPIController {
         return userService.findUserDetailsByUserID(id);
     }
     @PutMapping(value = routeDetails)
-    public User updateDetails(@PathVariable(name = "id") UUID id, User userDetails){
-        return userService.updateDetails(id, userDetails); // TODO Develop Here
+    public User updateDetails(@PathVariable(name = "id") UUID id, @RequestBody User userDetails){
+        return userService.updateDetails(id, userDetails);
     }
 }

@@ -18,7 +18,7 @@ Content-Type: Application/json
   "password" : "badPassword",
   "firstName" : "Victor",
   "lastName" : "Fernandes Martins",
-  "birthdate" : "1987-10-13"
+  "birthDate" : "1987-10-13"
 }
 
 ### Get UserDetails by an ID

@@ -44,7 +44,4 @@ public class UserService {
         userDetails.updateDetails(details.getEmail(), details.getFirstName(), details.getLastName(), details.getBirthDate());
         return userRepo.save(userDetails);
     }
-    public User addDetails(User userDetails) {
-        return userRepo.save(userDetails);
-    }
 }
