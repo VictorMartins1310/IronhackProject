@@ -14,15 +14,9 @@ import java.util.List;
 public class TaskListRESTController implements TaskAPIController {
     private final TaskListService tasklistService;
     @GetMapping(value = route)
-    public List<TaskList> showTaskLists(){
-        return tasklistService.findAll();
-    }
+    public List<TaskList> showTaskLists(){ return tasklistService.findAll(); }
     @PostMapping(value = route + "/new")
-    public TaskList newTaskList(@RequestBody TaskList tasklist){
-        return tasklistService.newTaskList(tasklist);
-    }
+    public TaskList newTaskList(@RequestBody TaskList tasklist){ return tasklistService.newTaskList(tasklist); }
     @GetMapping(value = route + "/{id}")
-    public TaskList tasksByID(@PathVariable(name = "id") Long id){
-        return null;
-    }
+    public TaskList tasksByID(@PathVariable(name = "id") Long id){ return null; }
 }

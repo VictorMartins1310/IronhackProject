@@ -13,17 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskListService {
     private final TaskListRepository taskListRepository;
-    private final TaskRepository taskRepository;
 
-    public TaskList newTaskList(TaskList tasklist) {
-        return taskListRepository.save(tasklist);
-    }
-
-    public List<TaskList> findAll() {
-        return taskListRepository.findAll();
-    }
-
-    public TaskList addTask(Long todoID, Task task){
-        return null;
-    }
+    public TaskList newTaskList(TaskList tasklist) { return taskListRepository.save(tasklist); }
+    public List<TaskList> findAll() { return taskListRepository.findAll(); }
 }

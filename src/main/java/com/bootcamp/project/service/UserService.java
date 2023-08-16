@@ -16,29 +16,21 @@ public class UserService {
      * Separated start with userDetails methods
      */
     private final UserRepository userRepo;
+    //private final ToDoListService toDoListService;
 
-    public List<User> showUsers(){
-        return userRepo.findAll();
-    }
+    public List<User> showUsers(){  return userRepo.findAll(); }
     public User newUser(String email, String password){
         return userRepo.save(new User(email, password));
     }
     public User newUser(User user){
-        return userRepo.save(user);
-    }
+        return userRepo.save(user); }
 
-    public User getUserB(UUID id){
-        return userRepo.getUserByUserID(id);
-    }
-    public User getUserByEmail(String email){
-        return userRepo.getUserByEmail(email);
-    }
+    public User getUserB(UUID id){ return userRepo.getUserByUserID(id); }
+    public User getUserByEmail(String email){ return userRepo.getUserByEmail(email); }
 
     // UserDetails Section
-    public User findUserDetailsByUserID(UUID id){
-        return userRepo.getUserByUserID(id);
-    }
 
+    public User findUserDetailsByUserID(UUID id){ return userRepo.getUserByUserID(id); }
     public User updateDetails(UUID id, User details){
         User userDetails = userRepo.getUserByUserID(id);
         userDetails.updateDetails(details.getEmail(), details.getFirstName(), details.getLastName(), details.getBirthDate());

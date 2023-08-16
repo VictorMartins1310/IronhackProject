@@ -14,6 +14,7 @@ public class ToDoList {
     private Long todoListID;
     private Date creatonDate;
     private String todoListName;
+    private Boolean active;
     @ManyToOne
     private User user;
 }

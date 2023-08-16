@@ -7,16 +7,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(name = "todoListAPI", value = "api")
 public interface TodoListAPIController {
     String route = "todolist";
-    /***
-     Shows all TodoLists
-     */
-    @GetMapping(value = route)
-    Object showTodoList();
-    /***
-     * Insert new TodoList
-     */
-    @PostMapping(value = route + "/new")
-    Object newTodoList(@RequestBody ToDoList todoList);
     @GetMapping(value = "test")
     String test();
 }
