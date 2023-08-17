@@ -10,7 +10,7 @@ Content-Type: Application/json
 GET http://localhost:8710/rest/users
 
 ### Update Userdetails
-PUT http://localhost:8710/rest/users/1273c390-17e9-4504-ac9c-1166c4ebea7b/d
+PUT http://localhost:8710/rest/users/dedb5b89-57a3-4b48-bc51-70c555bd20d6/d
 Content-Type: Application/json
 
 {
@@ -25,15 +25,17 @@ Content-Type: Application/json
 GET http://localhost:8710/rest/users/75224d8b-e47f-47d8-979b-7ef4a2d61296/d
 
 ### Add new TodoList
-POST http://localhost:8710/rest/todolist/new
+POST http://localhost:8710/rest/todolist/dedb5b89-57a3-4b48-bc51-70c555bd20d6/new
 Content-Type: Application/json
 
 {
-  "creatonDate": "",
-  "todoListName": "firstTodoList",
-  "user": {
-    "userID": "76e3d6e8-886a-4db4-943a-2518b491debb",
-    "email" : "VictorMartins@mail.de",
-    "password" : "badPassword"
-  }
+  "todoListName": "firstTodoList"
+}
+
+### Add new ShoppingList
+POST http://localhost:8710/rest/shoppinglist/new
+Content-Type: Application/json
+
+{
+  "marketName": "mini Mercado"
 }

@@ -1,6 +1,7 @@
 package com.bootcamp.project.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -11,7 +11,5 @@ import org.springframework.stereotype.Service;
 public class TaskService {
     private final TaskRepository taskRepository;
 
-    public Task newTask(Task task){
-        return taskRepository.save(task);
-    }
+    public Task newTask(Task task){ return taskRepository.save(task); }
 }

@@ -16,15 +16,12 @@ public class UserService {
      * Separated start with userDetails methods
      */
     private final UserRepository userRepo;
-    //private final ToDoListService toDoListService;
 
     public List<User> showUsers(){  return userRepo.findAll(); }
     public User newUser(String email, String password){
         return userRepo.save(new User(email, password));
     }
-    public User newUser(User user){
-        return userRepo.save(user); }
-
+    public User newUser(User user){ return userRepo.save(user); }
     public User getUserB(UUID id){ return userRepo.getUserByUserID(id); }
     public User getUserByEmail(String email){ return userRepo.getUserByEmail(email); }
 

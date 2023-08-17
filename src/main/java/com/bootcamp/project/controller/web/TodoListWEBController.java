@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,4 +16,8 @@ import java.util.Map;
 public class TodoListWEBController implements TodoListAPIController {
     @GetMapping(value = "test")
     public String test(){ return "Hello im on WEB Mode"; }
+    @PostMapping(value = route + "/{id}/new")
+    public ModelAndView newTodoList(@PathVariable("id") UUID id, @RequestBody ToDoList todoList){
+        return null; // TODO Develop here
+    }
 }

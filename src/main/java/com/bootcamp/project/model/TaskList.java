@@ -10,7 +10,5 @@ public class TaskList extends ToDoList{
     @OneToMany
     private List<Task> tasks;
 
-    public void addTask(Task newTask){
-        tasks.add(newTask);
-    }
+    public void addTask(Task newTask){ tasks.add(newTask); }
 }
