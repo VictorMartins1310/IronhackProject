@@ -20,4 +20,8 @@ public class TodoListWEBController implements TodoListAPIController {
     public ModelAndView newTodoList(@PathVariable("id") UUID id, @RequestBody ToDoList todoList){
         return null; // TODO Develop here
     }
+    @GetMapping(value = route + "/{id}")
+    public ModelAndView getAllTodoListByID(@PathVariable("id") UUID id){
+        return null; // TODO develop here
+    }
 }

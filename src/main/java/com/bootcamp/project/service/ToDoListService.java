@@ -6,6 +6,7 @@ import com.bootcamp.project.repos.ToDoListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,5 +21,9 @@ public class ToDoListService {
     }
     public ToDoList findById(Long id){
         return toDoListRepository.findById(id).get();
+    }
+    public List<ToDoList> findByUserId(UUID userID){
+        User user = userService.getUser(userID);
+        return toDoListRepository.findByUser(user);
     }
 }

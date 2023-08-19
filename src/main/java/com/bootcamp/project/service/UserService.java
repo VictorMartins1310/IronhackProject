@@ -22,7 +22,7 @@ public class UserService {
         return userRepo.save(new User(email, password));
     }
     public User newUser(User user){ return userRepo.save(user); }
-    public User getUserB(UUID id){ return userRepo.getUserByUserID(id); }
+    public User getUser(UUID id){ return userRepo.getUserByUserID(id); }
     public User getUserByEmail(String email){ return userRepo.getUserByEmail(email); }
 
     // UserDetails Section

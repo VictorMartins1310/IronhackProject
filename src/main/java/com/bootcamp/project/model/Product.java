@@ -21,7 +21,6 @@ public class Product {
     private ProductType type;
 
     public BigDecimal totalPrice(){
-        // TODO verify if this is Correct
-        return price.multiply(BigDecimal.valueOf(qty));
+        return new BigDecimal(qty).multiply(price);
     }
 }

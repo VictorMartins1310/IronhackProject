@@ -14,7 +14,9 @@ public class ShoppingList extends ToDoList{
 
     public void addProduct(Product product) { products.add(product); }
     public BigDecimal getTotal(){
-
-        return null; //TODO
+        BigDecimal total = new BigDecimal("0.00");
+        for (Product prod: products)
+            total = total.add(prod.totalPrice());
+        return total;
     }
 }

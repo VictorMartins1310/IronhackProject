@@ -29,12 +29,12 @@ public class ToDoList {
     @ManyToOne
     @NotNull
     private User user;
-
+/*
     @OneToMany
     private List<ShoppingList> shopping;
     @OneToMany()
     private List<TaskList> task;
-
+*/
     public ToDoList(String todoListName, User user) {
         this.todoListName = todoListName;
         this.user = user;

@@ -1,6 +1,7 @@
 package com.bootcamp.project.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;

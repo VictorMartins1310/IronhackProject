@@ -10,7 +10,7 @@ Content-Type: Application/json
 GET http://localhost:8710/rest/users
 
 ### Update Userdetails
-PUT http://localhost:8710/rest/users/dedb5b89-57a3-4b48-bc51-70c555bd20d6/d
+PUT http://localhost:8710/rest/users/d1a598a8-988d-40d9-b1c4-c4749c3db779/d
 Content-Type: Application/json
 
 {
@@ -22,15 +22,19 @@ Content-Type: Application/json
 }
 
 ### Get UserDetails by an ID
-GET http://localhost:8710/rest/users/75224d8b-e47f-47d8-979b-7ef4a2d61296/d
+GET http://localhost:8710/rest/users/d1a598a8-988d-40d9-b1c4-c4749c3db779/d
 
 ### Add new TodoList
-POST http://localhost:8710/rest/todolist/dedb5b89-57a3-4b48-bc51-70c555bd20d6/new
+POST http://localhost:8710/rest/todolist/d1a598a8-988d-40d9-b1c4-c4749c3db779/new
 Content-Type: Application/json
 
 {
   "todoListName": "firstTodoList"
 }
+
+### Get TODOLIST by ID
+GET http://localhost:8710/rest/todolist/d1a598a8-988d-40d9-b1c4-c4749c3db779
+
 
 ### Add new ShoppingList
 POST http://localhost:8710/rest/shoppinglist/new
