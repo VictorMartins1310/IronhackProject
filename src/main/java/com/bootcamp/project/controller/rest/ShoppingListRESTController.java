@@ -27,8 +27,9 @@ public class ShoppingListRESTController implements ShoppingListAPIController {
     }
     @PostMapping(value = route + "/{uuid}/new")
     public ShoppingList newShoppingList(@PathVariable("uuid") UUID uuid, @RequestBody ShoppingList shoppingList){
-        Long id = 8L; // TODO Develop Method better (resolve better Endpoint), this is for Testing
-        return shoppingService.newShoppingList(id, shoppingList);
+        //Long id = 1L; // TODO Develop Method better (resolve better Endpoint), this is for Testing
+        //return shoppingService.newShoppingList(id, shoppingList);
+        return null; //TODO develop
     }
 
 }

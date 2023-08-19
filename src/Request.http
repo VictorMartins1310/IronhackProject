@@ -10,7 +10,7 @@ Content-Type: Application/json
 GET http://localhost:8710/rest/users
 
 ### Update Userdetails
-PUT http://localhost:8710/rest/users/791c5d1a-fb38-44f8-8cc8-ea6acaab5c2f/d
+PUT http://localhost:8710/rest/users/a47888b7-6f2b-483e-bf67-e6a3248345f7/d
 Content-Type: Application/json
 
 {
@@ -22,10 +22,10 @@ Content-Type: Application/json
 }
 
 ### Get UserDetails by an ID
-GET http://localhost:8710/rest/users/791c5d1a-fb38-44f8-8cc8-ea6acaab5c2f/d
+GET http://localhost:8710/rest/users/a47888b7-6f2b-483e-bf67-e6a3248345f7/d
 
 ### Add new TodoList
-POST http://localhost:8710/rest/todolist/791c5d1a-fb38-44f8-8cc8-ea6acaab5c2f/new
+POST http://localhost:8710/rest/todolist/a47888b7-6f2b-483e-bf67-e6a3248345f7/new
 Content-Type: Application/json
 
 {
@@ -33,14 +33,14 @@ Content-Type: Application/json
 }
 
 ### Get TODOLIST by ID
-GET http://localhost:8710/rest/todolist/791c5d1a-fb38-44f8-8cc8-ea6acaab5c2f
+GET http://localhost:8710/rest/todolist/a47888b7-6f2b-483e-bf67-e6a3248345f7
 
 ### Get All ShoppingLists by User
-GET http://localhost:8710/rest/todolist/shoppinglist/users/791c5d1a-fb38-44f8-8cc8-ea6acaab5c2f
+GET http://localhost:8710/rest/todolist/shoppinglist/users/a47888b7-6f2b-483e-bf67-e6a3248345f7
 
 
 ### Add new ShoppingList
-POST http://localhost:8710/rest/todolist/shoppinglist/791c5d1a-fb38-44f8-8cc8-ea6acaab5c2f/new
+POST http://localhost:8710/rest/todolist/shoppinglist/a47888b7-6f2b-483e-bf67-e6a3248345f7/new
 Content-Type: Application/json
 
 {
