@@ -20,7 +20,5 @@ public class Product {
     private int qty;
     private ProductType type;
 
-    public BigDecimal totalPrice(){
-        return new BigDecimal(qty).multiply(price);
-    }
+    public BigDecimal totalPrice(){ return new BigDecimal(qty).multiply(price); }
 }

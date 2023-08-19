@@ -9,5 +9,4 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ToDoListRepository extends JpaRepository<ToDoList, Long> {
-    List<ToDoList> findByUser(User user);
 }

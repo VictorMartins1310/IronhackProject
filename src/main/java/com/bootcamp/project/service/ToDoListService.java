@@ -24,6 +24,6 @@ public class ToDoListService {
     }
     public List<ToDoList> findByUserId(UUID userID){
         User user = userService.getUser(userID);
-        return toDoListRepository.findByUser(user);
+        return null;// toDoListRepository.findByUser(user);
     }
 }

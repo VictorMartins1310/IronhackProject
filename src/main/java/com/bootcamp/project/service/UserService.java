@@ -12,9 +12,6 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    /* This UserService Class haves 2 Repositories
-     * Separated start with userDetails methods
-     */
     private final UserRepository userRepo;
 
     public List<User> showUsers(){  return userRepo.findAll(); }

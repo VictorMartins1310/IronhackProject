@@ -13,10 +13,10 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import java.util.Date;
 import java.util.List;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@MappedSuperclass
 public class ToDoList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +29,6 @@ public class ToDoList {
     @ManyToOne
     @NotNull
     private User user;
-/*
-    @OneToMany
-    private List<ShoppingList> shopping;
-    @OneToMany()
-    private List<TaskList> task;
-*/
     public ToDoList(String todoListName, User user) {
         this.todoListName = todoListName;
         this.user = user;

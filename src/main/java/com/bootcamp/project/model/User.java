@@ -28,11 +28,10 @@ public class User {
         this.email = email;
         this.password = password;
     }
-    public User updateDetails(String email, String firstName, String lastName, String birthDate){
+    public void updateDetails(String email, String firstName, String lastName, String birthDate){
         setEmail(email);
         setFirstName(firstName);
         setLastName(lastName);
         setBirthDate(birthDate);
-        return this;
     }
 }

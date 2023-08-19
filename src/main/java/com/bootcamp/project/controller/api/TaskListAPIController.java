@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "api")
 public interface TaskListAPIController {
-    String route = "tasklist";
+    String route = "todolist/tasklist";
     @GetMapping(value = route)
     Object showTaskLists();
     @PostMapping(value = route + "/new")
