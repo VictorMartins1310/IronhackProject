@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,13 +20,15 @@ public class ToDoListService {
         ToDoList newTodoList = new ToDoList(todo.getTodoListName(), user);
         return toDoListRepository.save(newTodoList);
     }
-    public ToDoList findById(Long id){
-        return toDoListRepository.findById(id).get();
+    public ToDoList getTodoListByID(Long todoID){
+        if (toDoListRepository.findById(todoID).isEmpty())
+            throw new ProjectException("Todo List not Found");
+        return toDoListRepository.findById(todoID).get();
     }
-    public List<ToDoList> findByUserId(UUID userID){
+    public List<ToDoList> findAllByUser(UUID userID){
         User user = userService.getUser(userID);
         if (toDoListRepository.findAllByUser(user).isEmpty()) {
-            throw new ProjectException("NO TodoLIST");
+            throw new ProjectException("0 Todo Lists Found");
         }
         return toDoListRepository.findAllByUser(user);
     }

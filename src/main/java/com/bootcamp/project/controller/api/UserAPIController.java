@@ -13,7 +13,7 @@ public interface UserAPIController {
     @PostMapping(value = route + "/new")
     Object newUser(@RequestBody User user);
 
-    /** Funtion for Admin
+    /** Function for Admin
      * @return All Users
      */
     @GetMapping(value = route)

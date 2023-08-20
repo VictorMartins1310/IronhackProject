@@ -1,0 +1,29 @@
+### Add new ShoppingList
+POST http://localhost:8710/rest/todolist/shoppinglist/
+Content-Type: Application/json
+
+{
+  "marketName": "Penny"
+}
+###
+POST http://localhost:8710/rest/todolist/shoppinglist/8/new
+Content-Type: Application/json
+
+{
+  "marketName": "ALDI"
+}
+
+### Add Products to ShoppingList
+POST http://localhost:8710/rest/todolist/shoppinglist/1/products/new
+Content-Type: Application/json
+
+{
+  "name": "Coca Cola",
+  "brand": "Coca Cola Comp",
+  "price": 1.23,
+  "qty": 4,
+  "type": "Drink"
+}
+
+### Show All Products of determinate Shopping List
+GET http://localhost:8710/rest/todolist/shoppinglist/1

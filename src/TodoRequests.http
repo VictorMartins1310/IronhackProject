@@ -1,5 +1,5 @@
 ### Add new TodoList
-POST http://localhost:8710/rest/todolist/a47888b7-6f2b-483e-bf67-e6a3248345f7/new
+POST http://localhost:8710/rest/todolist/d054877e-2f6d-4d0b-b32a-62123d16dc7e/new
 Content-Type: Application/json
 
 {
@@ -7,4 +7,10 @@ Content-Type: Application/json
 }
 
 ### Get TODOLIST by ID
-GET http://localhost:8710/rest/todolist/a47888b7-6f2b-483e-bf67-e6a3248345f7
+GET http://localhost:8710/rest/todolist/d054877e-2f6d-4d0b-b32a-62123d16dc7e
+
+### Get All ShoppingLists by User
+GET http://localhost:8710/rest/todolist/shoppinglist/user/d054877e-2f6d-4d0b-b32a-62123d16dc7e
+
+### Get All TaskLists by User
+GET http://localhost:8710/rest/todolist/tasklist/user/d054877e-2f6d-4d0b-b32a-62123d16dc7e

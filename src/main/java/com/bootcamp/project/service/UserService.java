@@ -1,6 +1,12 @@
 package com.bootcamp.project.service;
 
+import com.bootcamp.project.model.ShoppingList;
+import com.bootcamp.project.model.TaskList;
+import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.model.User;
+import com.bootcamp.project.repos.ShoppingListRepository;
+import com.bootcamp.project.repos.TaskListRepository;
+import com.bootcamp.project.repos.ToDoListRepository;
 import com.bootcamp.project.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +19,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepo;
+    private final ShoppingListRepository shoppingRepo;
+    private final TaskListRepository taskListRepo;
 
     /** Show all Users a funtion for a Admin
      * @return List of Users
@@ -27,9 +35,18 @@ public class UserService {
     public User newUser(String email, String password){
         return userRepo.save(new User(email, password));
     }
-    public User newUser(User user){ return userRepo.save(user); }
+
+    /** Creates a new User and automaticly add an Default TodoList that is a TaskList
+     * @param user
+     * @return User Object
+     */
+    public User newUser(User user){
+        User savedUser = userRepo.save(user);
+        TaskList taskList = new TaskList("First Task List", savedUser);
+        taskListRepo.save(taskList);
+        return savedUser;
+    }
     public User getUser(UUID id){ return userRepo.getUserByUserID(id); }
-    public User getUserByEmail(String email){ return userRepo.getUserByEmail(email); }
 
     // UserDetails Section
 

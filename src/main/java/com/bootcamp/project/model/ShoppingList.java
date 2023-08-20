@@ -26,8 +26,8 @@ public class ShoppingList extends ToDoList{
         return total;
     }
 
-    public ShoppingList(Long todoListID, Date creatonDate, String todoListName, Boolean active, User user, String marketName) {
-        super(todoListID, creatonDate, todoListName, active, user);
+    public ShoppingList(String todoListName, User user, String marketName) {
+        super(todoListName, user);
         this.marketName = marketName;
         this.products = new ArrayList<>();
     }

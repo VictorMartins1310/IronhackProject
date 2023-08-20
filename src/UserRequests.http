@@ -10,7 +10,7 @@ Content-Type: Application/json
 GET http://localhost:8710/rest/users
 
 ### Update Userdetails
-PUT http://localhost:8710/rest/users/a47888b7-6f2b-483e-bf67-e6a3248345f7/d
+PUT http://localhost:8710/rest/users/d054877e-2f6d-4d0b-b32a-62123d16dc7e/d
 Content-Type: Application/json
 
 {
@@ -24,6 +24,3 @@ Content-Type: Application/json
 ### Get UserDetails by an ID
 GET http://localhost:8710/rest/users/a47888b7-6f2b-483e-bf67-e6a3248345f7/d
 
-
-### Get All ShoppingLists by User
-GET http://localhost:8710/rest/todolist/shoppinglist/users/a47888b7-6f2b-483e-bf67-e6a3248345f7

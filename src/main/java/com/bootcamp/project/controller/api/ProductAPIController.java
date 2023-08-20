@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "api")
-public interface ProductAPIController {
-    String route = "todolist/shoppinglist/{shopid}/products";
-    @PostMapping(value = route + "/new")
-    Object addProduct(@PathVariable("shopid") Long shopid, @RequestBody Product product);
+public interface ProductAPIController extends ShoppingListAPIController{
+    String routeAdd = "products";
+    @PostMapping(value = rootShoppingList + "/{"+ shoppingLID + "}/" + routeAdd +"/new")
+    Object addProduct(@PathVariable(shoppingLID) Long todoID, @RequestBody Product product);
+    @GetMapping(value = rootShoppingList + "/{" + shoppingLID + "}/" + routeAdd)
+    Object getAllProductsOfShoppingList(@PathVariable(shoppingLID) Long id);
 }

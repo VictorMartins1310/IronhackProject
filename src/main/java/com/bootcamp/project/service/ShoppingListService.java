@@ -7,7 +7,6 @@ import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.repos.ShoppingListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -16,12 +15,16 @@ import java.util.List;
 public class ShoppingListService {
     private final ShoppingListRepository shoppingListRepository;
     private final ToDoListService todoService;
+    private final ProductService prodService;
+
+    public ShoppingList getShoppingList(Long id){
+        return shoppingListRepository.getShoppingListByTodoListID(id).get();
+    }
     public ShoppingList newShoppingList(Long todoID, ShoppingList shoppingList){
-        ToDoList todo = todoService.findById(todoID);
-        ShoppingList shopList = new ShoppingList(todo.getTodoListID(),
-                todo.getCreatonDate(),
+        ToDoList todo = todoService.getTodoListByID(todoID);
+        ShoppingList shopList = new ShoppingList(
                 todo.getTodoListName(),
-                todo.getActive(), todo.getUser(),
+                todo.getUser(),
                 shoppingList.getMarketName());
         return shoppingListRepository.save(shopList);
     }
@@ -33,7 +36,8 @@ public class ShoppingListService {
         ShoppingList todo;
         if (shoppingListRepository.getShoppingListByTodoListID(shopID).isPresent()){
             todo = shoppingListRepository.getShoppingListByTodoListID(shopID).get();
-            todo.addProduct(prod);
+            Product savedProd = prodService.newProduct(prod);
+            todo.addProduct(savedProd);
             return shoppingListRepository.save(todo);
         } else
             throw new ProjectException("Cannot find Shopping list");
