@@ -3,7 +3,6 @@ package com.bootcamp.project.service;
 import com.bootcamp.project.exception.ProjectException;
 import com.bootcamp.project.model.*;
 import com.bootcamp.project.repos.TaskListRepository;
-import com.bootcamp.project.repos.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +32,12 @@ public class TaskListService {
         return taskList.getTasks();
     }
     public TaskList addTask2List(Long taskID, Task task){
-        TaskList todo;
+        TaskList taskList;
         if (taskListRepository.findById(taskID).isPresent()){
-            todo = taskListRepository.findById(taskID).get();
+            taskList = taskListRepository.findById(taskID).get();
             Task savedTask = taskService.newTask(task);
-            todo.addTask(savedTask);
-            return taskListRepository.save(todo);
+            taskList.addTask(savedTask);
+            return taskListRepository.save(taskList);
         } else
             throw new ProjectException("Cannot find Task list");
     }
