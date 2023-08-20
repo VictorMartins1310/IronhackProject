@@ -1,0 +1,10 @@
+### Add new TodoList
+POST http://localhost:8710/rest/todolist/a47888b7-6f2b-483e-bf67-e6a3248345f7/new
+Content-Type: Application/json
+
+{
+  "todoListName": "Task List"
+}
+
+### Get TODOLIST by ID
+GET http://localhost:8710/rest/todolist/a47888b7-6f2b-483e-bf67-e6a3248345f7

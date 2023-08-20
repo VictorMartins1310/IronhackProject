@@ -18,7 +18,7 @@ public class TaskList extends ToDoList{
     private List<Task> tasks;
 
     public void addTask(Task newTask){ tasks.add(newTask); }
-    public TaskList(Long todoListID, Date creatonDate, String todoListName, Boolean active, User user, String marketName) {
+    public TaskList(Long todoListID, Date creatonDate, String todoListName, Boolean active, User user) {
         super(todoListID, creatonDate, todoListName, active, user);
         this.tasks = new ArrayList<>();
     }

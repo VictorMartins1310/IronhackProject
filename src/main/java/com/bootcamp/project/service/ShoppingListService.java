@@ -1,5 +1,6 @@
 package com.bootcamp.project.service;
 
+import com.bootcamp.project.exception.ProjectException;
 import com.bootcamp.project.model.Product;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.model.ToDoList;
@@ -29,8 +30,12 @@ public class ShoppingListService {
         return shopList.getProducts();
     }
     public ShoppingList addProdut2List(Long shopID, Product prod){
-        ShoppingList todo = shoppingListRepository.getShoppingListByTodoListID(shopID);
-        todo.addProduct(prod);
-        return shoppingListRepository.save(todo);
+        ShoppingList todo;
+        if (shoppingListRepository.getShoppingListByTodoListID(shopID).isPresent()){
+            todo = shoppingListRepository.getShoppingListByTodoListID(shopID).get();
+            todo.addProduct(prod);
+            return shoppingListRepository.save(todo);
+        } else
+            throw new ProjectException("Cannot find Shopping list");
     }
 }

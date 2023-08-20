@@ -19,11 +19,11 @@ public class ShoppingListRESTController implements ShoppingListAPIController {
     private final ShoppingListService shoppingService;
     @GetMapping(value = route + "/{id}")
     public List<Product> getAllProductsOfShoppingList(@PathVariable("id") Long id){
-        return shoppingService.getAllProductsOfShoppingList(id); //TODO
+        return shoppingService.getAllProductsOfShoppingList(id);
     }
     @GetMapping(value = route + "/users/{uuid}")
     public List<ShoppingList> getAllProductsOfShoppingList(@PathVariable("uuid") UUID uuid){
-        return null; //
+        return null;
     }
     @PostMapping(value = route + "/{uuid}/new")
     public ShoppingList newShoppingList(@PathVariable("uuid") UUID uuid, @RequestBody ShoppingList shoppingList){

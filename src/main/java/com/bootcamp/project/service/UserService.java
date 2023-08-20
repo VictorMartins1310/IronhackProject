@@ -14,7 +14,16 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepo;
 
+    /** Show all Users a funtion for a Admin
+     * @return List of Users
+     */
     public List<User> showUsers(){  return userRepo.findAll(); }
+
+    /** Create new User introducing E-mail and Password
+     * @param email
+     * @param password
+     * @return User Object
+     */
     public User newUser(String email, String password){
         return userRepo.save(new User(email, password));
     }

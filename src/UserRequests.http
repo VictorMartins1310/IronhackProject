@@ -24,37 +24,6 @@ Content-Type: Application/json
 ### Get UserDetails by an ID
 GET http://localhost:8710/rest/users/a47888b7-6f2b-483e-bf67-e6a3248345f7/d
 
-### Add new TodoList
-POST http://localhost:8710/rest/todolist/a47888b7-6f2b-483e-bf67-e6a3248345f7/new
-Content-Type: Application/json
-
-{
-  "todoListName": "firstTodoList"
-}
-
-### Get TODOLIST by ID
-GET http://localhost:8710/rest/todolist/a47888b7-6f2b-483e-bf67-e6a3248345f7
 
 ### Get All ShoppingLists by User
 GET http://localhost:8710/rest/todolist/shoppinglist/users/a47888b7-6f2b-483e-bf67-e6a3248345f7
-
-
-### Add new ShoppingList
-POST http://localhost:8710/rest/todolist/shoppinglist/a47888b7-6f2b-483e-bf67-e6a3248345f7/new
-Content-Type: Application/json
-
-{
-  "marketName": "mini Mercado"
-}
-
-### Add Products to ShoppingList
-POST http://localhost:8710/rest/todolist/shoppinglist/8/products/new
-Content-Type: Application/json
-
-{
-  "name": "Coca Cola",
-  "brand": "Coca Cola Comp",
-  "price": 1.23,
-  "qty": 4,
-  "type": "Drink"
-}

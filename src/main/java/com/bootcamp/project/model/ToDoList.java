@@ -1,22 +1,19 @@
 package com.bootcamp.project.model;
 
-import com.bootcamp.project.model.User;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@MappedSuperclass
 public class ToDoList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
