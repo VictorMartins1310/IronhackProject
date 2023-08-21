@@ -16,7 +16,7 @@ public class TodoListRESTController implements TodoListAPIController {
     private final ToDoListService toDoListService;
     @GetMapping(value = rootTodo + "/{"+ userID + "}")
     public List<ToDoList> getAllTodoListByID(@PathVariable(userID) UUID id){
-        return toDoListService.findAllByUser(id).stream().toList();
+        return toDoListService.findAllByUser(id);
     }
     @PostMapping(value = rootTodo + "/{" + userID + "}/new")
     public ToDoList newTodoList(@PathVariable(userID) UUID id, @RequestBody ToDoList todoList){

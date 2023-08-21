@@ -1,0 +1,8 @@
+### Add new ShoppingList
+POST http://localhost:8710/rest/todolist/tasklist/user/d054877e-2f6d-4d0b-b32a-62123d16dc7e/new
+Content-Type: Application/json
+
+{
+  "todoListName": "TaskList HomeWork"
+
+}

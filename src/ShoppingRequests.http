@@ -12,8 +12,7 @@ Content-Type: Application/json
 
 {
   "todoListName": "ShoppingList ALDI",
-  "marketName": "ALDI",
-  "products": []
+  "marketName": "ALDI"
 }
 
 ### Add Products to ShoppingList

@@ -3,7 +3,9 @@ package com.bootcamp.project.controller.rest;
 import com.bootcamp.project.controller.api.TaskListAPIController;
 import com.bootcamp.project.model.Task;
 import com.bootcamp.project.model.TaskList;
+import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.TaskListService;
+import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +17,16 @@ import java.util.UUID;
 @RequestMapping(value = "rest")
 public class TaskListRESTController implements TaskListAPIController {
     private final TaskListService tasklistService;
+    private final UserService userService;
 
     @GetMapping(value = route + "/user/{" + userID + "}")
     public List<TaskList> showTaskLists(@PathVariable(userID) UUID uuid){
         return tasklistService.getAllbyUser(uuid);
     }
     @PostMapping(value = route + "/user/{" + userID + "}/new")
-    public TaskList  newTaskList(@PathVariable(userID) UUID uuid){
-        return tasklistService.newTaskList(uuid, new TaskList()); // TODO Change part TaskList()
+    public TaskList  newTaskList(@PathVariable(userID) UUID uuid, TaskList taskList){
+        User user = userService.getUser(uuid);
+        return tasklistService.newTaskList(uuid, new TaskList(taskList.getTodoListName(), user));
     }
     @GetMapping(value = route + "/{" + taskLID + "}")
     public List<Task> tasksByID(@PathVariable(taskLID) Long id) { return tasklistService.getAllTasksOfTaskList(id); }
