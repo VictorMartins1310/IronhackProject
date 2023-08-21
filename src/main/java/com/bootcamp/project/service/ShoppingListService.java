@@ -4,11 +4,13 @@ import com.bootcamp.project.exception.ProjectException;
 import com.bootcamp.project.model.Product;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.model.ToDoList;
+import com.bootcamp.project.model.User;
 import com.bootcamp.project.repos.ShoppingListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +18,7 @@ public class ShoppingListService {
     private final ShoppingListRepository shoppingListRepository;
     private final ToDoListService todoService;
     private final ProductService prodService;
+    private final UserService userService;
 
     public ShoppingList getShoppingList(Long id){
         return shoppingListRepository.getShoppingListByTodoListID(id).get();
@@ -25,6 +28,14 @@ public class ShoppingListService {
         ShoppingList shopList = new ShoppingList(
                 todo.getTodoListName(),
                 todo.getUser(),
+                shoppingList.getMarketName());
+        return shoppingListRepository.save(shopList);
+    }
+    public ShoppingList newShoppingList(UUID uuid, ShoppingList shoppingList) {
+        User user = userService.getUser(uuid);
+        ShoppingList shopList = new ShoppingList(
+                shoppingList.getTodoListName(),
+                user,
                 shoppingList.getMarketName());
         return shoppingListRepository.save(shopList);
     }

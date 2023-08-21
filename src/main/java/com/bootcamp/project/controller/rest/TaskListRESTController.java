@@ -13,17 +13,17 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "rest")
-public abstract class TaskListRESTController implements TaskListAPIController {
+public class TaskListRESTController implements TaskListAPIController {
     private final TaskListService tasklistService;
 
-    @GetMapping(value = rootTaskList + "/user/{" + userID + "}")
+    @GetMapping(value = route + "/user/{" + userID + "}")
     public List<TaskList> showTaskLists(@PathVariable(userID) UUID uuid){
         return tasklistService.getAllbyUser(uuid);
     }
-    @PostMapping(value = rootTaskList + "/user/{" + userID + "}/new")
+    @PostMapping(value = route + "/user/{" + userID + "}/new")
     public TaskList  newTaskList(@PathVariable(userID) UUID uuid){
         return tasklistService.newTaskList(uuid, new TaskList()); // TODO Change part TaskList()
     }
-    @GetMapping(value = rootTaskList + "/{" + taskLID + "}")
+    @GetMapping(value = route + "/{" + taskLID + "}")
     public List<Task> tasksByID(@PathVariable(taskLID) Long id) { return tasklistService.getAllTasksOfTaskList(id); }
 }
