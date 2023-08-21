@@ -1,4 +1,4 @@
-### Add new ShoppingList
+### Add new ShoppingList with SuperMarket Penny
 POST http://localhost:8710/rest/todolist/shoppinglist/user/d054877e-2f6d-4d0b-b32a-62123d16dc7e/new
 Content-Type: Application/json
 
@@ -6,17 +6,9 @@ Content-Type: Application/json
   "todoListName": "ShoppingList Penny",
   "marketName": "Penny"
 }
-### Add new ShoppingList with Market ALDI
-POST http://localhost:8710/rest/todolist/shoppinglist/user/d054877e-2f6d-4d0b-b32a-62123d16dc7e/new
-Content-Type: Application/json
 
-{
-  "todoListName": "ShoppingList ALDI",
-  "marketName": "ALDI"
-}
-
-### Add Products to ShoppingList
-POST http://localhost:8710/rest/todolist/shoppinglist/1/products/new
+### Add Coca Cola to Penny Shopping List
+POST http://localhost:8710/rest/todolist/shoppinglist/2/products/new
 Content-Type: Application/json
 
 {
@@ -27,5 +19,52 @@ Content-Type: Application/json
   "type": "Drink"
 }
 
-### Show All Products of determinate Shopping List
-GET http://localhost:8710/rest/todolist/shoppinglist/1
+### Add Bananas to Penny Shopping List
+POST http://localhost:8710/rest/todolist/shoppinglist/2/products/new
+Content-Type: Application/json
+
+{
+  "name": "Bananas",
+  "brand": "Chiquita",
+  "price": 1.23,
+  "qty": 1,
+  "type": "Fruit"
+}
+
+
+### Add new ShoppingList with SuperMarket ALDI
+POST http://localhost:8710/rest/todolist/shoppinglist/user/d054877e-2f6d-4d0b-b32a-62123d16dc7e/new
+Content-Type: Application/json
+
+{
+  "todoListName": "ShoppingList ALDI",
+  "marketName": "ALDI"
+}
+
+### Add Super Bock to ALDI Shopping List
+POST http://localhost:8710/rest/todolist/shoppinglist/3/products/new
+Content-Type: Application/json
+
+{
+  "name": "Beer",
+  "brand": "Super Bock",
+  "price": 1.23,
+  "qty": 24,
+  "type": "Drink"
+}
+### Add Pringles to ALDI Shopping List
+POST http://localhost:8710/rest/todolist/shoppinglist/3/products/new
+Content-Type: Application/json
+
+{
+  "name": "Chips",
+  "brand": "Pringles",
+  "price": 2.23,
+  "qty": 5,
+  "type": "Drink"
+}
+### Get ALDI Shopping List
+GET http://localhost:8710/rest/todolist/shoppinglist/3
+
+### Get Penny Shopping List
+GET http://localhost:8710/rest/todolist/shoppinglist/2
