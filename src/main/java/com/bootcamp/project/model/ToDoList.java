@@ -32,4 +32,7 @@ public class ToDoList {
         this.active = true;
         this.creatonDate = new Date();
     }
+    public void deactivateList(){
+        this.active = false;
+    }
 }

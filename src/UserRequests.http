@@ -6,6 +6,13 @@ Content-Type: Application/json
   "email" : "VictorMartins@mail.de",
   "password" : "badPassword"
 }
+### Add an User
+POST http://localhost:8710/rest/users/new
+Content-Type: Application/json
+
+{
+  "password" : "badPassword"
+}
 ### Get All Users
 GET http://localhost:8710/rest/users
 
@@ -18,7 +25,7 @@ Content-Type: Application/json
   "password" : "badPassword",
   "firstName" : "Victor",
   "lastName" : "Fernandes Martins",
-  "birthDate" : "1987-10-13"
+  "birthDate" : "1990-10-13"
 }
 
 ### Get UserDetails by an ID

@@ -1,8 +1,10 @@
 package com.bootcamp.project.dto;
 
 import com.bootcamp.project.model.ProductType;
-import java.math.BigDecimal;
+import lombok.Data;
 
+import java.math.BigDecimal;
+@Data
 public class DTOProduct {
     private String name;
     private String brand;

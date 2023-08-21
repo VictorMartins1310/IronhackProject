@@ -1,14 +1,12 @@
 package com.bootcamp.project.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
+import lombok.Data;
 
+@Data
 public class DTOUser {
-    @NotNull
+    @NotBlank(message = "E-Mail is Mandatory")
     private String email;
-    @NotNull
+    @NotBlank(message = "Password is Mandatory")
     private String password;
-    // User Details
-    private String firstName;
-    private String lastName;
-    private String birthDate;
 }
