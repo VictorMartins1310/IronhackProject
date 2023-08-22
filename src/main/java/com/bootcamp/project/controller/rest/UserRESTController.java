@@ -30,7 +30,7 @@ public class UserRESTController implements UserAPIController {
     public User showDetails(@PathVariable(name = "id") UUID id){
         return userService.findUserDetailsByUserID(id);
     }
-    @PutMapping(value = routeDetails)
+    @PatchMapping(value = routeDetails)
     public User updateDetails(@PathVariable(name = "id") UUID id, @RequestBody User userDetails){
         return userService.updateDetails(id, userDetails);
     }

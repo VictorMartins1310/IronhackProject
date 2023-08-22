@@ -24,6 +24,6 @@ public interface UserAPIController {
     String routeDetails = "users/{id}/d";
     @GetMapping(value = routeDetails)
     Object showDetails(@PathVariable(name = "id") UUID id);
-    @PutMapping(value = routeDetails)
+    @PostMapping(value = routeDetails)
     Object updateDetails(@PathVariable(name = "id") UUID id, @RequestBody User userDetails);
 }
