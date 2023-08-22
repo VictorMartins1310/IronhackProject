@@ -7,6 +7,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ProductMapper {
-    ProductMapper toDto (DTOProduct dto);
-    DTOProduct toEntity (Product entity);
+    DTOProduct toDto (Product dto);
+    Product toEntity (DTOProduct entity);
 }

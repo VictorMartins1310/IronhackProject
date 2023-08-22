@@ -19,12 +19,9 @@ public class ToDoList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long todoListID;
     private Date creatonDate;
-    @NotNull
-    @NotBlank
     private String todoListName;
     private Boolean active;
     @ManyToOne
-    @NotNull
     private User user;
     public ToDoList(String todoListName, User user) {
         this.todoListName = todoListName;

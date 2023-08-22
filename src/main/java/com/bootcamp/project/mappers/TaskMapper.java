@@ -7,6 +7,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TaskMapper {
-    TaskMapper toDto (DTOTask dto);
-    DTOTask toEntity (Task entity);
+    DTOTask toDto (Task dto);
+    Task toEntity (DTOTask entity);
 }

@@ -7,6 +7,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ShoppingListMapper {
-    ShoppingListMapper toDto (DTOShoppingList dto);
-    DTOShoppingList toEntity (ShoppingList entity);
+    DTOShoppingList toDto (ShoppingList dto);
+    ShoppingList toEntity (DTOShoppingList entity);
 }

@@ -14,17 +14,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userID;
-    @NotBlank(message = "E-Mail is Mandatory")
-    @Email(message = "E-Mail dont Follow rules")
     private String email;
-    @NotBlank(message = "Password is Mandatory")
     private String password;
     // User Details
-    @NotBlank
     private String firstName;
-    @NotBlank
     private String lastName;
-    @NotBlank
     private String birthDate;
 
     public User(String email, String password) {

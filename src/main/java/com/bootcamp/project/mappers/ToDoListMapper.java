@@ -8,6 +8,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ToDoListMapper {
-    ToDoListMapper toDto (DTOToDoList dto);
-    DTOToDoList toEntity (ToDoList entity);
+    DTOToDoList toDto (ToDoList dto);
+    ToDoList toEntity (DTOToDoList entity);
 }
