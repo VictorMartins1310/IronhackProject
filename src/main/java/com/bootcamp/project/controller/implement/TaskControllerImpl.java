@@ -11,14 +11,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "rest")
-public class TaskRestController implements TaskController {
+@RequestMapping(name = "tasklist", value = "todolist/tasklist")
+public class TaskControllerImpl implements TaskController {
     private final TaskListService taskListService;
-    @PostMapping(value = route + "/{"+ taskLID + "}/" + routeAdd +"/new")
+    @PostMapping(value = "/{"+ taskLID + "}/" + routeAdd +"/new")
     public TaskList addTask(@PathVariable(taskLID) Long taskID, @RequestBody Task task){
         return taskListService.addTask2List(taskID, task);
     }
-    @GetMapping(value = route + "/{" + taskLID + "}/" + routeAdd)
+    @GetMapping(value = "/{" + taskLID + "}/" + routeAdd)
     public List<Task> getAllTasksOfTaskList(@PathVariable(taskLID) Long taskID){
         return taskListService.getAllTasksOfTaskList(taskID);
     }

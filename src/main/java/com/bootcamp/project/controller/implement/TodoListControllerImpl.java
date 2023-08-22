@@ -11,14 +11,14 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(name = "todoListREST", value = "rest")
-public class TodoListRESTController implements TodoListController {
+@RequestMapping(name = "todoList", value = "todolist")
+public class TodoListControllerImpl implements TodoListController {
     private final ToDoListService toDoListService;
-    @GetMapping(value = rootTodo + "/{"+ userID + "}")
+    @GetMapping(value = "/{"+ userID + "}")
     public List<ToDoList> getAllTodoListByID(@PathVariable(userID) UUID id){
         return toDoListService.findAllByUser(id);
     }
-    @PostMapping(value = rootTodo + "/{" + userID + "}/new")
+    @PostMapping(value = "/{" + userID + "}")
     public ToDoList newTodoList(@PathVariable(userID) UUID id, @RequestBody ToDoList todoList){
         return toDoListService.newTodoList(id, todoList);
     }

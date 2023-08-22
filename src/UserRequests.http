@@ -1,23 +1,16 @@
 ### Add an User
-POST http://localhost:8710/rest/users/new
+POST http://localhost:8710/users
 Content-Type: Application/json
 
 {
   "email" : "VictorMartins@mail.de",
   "password" : "badPassword"
 }
-### Add an User
-POST http://localhost:8710/rest/users/new
-Content-Type: Application/json
-
-{
-  "password" : "badPassword"
-}
 ### Get All Users
-GET http://localhost:8710/rest/users
+GET http://localhost:8710/users
 
 ### Update Userdetails
-PATCH http://localhost:8710/rest/users/482e883d-dbfe-46cf-b5f9-51fe9b632275/d
+PATCH http://localhost:8710/users/482e883d-dbfe-46cf-b5f9-51fe9b632275/d
 Content-Type: Application/json
 
 {
@@ -29,5 +22,5 @@ Content-Type: Application/json
 }
 
 ### Get UserDetails by an ID
-GET http://localhost:8710/rest/users/a47888b7-6f2b-483e-bf67-e6a3248345f7/d
+GET http://localhost:8710/users/a47888b7-6f2b-483e-bf67-e6a3248345f7/d
 

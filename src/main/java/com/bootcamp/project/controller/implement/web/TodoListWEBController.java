@@ -10,13 +10,13 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(name = "todoListWEB", value = "web")
+@RequestMapping(name = "todoList", value = "todolist")
 public class TodoListWEBController implements TodoListController {
-    @PostMapping(value = rootTodo + "/{id}/new")
+    @PostMapping(value = "/{id}/new")
     public ModelAndView newTodoList(@PathVariable("id") UUID id, @RequestBody ToDoList todoList){
         return null; // TODO Develop here
     }
-    @GetMapping(value = rootTodo + "/{id}")
+    @GetMapping(value = "/{id}")
     public ModelAndView getAllTodoListByID(@PathVariable("id") UUID id){
         return null; // TODO develop here
     }

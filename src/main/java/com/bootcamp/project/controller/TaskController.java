@@ -3,8 +3,6 @@ package com.bootcamp.project.controller;
 import com.bootcamp.project.model.Task;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping(value = "todolist/tasklist")
 public interface TaskController {
     String userID = "uuid";
     String taskLID = "tasklid";

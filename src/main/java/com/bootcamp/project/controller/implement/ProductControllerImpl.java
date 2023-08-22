@@ -11,15 +11,15 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class ProductRESTController implements ProductController {
+@RequestMapping(name = "products", value = "todolist/shoppinglist")
+public class ProductControllerImpl implements ProductController {
     private final ShoppingListService shoppingService;
-    @PostMapping(value = rootShoppingList + "/{"+ shoppingLID + "}/products/new")
+    @PostMapping(value = "/{"+ shoppingLID + "}/products/new")
     public ShoppingList addProduct(@PathVariable(shoppingLID) Long todoID, @RequestBody Product product){
         return shoppingService.addProdut2List(todoID, product);
     }
-    @GetMapping(value = rootShoppingList + "/{" + shoppingLID + "}/products")
+    @GetMapping(value = "/{" + shoppingLID + "}/products")
     public List<Product> getAllProductsOfShoppingList(@PathVariable(shoppingLID) Long id){
         return shoppingService.getAllProductsOfShoppingList(id);
     }
-
 }

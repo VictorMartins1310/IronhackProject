@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@RestController
-@RequestMapping(name = "todoListAPI", value = "todolist")
 public interface TodoListController {
     String userID = "uuid";
     @GetMapping(value = "/{" + userID + "}")

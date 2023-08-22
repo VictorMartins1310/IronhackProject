@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@RestController
-@RequestMapping(name = "shoppingListAPI", value = "todolist/shoppingList")
 public interface ShoppingListController {
     String rootShoppingList = "/shoppinglist";
     String userID = "uuid";

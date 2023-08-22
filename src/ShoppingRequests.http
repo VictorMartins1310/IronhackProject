@@ -1,5 +1,5 @@
 ### Add new ShoppingList with SuperMarket Penny
-POST http://localhost:8710/rest/todolist/shoppinglist/user/482e883d-dbfe-46cf-b5f9-51fe9b632275/new
+POST http://localhost:8710/todolist/shoppinglist/user/482e883d-dbfe-46cf-b5f9-51fe9b632275/new
 Content-Type: Application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: Application/json
 }
 
 ### Add Coca Cola to Penny Shopping List
-POST http://localhost:8710/rest/todolist/shoppinglist/2/products/new
+POST http://localhost:8710/todolist/shoppinglist/2/products/new
 Content-Type: Application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: Application/json
 }
 
 ### Add Bananas to Penny Shopping List
-POST http://localhost:8710/rest/todolist/shoppinglist/2/products/new
+POST http://localhost:8710/todolist/shoppinglist/2/products/new
 Content-Type: Application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: Application/json
 
 
 ### Add new ShoppingList with SuperMarket ALDI
-POST http://localhost:8710/rest/todolist/shoppinglist/user/d054877e-2f6d-4d0b-b32a-62123d16dc7e/new
+POST http://localhost:8710/todolist/shoppinglist/user/d054877e-2f6d-4d0b-b32a-62123d16dc7e/new
 Content-Type: Application/json
 
 {
@@ -42,7 +42,7 @@ Content-Type: Application/json
 }
 
 ### Add Super Bock to ALDI Shopping List
-POST http://localhost:8710/rest/todolist/shoppinglist/3/products/new
+POST http://localhost:8710/todolist/shoppinglist/3/products/new
 Content-Type: Application/json
 
 {
@@ -53,7 +53,7 @@ Content-Type: Application/json
   "type": "Drink"
 }
 ### Add Pringles to ALDI Shopping List
-POST http://localhost:8710/rest/todolist/shoppinglist/3/products/new
+POST http://localhost:8710/todolist/shoppinglist/3/products/new
 Content-Type: Application/json
 
 {
@@ -64,7 +64,7 @@ Content-Type: Application/json
   "type": "Drink"
 }
 ### Get ALDI Shopping List
-GET http://localhost:8710/rest/todolist/shoppinglist/3
+GET http://localhost:8710/todolist/shoppinglist/3
 
 ### Get Penny Shopping List
-GET http://localhost:8710/rest/todolist/shoppinglist/2
+GET http://localhost:8710/todolist/shoppinglist/2

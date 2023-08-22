@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@RestController
-@RequestMapping(name = "usersAPI", value = "users")
 public interface UserController {
     @PostMapping
     Object newUser(@RequestBody User user);
@@ -19,9 +17,8 @@ public interface UserController {
 
     // UserDetails Part
 
-    String details = "/{id}/d";
-    @GetMapping(value = details)
+    @GetMapping(value = "/{id}")
     Object showDetails(@PathVariable(name = "id") UUID id);
-    @PostMapping(value = details)
+    @PostMapping(value = "/{id}")
     Object updateDetails(@PathVariable(name = "id") UUID id, @RequestBody User userDetails);
 }

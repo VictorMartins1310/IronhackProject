@@ -3,8 +3,6 @@ package com.bootcamp.project.controller;
 import com.bootcamp.project.model.Product;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping(value = "todolist/shoppinglist")
 public interface ProductController {
     String userID = "uuid";
     String shoppingLID = "shoppingid";

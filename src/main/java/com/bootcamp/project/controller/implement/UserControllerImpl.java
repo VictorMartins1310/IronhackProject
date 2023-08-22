@@ -9,28 +9,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "rest")
-public class UserRESTController implements UserController {
+@RestController
+@RequestMapping(name = "users", value = "users")
+public class UserControllerImpl implements UserController {
     final UserService userService;
 
-    @PostMapping(value = route + "/new")
     public User newUser(@RequestBody User user){
         return userService.newUser(user);
     }
-    @GetMapping(value = route)
+    @GetMapping
     public List<User> showAllUsers(){
         return userService.showUsers();
     }
 
     // User Details Part
 
-    @GetMapping(value = details)
+    @GetMapping(value = "/{id}")
     public User showDetails(@PathVariable(name = "id") UUID id){
         return userService.findUserDetailsByUserID(id);
     }
-    @PatchMapping(value = details)
+    @PatchMapping(value = "/{id}")
     public User updateDetails(@PathVariable(name = "id") UUID id, @RequestBody User userDetails){
         return userService.updateDetails(id, userDetails);
     }
