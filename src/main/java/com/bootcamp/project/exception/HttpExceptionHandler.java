@@ -26,5 +26,4 @@ public class HttpExceptionHandler {
                 });
         return ResponseEntity.badRequest().body(errors);
     }
-
 }
