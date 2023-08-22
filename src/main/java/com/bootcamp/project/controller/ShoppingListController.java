@@ -1,4 +1,4 @@
-package com.bootcamp.project.controller.api;
+package com.bootcamp.project.controller;
 
 import com.bootcamp.project.model.ShoppingList;
 import org.springframework.web.bind.annotation.*;
@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(name = "shoppingListAPI", value = "api")
-public interface ShoppingListAPIController {
-    String rootTodo = "todolist";
-    String rootShoppingList = rootTodo + "/shoppinglist";
+@RequestMapping(name = "shoppingListAPI", value = "todolist/shoppingList")
+public interface ShoppingListController {
+    String rootShoppingList = "/shoppinglist";
     String userID = "uuid";
     String shoppingLID = "shoppingid";
     /** Get all Products to buy in the ShoppingList

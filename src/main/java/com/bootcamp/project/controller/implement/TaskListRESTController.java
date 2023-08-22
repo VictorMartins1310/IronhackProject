@@ -1,6 +1,6 @@
-package com.bootcamp.project.controller.rest;
+package com.bootcamp.project.controller.implement;
 
-import com.bootcamp.project.controller.api.TaskListAPIController;
+import com.bootcamp.project.controller.TaskListController;
 import com.bootcamp.project.model.Task;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "rest")
-public class TaskListRESTController implements TaskListAPIController {
+public class TaskListRESTController implements TaskListController {
     private final TaskListService tasklistService;
     private final UserService userService;
 

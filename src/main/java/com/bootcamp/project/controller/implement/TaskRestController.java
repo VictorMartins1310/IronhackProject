@@ -1,6 +1,6 @@
-package com.bootcamp.project.controller.rest;
+package com.bootcamp.project.controller.implement;
 
-import com.bootcamp.project.controller.api.TaskAPIController;
+import com.bootcamp.project.controller.TaskController;
 import com.bootcamp.project.model.Task;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.service.TaskListService;
@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "rest")
-public class TaskRestController implements TaskAPIController {
+public class TaskRestController implements TaskController {
     private final TaskListService taskListService;
     @PostMapping(value = route + "/{"+ taskLID + "}/" + routeAdd +"/new")
     public TaskList addTask(@PathVariable(taskLID) Long taskID, @RequestBody Task task){

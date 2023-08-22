@@ -1,4 +1,4 @@
-package com.bootcamp.project.controller.api;
+package com.bootcamp.project.controller;
 
 import com.bootcamp.project.model.ToDoList;
 import org.springframework.web.bind.annotation.*;
@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(name = "todoListAPI", value = "api")
-public interface TodoListAPIController {
-    String rootTodo = "todolist";
+@RequestMapping(name = "todoListAPI", value = "todolist")
+public interface TodoListController {
     String userID = "uuid";
-    @GetMapping(value = rootTodo + "/{" + userID + "}")
+    @GetMapping(value = "/{" + userID + "}")
     Object getAllTodoListByID(@PathVariable(userID) UUID id);
-    @PostMapping(value = rootTodo + "/{" + userID + "}/new")
+    @PostMapping(value = "/{" + userID + "}")
     Object newTodoList(@PathVariable(value = userID) UUID id, @RequestBody ToDoList todoList);
 }

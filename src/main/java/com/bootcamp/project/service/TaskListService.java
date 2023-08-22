@@ -12,7 +12,9 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class TaskListService {
+    // Repositories
     private final TaskListRepository taskListRepository;
+    // Services
     private final TaskService taskService;
     private final UserService userService;
 

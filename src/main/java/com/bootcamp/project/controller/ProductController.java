@@ -1,18 +1,16 @@
-package com.bootcamp.project.controller.api;
+package com.bootcamp.project.controller;
 
 import com.bootcamp.project.model.Product;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "api")
-public interface ProductAPIController{
-    String rootTodo = "todolist";
-    String rootShoppingList = rootTodo + "/shoppinglist";
+@RequestMapping(value = "todolist/shoppinglist")
+public interface ProductController {
     String userID = "uuid";
     String shoppingLID = "shoppingid";
     String routeAdd = "products";
-    @PostMapping(value = rootShoppingList + "/{"+ shoppingLID + "}/" + routeAdd +"/new")
+    @PostMapping(value = "/{"+ shoppingLID + "}/" + routeAdd +"/new")
     Object addProduct(@PathVariable(shoppingLID) Long todoID, @RequestBody Product product);
-    @GetMapping(value = rootShoppingList + "/{" + shoppingLID + "}/" + routeAdd)
+    @GetMapping(value = "/{" + shoppingLID + "}/" + routeAdd)
     Object getAllProductsOfShoppingList(@PathVariable(shoppingLID) Long id);
 }

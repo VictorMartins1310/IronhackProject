@@ -1,18 +1,16 @@
-package com.bootcamp.project.controller.api;
+package com.bootcamp.project.controller;
 
 import com.bootcamp.project.model.Task;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "api")
-public interface TaskAPIController{
-    String rootTodo = "todolist";
-    String route = rootTodo + "/tasklist";
+@RequestMapping(value = "todolist/tasklist")
+public interface TaskController {
     String userID = "uuid";
     String taskLID = "tasklid";
     String routeAdd = "tasks";
-    @PostMapping(value = route + "/{"+ taskLID + "}/" + routeAdd +"/new")
+    @PostMapping(value =  "/{"+ taskLID + "}/" + routeAdd +"/new")
     Object addTask(@PathVariable(taskLID) Long todoID, @RequestBody Task task);
-    @GetMapping(value = route + "/{" + taskLID + "}/" + routeAdd)
+    @GetMapping(value = "/{" + taskLID + "}/" + routeAdd)
     Object getAllTasksOfTaskList(@PathVariable(taskLID) Long id);
 }

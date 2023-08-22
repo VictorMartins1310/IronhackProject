@@ -1,26 +1,31 @@
 package com.bootcamp.project.service;
 
-import com.bootcamp.project.model.ShoppingList;
+import com.bootcamp.project.dto.DTOUser;
+import com.bootcamp.project.mappers.UserMapper;
 import com.bootcamp.project.model.TaskList;
-import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.repos.ShoppingListRepository;
 import com.bootcamp.project.repos.TaskListRepository;
-import com.bootcamp.project.repos.ToDoListRepository;
 import com.bootcamp.project.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
+    // Repositories
     private final UserRepository userRepo;
     private final ShoppingListRepository shoppingRepo;
     private final TaskListRepository taskListRepo;
+
+    // Mappers
+    private final UserMapper userMapper;
+
+
 
     /** Show all Users a funtion for a Admin
      * @return List of Users
@@ -46,8 +51,12 @@ public class UserService {
         taskListRepo.save(taskList);
         return savedUser;
     }
-    public User getUser(UUID id){ return userRepo.getUserByUserID(id); }
-
+    public User getUser(UUID id){
+        return userRepo.getUserByUserID(id);
+    }
+    public DTOUser getUserDTO(UUID id){
+        return userMapper.toDto(userRepo.getUserByUserID(id));
+    }
     // UserDetails Section
 
     public User findUserDetailsByUserID(UUID id){ return userRepo.getUserByUserID(id); }

@@ -1,6 +1,6 @@
-package com.bootcamp.project.controller.rest;
+package com.bootcamp.project.controller.implement;
 
-import com.bootcamp.project.controller.api.ShoppingListAPIController;
+import com.bootcamp.project.controller.ShoppingListController;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.service.ShoppingListService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "rest")
-public class ShoppingListRESTController implements ShoppingListAPIController {
+public class ShoppingListRESTController implements ShoppingListController {
     private final ShoppingListService shoppingService;
     @GetMapping(value = rootShoppingList + "/{" + shoppingLID + "}")
     public ShoppingList showShoppingList(@PathVariable(shoppingLID) Long id){

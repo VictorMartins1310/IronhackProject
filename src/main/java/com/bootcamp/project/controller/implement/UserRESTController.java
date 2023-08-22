@@ -1,6 +1,6 @@
-package com.bootcamp.project.controller.rest;
+package com.bootcamp.project.controller.implement;
 
-import com.bootcamp.project.controller.api.UserAPIController;
+import com.bootcamp.project.controller.UserController;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "rest")
-public class UserRESTController implements UserAPIController {
+public class UserRESTController implements UserController {
     final UserService userService;
 
     @PostMapping(value = route + "/new")
@@ -26,11 +26,11 @@ public class UserRESTController implements UserAPIController {
 
     // User Details Part
 
-    @GetMapping(value = routeDetails)
+    @GetMapping(value = details)
     public User showDetails(@PathVariable(name = "id") UUID id){
         return userService.findUserDetailsByUserID(id);
     }
-    @PatchMapping(value = routeDetails)
+    @PatchMapping(value = details)
     public User updateDetails(@PathVariable(name = "id") UUID id, @RequestBody User userDetails){
         return userService.updateDetails(id, userDetails);
     }

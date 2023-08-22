@@ -1,29 +1,27 @@
-package com.bootcamp.project.controller.api;
+package com.bootcamp.project.controller;
 
 import com.bootcamp.project.model.User;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(name = "usersAPI", value = "api")
-public interface UserAPIController {
-    String route = "users";
-    @PostMapping(value = route + "/new")
+@RequestMapping(name = "usersAPI", value = "users")
+public interface UserController {
+    @PostMapping
     Object newUser(@RequestBody User user);
 
     /** Function for Admin
      * @return All Users
      */
-    @GetMapping(value = route)
+    @GetMapping
     Object showAllUsers();
 
     // UserDetails Part
 
-    String routeDetails = "users/{id}/d";
-    @GetMapping(value = routeDetails)
+    String details = "/{id}/d";
+    @GetMapping(value = details)
     Object showDetails(@PathVariable(name = "id") UUID id);
-    @PostMapping(value = routeDetails)
+    @PostMapping(value = details)
     Object updateDetails(@PathVariable(name = "id") UUID id, @RequestBody User userDetails);
 }

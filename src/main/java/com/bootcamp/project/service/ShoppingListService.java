@@ -1,5 +1,6 @@
 package com.bootcamp.project.service;
 
+import com.bootcamp.project.dto.DTOUser;
 import com.bootcamp.project.exception.ProjectException;
 import com.bootcamp.project.model.Product;
 import com.bootcamp.project.model.ShoppingList;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class ShoppingListService {
+    // Repositories
     private final ShoppingListRepository shoppingListRepository;
     private final ToDoListService todoService;
     private final ProductService prodService;

@@ -1,6 +1,6 @@
-package com.bootcamp.project.controller.rest;
+package com.bootcamp.project.controller.implement;
 
-import com.bootcamp.project.controller.api.ProductAPIController;
+import com.bootcamp.project.controller.ProductController;
 import com.bootcamp.project.model.Product;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.service.ShoppingListService;
@@ -11,8 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "rest")
-public class ProductRESTController implements ProductAPIController {
+public class ProductRESTController implements ProductController {
     private final ShoppingListService shoppingService;
     @PostMapping(value = rootShoppingList + "/{"+ shoppingLID + "}/products/new")
     public ShoppingList addProduct(@PathVariable(shoppingLID) Long todoID, @RequestBody Product product){

@@ -31,7 +31,4 @@ public class User {
         setLastName(lastName);
         setBirthDate(birthDate);
     }
-
-
-
 }
