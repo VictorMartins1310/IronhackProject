@@ -2,15 +2,13 @@ package com.bootcamp.project.service;
 
 import com.bootcamp.project.dto.DTOUser;
 import com.bootcamp.project.exception.ProjectException;
-import com.bootcamp.project.model.Product;
-import com.bootcamp.project.model.ShoppingList;
-import com.bootcamp.project.model.ToDoList;
-import com.bootcamp.project.model.User;
+import com.bootcamp.project.model.*;
 import com.bootcamp.project.repos.ShoppingListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,8 +16,9 @@ import java.util.UUID;
 public class ShoppingListService {
     // Repositories
     private final ShoppingListRepository shoppingListRepository;
-    private final ToDoListService todoService;
+    // Services
     private final ProductService prodService;
+    private final ToDoListService todoService;
     private final UserService userService;
 
     public ShoppingList getShoppingList(Long id){
@@ -54,5 +53,17 @@ public class ShoppingListService {
             return shoppingListRepository.save(todo);
         } else
             throw new ProjectException("Cannot find Shopping list");
+    }
+    public boolean deleteShoppingList(Long id){
+        var shop = shoppingListRepository.findById(id);
+        if (shop.isPresent()){
+            if (!shop.get().getActive()) {
+                for (Product product : shop.get().getProducts())
+                    shop.get().getProducts().remove(product);
+                shoppingListRepository.delete(shop.get());
+            }
+            else return false;
+        }else return false;
+        return true;
     }
 }

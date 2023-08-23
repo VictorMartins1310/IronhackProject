@@ -14,11 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 public class TaskList extends ToDoList{
     @OneToMany
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();
 
     public void addTask(Task newTask){ tasks.add(newTask); }
-    public TaskList(String todoListName, User user) {
-        super(todoListName, user);
-        this.tasks = new ArrayList<>();
-    }
+    public TaskList(String todoListName, User user) { super(todoListName, user); }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public class ShoppingList extends ToDoList{
     private String marketName;
     @OneToMany
-    private List<Product> products;
+    private List<Product> products  = new ArrayList<>();
     public void addProduct(Product product) { products.add(product); }
     public BigDecimal getTotal(){
         BigDecimal total = new BigDecimal("0.00");
@@ -24,10 +24,8 @@ public class ShoppingList extends ToDoList{
             total = total.add(prod.totalPrice());
         return total;
     }
-
     public ShoppingList(String todoListName, User user, String marketName) {
         super(todoListName, user);
         this.marketName = marketName;
-        this.products = new ArrayList<>();
     }
 }

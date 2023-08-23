@@ -13,7 +13,6 @@ import java.util.Date;
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 public class ToDoList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +28,7 @@ public class ToDoList {
         this.active = true;
         this.creatonDate = new Date();
     }
-    public void deactivateList(){
-        this.active = false;
-    }
+
+    /** Function that deactivate an List */
+    public void deactivateList(){ this.active = false; }
 }
