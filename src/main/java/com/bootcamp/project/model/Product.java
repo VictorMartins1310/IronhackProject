@@ -19,6 +19,8 @@ public class Product {
     private BigDecimal price;
     private int qty;
     private ProductType type;
+    /** True means products bought, False means to be buyed */
+    private boolean status;
 
     public BigDecimal totalPrice(){ return new BigDecimal(qty).multiply(price); }
 }

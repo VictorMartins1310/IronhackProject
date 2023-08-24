@@ -10,5 +10,6 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taskID;
     private String task;
+    /** True means Done, False to be Do */
     private Boolean status;
 }

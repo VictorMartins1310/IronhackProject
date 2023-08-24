@@ -54,6 +54,7 @@ public class ShoppingListService {
         } else
             throw new ProjectException("Cannot find Shopping list");
     }
+    /** Function that deletes a ShoppingList by ID and only if the list is deactivated */
     public boolean deleteShoppingList(Long id){
         var shop = shoppingListRepository.findById(id);
         if (shop.isPresent()){
@@ -65,5 +66,8 @@ public class ShoppingListService {
             else return false;
         }else return false;
         return true;
+    }
+    public void deactivateAutomatic(){
+
     }
 }

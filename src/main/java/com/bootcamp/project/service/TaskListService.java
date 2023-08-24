@@ -43,4 +43,17 @@ public class TaskListService {
         } else
             throw new ProjectException("Cannot find Task list");
     }
+    /** Function that deletes a TaskList by ID and only if the list is deactivated */
+    public boolean deleteTaskList(Long id){
+        var shop = taskListRepository.findById(id);
+        if (shop.isPresent()){
+            if (!shop.get().getActive()) {
+                for (Task task : shop.get().getTasks())
+                    shop.get().getTasks().remove(task);
+                taskListRepository.delete(shop.get());
+            }
+            else return false;
+        }else return false;
+        return true;
+    }
 }
