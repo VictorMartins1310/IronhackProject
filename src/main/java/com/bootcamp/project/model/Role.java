@@ -14,6 +14,6 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleID;
     private String role;
-    public int getRoleID(){ return roleID; }
+//    public int getRoleID(){ return roleID; }
     private String getRoleName(){ return role; }
 }
