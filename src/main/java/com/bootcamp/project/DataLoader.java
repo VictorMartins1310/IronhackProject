@@ -1,5 +1,6 @@
 package com.bootcamp.project;
 
+import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +23,11 @@ public class DataLoader implements ApplicationListener<ApplicationReadyEvent> {
         userService.addRole("ROLE_USER");
         userService.addRole("ROLE_ADMIN");
 
-        userService.newAdmin(new User(null,"email", "username",
-         "password",
-        "firstName",
-        "lastName",
-        "birthDate",
+        userService.newAdmin(new User(null,"VictorMartins@mail.de", "VictorMartins@mail.de",
+         "badPassword",
+        "Victor",
+        "Martins",
+        "1987-10-13",
                 new ArrayList<>()));
-
-
     }
 }

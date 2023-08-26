@@ -11,5 +11,8 @@ spring:
   mustache:
     servlet:
       cache: false
+  profiles:
+    active: dev
+
 server:
   port: 8710

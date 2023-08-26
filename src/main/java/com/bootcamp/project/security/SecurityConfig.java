@@ -72,7 +72,7 @@ public class SecurityConfig {
             // set up authorization for different request matchers and user roles
             // modify this to have different configurations
             http.authorizeHttpRequests((requests) -> requests
-                    .requestMatchers("/login").permitAll()
+                    .requestMatchers("/login/**").permitAll()
                     //.requestMatchers("/swagger-ui/**").permitAll() //TODO verify how to make it work with security
                     .requestMatchers(GET, "/users/me").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                     .requestMatchers(GET, "/users").hasAnyAuthority("ROLE_ADMIN")

@@ -53,13 +53,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         try {
             Map<String, String> credentials = new ObjectMapper().readValue(request.getInputStream(), Map.class);
 
-            String email = credentials.get("email");
+            String username = credentials.get("email");
             String password = credentials.get("password");
 
-            log.info("Username is: {}", email);
+            log.info("Username is: {}", username);
             log.info("Password is: {}", password);
 
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
 
             return authenticationManager.authenticate(authenticationToken);
 

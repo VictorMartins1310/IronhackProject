@@ -40,6 +40,7 @@ public class UserControllerImpl implements UserController {
 
     @GetMapping("me")
     public User getMine(){
+        var autentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.getUserByUserEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }
