@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-//@RequestMapping(value = "todolist/tasklist")
+@RequestMapping(value = "todolist/tasklist")
 public class TaskListControllerImpl implements TaskListController {
     private final TaskListService tasklistService;
     private final UserService userService;

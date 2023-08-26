@@ -1,3 +1,21 @@
+## Login
+POST http://localhost:8710/login
+Content-Type: Application/json
+
+{
+  "email" : "VictorMartins@mail.de",
+  "password" : "badPassword"
+}
+###
+GET http://localhost:8710/users/me
+Content-Type: Application/json
+
+{
+"username" : "VictorMartins@mail.de",
+"password" : "badPassword"
+}
+
+
 ### Add an User
 POST http://localhost:8710/users
 Content-Type: Application/json
