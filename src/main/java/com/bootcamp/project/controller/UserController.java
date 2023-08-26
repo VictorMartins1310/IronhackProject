@@ -24,5 +24,5 @@ public interface UserController {
     @PostMapping(value = "/{id}")
     Object updateDetails(@PathVariable(name = "id") UUID id, @RequestBody User userDetails);
     @GetMapping("me")
-    User getMine();
+    Object getMine();
 }

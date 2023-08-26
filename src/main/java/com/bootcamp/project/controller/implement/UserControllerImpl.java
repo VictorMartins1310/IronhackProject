@@ -1,8 +1,6 @@
 package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.UserController;
-import com.bootcamp.project.dto.DTOUser;
-import com.bootcamp.project.mappers.UserMapper;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +38,6 @@ public class UserControllerImpl implements UserController {
 
     @GetMapping("me")
     public User getMine(){
-        var autentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.getUserByUserEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }

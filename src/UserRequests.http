@@ -8,12 +8,7 @@ Content-Type: Application/json
 }
 ###
 GET http://localhost:8710/users/me
-Content-Type: Application/json
-
-{
-"username" : "VictorMartins@mail.de",
-"password" : "badPassword"
-}
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWaWN0b3JNYXJ0aW5zQG1haWwuZGUiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODcxMC9sb2dpbiIsImV4cCI6MTY5MzA4Nzk4M30.haaqp-Jr7JQHpqWC5K3ZuhVAqhK97DQU3i1jwslZy3E
 
 
 ### Add an User

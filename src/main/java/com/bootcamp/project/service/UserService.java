@@ -9,7 +9,6 @@ import com.bootcamp.project.repos.RoleRepository;
 import com.bootcamp.project.repos.TaskListRepository;
 import com.bootcamp.project.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -39,6 +38,11 @@ public class UserService implements UserDetailsService {
     // Mappers
     private final UserMapper userMapper;
 
+    /**
+     * Injects a bean of type PasswordEncoder into this class.
+     * The bean is used for encoding passwords before storing them.
+     */
+    private final PasswordEncoder passwordEncoder;
 
 
     /** Show all Users a funtion for a Admin
@@ -47,8 +51,8 @@ public class UserService implements UserDetailsService {
     public List<User> showUsers(){  return userRepo.findAll(); }
 
     /** Create new User introducing E-mail and Password
-     * @param email
-     * @param password
+     * @param email Registered E-Mail adress
+     * @param password Password
      * @return User Object
      */
     public User newUser(String email, String password){
@@ -71,25 +75,29 @@ public class UserService implements UserDetailsService {
     }
 
     public User newAdmin(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        User savedUser = userRepo.save(user);
-        savedUser.addRole(addRole("ROLE_ADMIN"));
-        userRepo.save(savedUser);
-        return savedUser;
+        save(user, "ROLE_ADMIN");
+        return userRepo.save(user);
     }
 
-    /** Creates a new User and automaticly add an Default TodoList that is a TaskList
+    /** Creates a new User
+     * In case dont exist an User it will create an User with ADMIN ROLE
+     * Otherwise it creates an User with an Default TaskList and USER ROLE
      * @param user
      * @return User Object
      */
+
+    public User save(User user, String role){
+        user.addRole(addRole(role));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepo.save(user);
+    }
+
     public User newUser(User user){
         long qtyUsers = userRepo.count();
         if (qtyUsers == 0) {
             return newAdmin(user);
         } else {
-            user.addRole(addRole("ROLE_USER"));
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepo.save(user); //Updates the User
+            save(user, "ROLE_USER");
             TaskList taskList = new TaskList("First Task List", user);
             taskListRepo.save(taskList);
             return user;
@@ -109,17 +117,7 @@ public class UserService implements UserDetailsService {
         userDetails.updateDetails(details.getEmail(), details.getFirstName(), details.getLastName(), details.getBirthDate());
         return userRepo.save(userDetails);
     }
-
-
-
-    /**
-     * Injects a bean of type PasswordEncoder into this class.
-     * The bean is used for encoding passwords before storing them.
-     */
-    private final PasswordEncoder passwordEncoder;
-
-    /**
-     * Loads the user by its username
+    /** Loads the user by its username, in this case the email adress
      *
      * @param email the username to search for
      * @return the UserDetails object that matches the given username
@@ -141,71 +139,5 @@ public class UserService implements UserDetailsService {
             // Return the user details, including the username, password, and authorities
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
         }
-    }
-
-    /**
-     * Saves a new user to the database
-     *
-     * @param user the user to be saved
-     * @return the saved user
-     */
-
-    public User saveUser(User user) {
-        // Encode the user's password for security before saving
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepo.save(user);
-    }
-
-    /**
-     * Saves a new role to the database
-     *
-     * @param role the role to be saved
-     * @return the saved role
-     */
-
-    public Role saveRole(Role role) {
-        return roleRepository.save(role);
-    }
-
-    /**
-     * Adds a role to the user with the given username
-     *
-     * @param email the username of the user to add the role to
-     * @param roleName the name of the role to be added
-     */
-    public void addRoleToUser(String email, String roleName) {
-
-        // Retrieve the user and role objects from the repository
-        User user = userRepo.getUserByEmail(email);
-        Role role = roleRepository.findByRole(roleName).get();
-
-        // Add the role to the user's role collection
-        user.getRoles().add(role);
-
-        // Save the user to persist the changes
-        userRepo.save(user);
-    }
-
-    /**
-     * Retrieves the user with the given username
-     *
-     * @param email the username to search for
-     * @return the user with the given username
-     */
-    public User getUser(String email) {
-        return userRepo.getUserByEmail(email);
-    }
-
-    /**
-     * Retrieves all users from the database
-     *
-     * @return a list of all users
-     */
-    public List<User> getUsers() {
-        return userRepo.findAll();
-    }
-
-    public User getUserByUsername(String email) {
-        return userRepo.getUserByEmail(email);
     }
 }
