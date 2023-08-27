@@ -1,5 +1,6 @@
 package com.bootcamp.project.controller;
 
+import com.bootcamp.project.dto.DTOShoppingList;
 import com.bootcamp.project.model.ShoppingList;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,5 +15,5 @@ public interface ShoppingListController {
      * @return
      */
     @PostMapping(value = rootShoppingList + "/user/{" + userID + "}/new")
-    Object newShoppingList(@PathVariable(userID) UUID uuid, @RequestBody ShoppingList shoppingList);
+    Object newShoppingList(@PathVariable(userID) UUID uuid, @RequestBody DTOShoppingList shoppingList);
 }

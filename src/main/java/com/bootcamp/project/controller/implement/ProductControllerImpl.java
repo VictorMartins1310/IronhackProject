@@ -1,6 +1,8 @@
 package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.ProductController;
+import com.bootcamp.project.dto.DTOProduct;
+import com.bootcamp.project.dto.DTOShoppingList;
 import com.bootcamp.project.model.Product;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.service.ShoppingListService;
@@ -15,11 +17,11 @@ import java.util.List;
 public class ProductControllerImpl implements ProductController {
     private final ShoppingListService shoppingService;
     @PostMapping(value = "/{"+ shoppingLID + "}/products/new")
-    public ShoppingList addProduct(@PathVariable(shoppingLID) Long todoID, @RequestBody Product product){
-        return shoppingService.addProdut2List(todoID, product);
+    public DTOShoppingList addProduct(@PathVariable(shoppingLID) Long todoID, @RequestBody DTOProduct productDTO){
+        return shoppingService.addProdut2List(todoID, productDTO);
     }
     @GetMapping(value = "/{" + shoppingLID + "}/products")
-    public List<Product> getAllProductsOfShoppingList(@PathVariable(shoppingLID) Long id){
+    public List<DTOProduct> getAllProductsOfShoppingList(@PathVariable(shoppingLID) Long id){
         return shoppingService.getAllProductsOfShoppingList(id);
     }
 }

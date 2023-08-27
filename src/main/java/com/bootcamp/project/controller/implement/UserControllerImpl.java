@@ -1,6 +1,7 @@
 package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.UserController;
+import com.bootcamp.project.dto.DTOUser;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,22 +18,22 @@ public class UserControllerImpl implements UserController {
     final UserService userService;
 
     @PostMapping
-    public User newUser(@RequestBody User user){
+    public DTOUser newUser(@RequestBody User user){
         return userService.newUser(user);
     }
     @GetMapping
-    public List<User> showAllUsers(){
+    public List<DTOUser> showAllUsers(){
         return userService.showUsers();
     }
 
     // User Details Part
 
     @GetMapping(value = "/{id}")
-    public User showDetails(@PathVariable(name = "id") UUID id){
+    public DTOUser showDetails(@PathVariable(name = "id") UUID id){
         return userService.findUserDetailsByUserID(id);
     }
     @PatchMapping(value = "/{id}")
-    public User updateDetails(@PathVariable(name = "id") UUID id, @RequestBody User userDetails){
+    public DTOUser updateDetails(@PathVariable(name = "id") UUID id, @RequestBody DTOUser userDetails){
         return userService.updateDetails(id, userDetails);
     }
 

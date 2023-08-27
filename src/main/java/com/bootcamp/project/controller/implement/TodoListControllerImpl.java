@@ -1,6 +1,7 @@
 package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.TodoListController;
+import com.bootcamp.project.dto.DTOToDoList;
 import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.service.ToDoListService;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +16,11 @@ import java.util.UUID;
 public class TodoListControllerImpl implements TodoListController {
     private final ToDoListService toDoListService;
     @GetMapping(value = "/{"+ userID + "}")
-    public List<ToDoList> getAllTodoListByID(@PathVariable(userID) UUID id){
+    public List<DTOToDoList> getAllTodoListByID(@PathVariable(userID) UUID id){
         return toDoListService.findAllByUser(id);
     }
     @PostMapping(value = "/{" + userID + "}")
-    public ToDoList newTodoList(@PathVariable(userID) UUID id, @RequestBody ToDoList todoList){
+    public DTOToDoList newTodoList(@PathVariable(userID) UUID id, @RequestBody DTOToDoList todoListDTO){
         return toDoListService.newTodoList(id, todoList);
     }
 }

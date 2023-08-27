@@ -1,7 +1,11 @@
 package com.bootcamp.project.service;
 
+import com.bootcamp.project.dto.DTOProduct;
+import com.bootcamp.project.dto.DTOShoppingList;
 import com.bootcamp.project.dto.DTOUser;
 import com.bootcamp.project.exception.ProjectException;
+import com.bootcamp.project.mappers.ShoppingListMapper;
+import com.bootcamp.project.mappers.ShoppingListMapperImpl;
 import com.bootcamp.project.model.*;
 import com.bootcamp.project.repos.ShoppingListRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +24,9 @@ public class ShoppingListService {
     private final ProductService prodService;
     private final ToDoListService todoService;
     private final UserService userService;
+    //Mappers
+    private final ShoppingListMapper shoppingListMapper;
+
 
     public ShoppingList getShoppingList(Long id){
         return shoppingListRepository.getShoppingListByTodoListID(id).get();
@@ -32,15 +39,18 @@ public class ShoppingListService {
                 shoppingList.getMarketName());
         return shoppingListRepository.save(shopList);
     }
-    public ShoppingList newShoppingList(UUID uuid, ShoppingList shoppingList) {
+    public DTOShoppingList newShoppingList(UUID uuid, DTOShoppingList shoppingList) {
         User user = userService.getUser(uuid);
-        ShoppingList shopList = new ShoppingList(
+        ShoppingList shopList2 = shoppingListMapper.toEntity(shoppingList);
+        shopList2.setUser(user);
+/*        ShoppingList shopList = new ShoppingList(
                 shoppingList.getTodoListName(),
                 user,
-                shoppingList.getMarketName());
-        return shoppingListRepository.save(shopList);
+                shoppingList.getMarketName());*/
+        shoppingListRepository.save(shopList2);
+        return shoppingListMapper.toDto(shopList2);
     }
-    public List<Product> getAllProductsOfShoppingList(Long shoppingID){
+    public List<DTOProduct> getAllProductsOfShoppingList(Long shoppingID){
         ShoppingList shopList = shoppingListRepository.findById(shoppingID).get();
         return shopList.getProducts();
     }

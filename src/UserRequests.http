@@ -7,7 +7,7 @@ Content-Type: Application/json
   "password" : "badPassword"
 }
 ###
-GET http://localhost:8710/users/me
+GET http://localhost:8710/users/me/
 Authorization: Bearer {{TokenAdmin}}
 
 
