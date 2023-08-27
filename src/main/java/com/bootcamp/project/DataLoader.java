@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -20,14 +21,18 @@ public class DataLoader implements ApplicationListener<ApplicationReadyEvent> {
     private final UserService userService;
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        userService.addRole("ROLE_USER");
-        userService.addRole("ROLE_ADMIN");
+        long test = userService.qtyUsers();
+        if (test == 0) {
+            userService.addRole("ROLE_USER");
+            userService.addRole("ROLE_ADMIN");
 
-        userService.newAdmin(new User(null,"VictorMartins@mail.de", "VictorMartins@mail.de",
-         "badPassword",
-        "Victor",
-        "Martins",
-        "1987-10-13",
-                new ArrayList<>()));
+            userService.newAdmin(new User(null, "VictorMartins@mail.de",
+                    "badPassword",
+                    "Victor",
+                    "Martins",
+                    "1987-10-13",
+                    new ArrayList<>()));
+            userService.newUser("victor@mail.de", "badPassword");
+        }
     }
 }

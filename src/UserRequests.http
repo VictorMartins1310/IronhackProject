@@ -8,23 +8,26 @@ Content-Type: Application/json
 }
 ###
 GET http://localhost:8710/users/me
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWaWN0b3JNYXJ0aW5zQG1haWwuZGUiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODcxMC9sb2dpbiIsImV4cCI6MTY5MzA4Nzk4M30.haaqp-Jr7JQHpqWC5K3ZuhVAqhK97DQU3i1jwslZy3E
+Authorization: Bearer {{TokenAdmin}}
 
 
 ### Add an User
 POST http://localhost:8710/users
 Content-Type: Application/json
+Authorization: Bearer {{TokenUser}}
 
 {
-  "email" : "VictorMartins@mail.de",
-  "password" : "badPassword"
+  "email" : "Victor@mail.de",
+  "password" : "Victor"
 }
 ### Get All Users
 GET http://localhost:8710/users
+Authorization: Bearer {{TokenUser}}
 
 ### Update Userdetails
 PATCH http://localhost:8710/users/482e883d-dbfe-46cf-b5f9-51fe9b632275/d
 Content-Type: Application/json
+Authorization: Bearer {{TokenUser}}
 
 {
   "email" : "VictorMartins@mail.de",
@@ -36,4 +39,4 @@ Content-Type: Application/json
 
 ### Get UserDetails by an ID
 GET http://localhost:8710/users/a47888b7-6f2b-483e-bf67-e6a3248345f7/d
-
+Authorization: Bearer {{Token}}

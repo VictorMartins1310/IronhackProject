@@ -38,6 +38,8 @@ public class UserService implements UserDetailsService {
     // Mappers
     private final UserMapper userMapper;
 
+    public long qtyUsers(){ return userRepo.count(); }
+
     /**
      * Injects a bean of type PasswordEncoder into this class.
      * The bean is used for encoding passwords before storing them.
@@ -93,8 +95,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User newUser(User user){
-        long qtyUsers = userRepo.count();
-        if (qtyUsers == 0) {
+        if (qtyUsers() == 0) {
             return newAdmin(user);
         } else {
             save(user, "ROLE_USER");
@@ -137,7 +138,7 @@ public class UserService implements UserDetailsService {
                 authorities.add(new SimpleGrantedAuthority(role.getRole()));
             });
             // Return the user details, including the username, password, and authorities
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
         }
     }
 }

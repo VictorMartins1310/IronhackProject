@@ -27,63 +27,60 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-        // Instance of the AuthenticationManagerBuilder
-        private final AuthenticationManagerBuilder authManagerBuilder;
+    // Instance of the AuthenticationManagerBuilder
+    private final AuthenticationManagerBuilder authManagerBuilder;
 
-        /**
-         * Bean definition for PasswordEncoder
-         *
-         * @return an instance of the DelegatingPasswordEncoder
-         */
-        @Bean
-        public PasswordEncoder encoder() {
+    /**  Bean definition for PasswordEncoder
+     *
+     * @return an instance of the DelegatingPasswordEncoder
+     */
+    @Bean
+    public PasswordEncoder encoder() {
             return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         }
-
-        /**
+    /**
          * Bean definition for AuthenticationManager
          *
          * @param authenticationConfiguration the instance of AuthenticationConfiguration
          * @return an instance of the AuthenticationManager
          * @throws Exception if there is an issue getting the instance of the AuthenticationManager
          */
-        @Bean
-        public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-            return authenticationConfiguration.getAuthenticationManager();
-        }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+    /**  Bean definition for SecurityFilterChain
+     *
+     * @param http the instance of HttpSecurity
+     * @return an instance of the SecurityFilterChain
+     * @throws Exception if there is an issue building the SecurityFilterChain
+     */
+    @Bean
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // CustomAuthenticationFilter instance created
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authManagerBuilder.getOrBuild());
+        // set the URL that the filter should process
+        customAuthenticationFilter.setFilterProcessesUrl("/login");
+        // disable CSRF protection
+        http.csrf().disable();
+        // set the session creation policy to stateless
+        http.sessionManagement().sessionCreationPolicy( STATELESS);
+        // set up authorization for different request matchers and user roles
+        // modify this to have different configurations
+        http.authorizeHttpRequests((requests) -> requests
+                .requestMatchers("/login/**").permitAll()
+                .requestMatchers("/swagger-ui/**").permitAll() //TODO verify how to make it work with security
+                .requestMatchers(GET, "/users/me").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .requestMatchers(GET, "/users").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/users").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(GET, "/todolist").hasAnyAuthority("ROLE_USER")
+                .anyRequest().authenticated());
+        // add the custom authentication filter to the http security object
+        http.addFilter(customAuthenticationFilter);
+        // Add the custom authorization filter before the standard authentication filter.
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        /**
-         * Bean definition for SecurityFilterChain
-         *
-         * @param http the instance of HttpSecurity
-         * @return an instance of the SecurityFilterChain
-         * @throws Exception if there is an issue building the SecurityFilterChain
-         */
-        @Bean
-        protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            // CustomAuthenticationFilter instance created
-            CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authManagerBuilder.getOrBuild());
-            // set the URL that the filter should process
-            customAuthenticationFilter.setFilterProcessesUrl("/login");
-            // disable CSRF protection
-            http.csrf().disable();
-            // set the session creation policy to stateless
-            http.sessionManagement().sessionCreationPolicy( STATELESS);
-            // set up authorization for different request matchers and user roles
-            // modify this to have different configurations
-            http.authorizeHttpRequests((requests) -> requests
-                    .requestMatchers("/login/**").permitAll()
-                    //.requestMatchers("/swagger-ui/**").permitAll() //TODO verify how to make it work with security
-                    .requestMatchers(GET, "/users/me").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                    .requestMatchers(GET, "/users").hasAnyAuthority("ROLE_ADMIN")
-                    .requestMatchers(POST, "/users").hasAnyAuthority("ROLE_ADMIN")
-                    .anyRequest().authenticated());
-            // add the custom authentication filter to the http security object
-            http.addFilter(customAuthenticationFilter);
-            // Add the custom authorization filter before the standard authentication filter.
-            http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-
-            // Build the security filter chain to be returned.
-            return http.build();
-        }
+        // Build the security filter chain to be returned.
+        return http.build();
+    }
 }

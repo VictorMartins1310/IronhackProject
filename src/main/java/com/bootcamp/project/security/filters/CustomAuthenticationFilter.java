@@ -53,13 +53,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         try {
             Map<String, String> credentials = new ObjectMapper().readValue(request.getInputStream(), Map.class);
 
-            String username = credentials.get("email");
+            String email = credentials.get("email");
             String password = credentials.get("password");
 
-            log.info("Username is: {}", username);
+            log.info("Username is: {}", email);
             log.info("Password is: {}", password);
 
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
 
             return authenticationManager.authenticate(authenticationToken);
 
@@ -88,7 +88,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         // Adding user details and roles to the token
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 12 * 60 * 60 * 1000))
+//                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) // TODO Remove comment befor submit Project
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);

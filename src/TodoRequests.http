@@ -1,5 +1,6 @@
 ### Get TODOLIST by ID
 GET http://localhost:8710/todolist/482e883d-dbfe-46cf-b5f9-51fe9b632275
+Authorization: Bearer {{TokenAdmin}}
 
 ### Get All ShoppingLists by User
 GET http://localhost:8710/todolist/shoppinglist/user/482e883d-dbfe-46cf-b5f9-51fe9b632275
