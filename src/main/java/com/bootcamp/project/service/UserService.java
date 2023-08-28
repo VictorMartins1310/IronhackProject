@@ -41,9 +41,9 @@ public class UserService implements UserDetailsService {
     public long qtyUsers(){ return userRepo.count(); }
 
     /** Show all Users a funtion for a Admin
-     * @return List of Users
+     * @return List of Users without Password
      */
-    public List<User> showUsers(){  return userRepo.findAll(); }
+    public List<DTOUserDetails> showUsers(){  return userRepo.findAll().stream().map(userDetailsMapper::toDto).toList(); }
     /** This Function add new Role or get the Role by Name
       * @param name String
      * @return

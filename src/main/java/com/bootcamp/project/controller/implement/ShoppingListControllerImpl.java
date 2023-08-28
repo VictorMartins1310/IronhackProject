@@ -5,6 +5,7 @@ import com.bootcamp.project.dto.DTOShoppingList;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.service.ShoppingListService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(name = "shoppinglist", value = "todolist/shoppinglist")
-public class ShoppingListControllerImp implements ShoppingListController{
+public class ShoppingListControllerImpl implements ShoppingListController{
     private final ShoppingListService shoppingService;
     @GetMapping(value = rootShoppingList + "/{" + shoppingLID + "}")
     public ShoppingList showShoppingList(@PathVariable(shoppingLID) Long id){
@@ -20,6 +21,7 @@ public class ShoppingListControllerImp implements ShoppingListController{
     }
 
     @PostMapping(value = rootShoppingList + "/user/{userID}")
+    @ResponseStatus(HttpStatus.CREATED)
     public DTOShoppingList newShoppingList(@PathVariable("userID") UUID uuid, @RequestBody DTOShoppingList shoppingList){
         return shoppingService.newShoppingList(uuid, shoppingList);
     }

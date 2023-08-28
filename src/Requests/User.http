@@ -12,10 +12,6 @@ Authorization: Bearer {{Token}}
   "email" : "Stupid@mail.de",
   "password" : "Victor"
 }
-### Get All Users
-GET http://localhost:8710/users
-Authorization: Bearer {{Token}}
-
 ### Update Userdetails
 PATCH http://localhost:8710/users/{{UserID}}/d
 Content-Type: Application/json

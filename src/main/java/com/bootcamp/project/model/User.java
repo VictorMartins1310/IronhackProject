@@ -13,7 +13,6 @@ import static jakarta.persistence.FetchType.EAGER;
 
 @Entity
 @Data
-@AllArgsConstructor
 @RequiredArgsConstructor
 public class User {
     @Id

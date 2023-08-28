@@ -7,28 +7,28 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @Entity
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class ToDoList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long todoListID;
-    private Date creatonDate;
+    private Date creationDate;
     private String todoListName;
-    private Boolean active;
+    protected Boolean active; // If False it can be deleted ob DB
     @ManyToOne
     private User user;
     public ToDoList(String todoListName, User user) {
         this.todoListName = todoListName;
         this.user = user;
         this.active = true;
-        this.creatonDate = new Date();
+        this.creationDate = new Date();
     }
-
     /** Function that deactivate an List */
     public void deactivateList(){ this.active = false; }
 }

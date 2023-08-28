@@ -70,6 +70,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/login/**").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll() //TODO verify how to make it work with security
+                .requestMatchers("/admin/users").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(GET, "/users/me").permitAll()
                 .requestMatchers(GET, "/users").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(POST, "/users").permitAll()

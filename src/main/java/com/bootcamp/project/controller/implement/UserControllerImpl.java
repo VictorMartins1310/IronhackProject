@@ -6,6 +6,7 @@ import com.bootcamp.project.dto.LoginDTO;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ public class UserControllerImpl implements UserController {
     private final UserService userService;
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public DTOUserDetails newUser(@RequestBody LoginDTO loginData){
         return userService.newUserDTO(loginData.getEmail(), loginData.getPassword());
     }

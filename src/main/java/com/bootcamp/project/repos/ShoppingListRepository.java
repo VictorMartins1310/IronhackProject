@@ -9,6 +9,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ShoppingListRepository extends JpaRepository<ShoppingList, Long> {
-
     Optional<ShoppingList> getShoppingListByTodoListID(Long id);
 }

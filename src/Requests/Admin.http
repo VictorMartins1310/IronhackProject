@@ -1,0 +1,4 @@
+### Get All Users
+GET http://localhost:8710/admin/users
+Authorization: Bearer {{Token}}
+### Delete User

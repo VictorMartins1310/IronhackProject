@@ -7,6 +7,7 @@ import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.TaskListService;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class TaskListControllerImpl implements TaskListController {
         return tasklistService.getAllbyUser(uuid);
     }
     @PostMapping(value = "/user/{userID}")
+    @ResponseStatus(HttpStatus.CREATED)
     public TaskList  newTaskList(@PathVariable("userID") UUID uuid, TaskList taskList){
         User user = userService.getUser(uuid);
         return tasklistService.newTaskList(uuid, new TaskList(taskList.getTodoListName(), user));
