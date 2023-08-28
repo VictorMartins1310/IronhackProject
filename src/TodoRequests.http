@@ -1,9 +1,11 @@
 ### Get TODOLIST by ID
-GET http://localhost:8710/todolist/482e883d-dbfe-46cf-b5f9-51fe9b632275
-Authorization: Bearer {{TokenAdmin}}
+GET http://localhost:8710/todolist/{{UserID}}
+Authorization: Bearer {{Token}}
 
 ### Get All ShoppingLists by User
-GET http://localhost:8710/todolist/shoppinglist/user/482e883d-dbfe-46cf-b5f9-51fe9b632275
+GET http://localhost:8710/todolist/shoppinglist/user/{{UserID}}
+Authorization: Bearer {{Token}}
 
 ### Get All TaskLists by User
-GET http://localhost:8710/todolist/tasklist/user/d054877e-2f6d-4d0b-b32a-62123d16dc7e
+GET http://localhost:8710/todolist/tasklist/user/{{UserID}}
+Authorization: Bearer {{Token}}

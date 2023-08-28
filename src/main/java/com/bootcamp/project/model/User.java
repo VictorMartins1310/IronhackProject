@@ -1,14 +1,12 @@
 package com.bootcamp.project.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 import static jakarta.persistence.FetchType.EAGER;
@@ -21,6 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userID;
+    @Column(unique=true) // for dont getting doubled email adresses
     private String email;
     private String password;
     // User Details
@@ -35,7 +34,12 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
+    // Follow constroctur is used for Developer things, in case use every time the same UUID
+    public User(String uuid, String email, String password) {
+        this.userID = UUID.fromString(uuid);
+        this.email = email;
+        this.password = password;
+    }
     public void addRole(Role role){
         roles.add(role);
     }

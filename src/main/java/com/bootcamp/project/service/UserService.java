@@ -1,7 +1,9 @@
 package com.bootcamp.project.service;
 
-import com.bootcamp.project.dto.DTOUser;
-import com.bootcamp.project.mappers.UserMapper;
+import com.bootcamp.project.dto.LoginDTO;
+import com.bootcamp.project.dto.DTOUserDetails;
+import com.bootcamp.project.mappers.UserDetailsMapper;
+import com.bootcamp.project.mappers.LoginMapper;
 import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
@@ -24,45 +26,26 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
-    // Repositories
-    /**
-     * Autowired UserRepository for database operations.
-     */
+    // Repositories Section
     private final TaskListRepository taskListRepo;
-    /**
-     * Autowired RoleRepository for database operations.
-     */
     private final RoleRepository roleRepository;
     private final UserRepository userRepo;
-
-    // Mappers
-    private final UserMapper userMapper;
-
-    public long qtyUsers(){ return userRepo.count(); }
-
-    /**
-     * Injects a bean of type PasswordEncoder into this class.
+    // Mappers Section
+    private final UserDetailsMapper userDetailsMapper;
+    private final LoginMapper loginMapper;
+    /**  Injects a bean of type PasswordEncoder into this class.
      * The bean is used for encoding passwords before storing them.
      */
     private final PasswordEncoder passwordEncoder;
-
+    // Method Section
+    public long qtyUsers(){ return userRepo.count(); }
 
     /** Show all Users a funtion for a Admin
      * @return List of Users
      */
     public List<User> showUsers(){  return userRepo.findAll(); }
-
-    /** Create new User introducing E-mail and Password
-     * @param email Registered E-Mail adress
-     * @param password Password
-     * @return User Object
-     */
-    public User newUser(String email, String password){
-        return userRepo.save(new User(email, password));
-    }
-
     /** This Function add new Role or get the Role by Name
-      * @param name
+      * @param name String
      * @return
      */
     public Role addRole(String name){
@@ -77,16 +60,8 @@ public class UserService implements UserDetailsService {
     }
 
     public User newAdmin(User user){
-        save(user, "ROLE_ADMIN");
-        return userRepo.save(user);
+        return save(user, "ROLE_ADMIN");
     }
-
-    /** Creates a new User
-     * In case dont exist an User it will create an User with ADMIN ROLE
-     * Otherwise it creates an User with an Default TaskList and USER ROLE
-     * @param user
-     * @return User Object
-     */
 
     public User save(User user, String role){
         user.addRole(addRole(role));
@@ -94,29 +69,55 @@ public class UserService implements UserDetailsService {
         return userRepo.save(user);
     }
 
-    public User newUser(User user){
+    /** Creates a new User
+     * In case dont exist an User it will create an User with ADMIN ROLE
+     * Otherwise it creates an User with an Default TaskList and USER ROLE
+
+     * @param email String
+     * @param password String
+     * @return User User
+     */
+    public User newUser(String email, String password){
+        User user = new User(email, password);
         if (qtyUsers() == 0) {
             return newAdmin(user);
         } else {
-            save(user, "ROLE_USER");
-            TaskList taskList = new TaskList("First Task List", user);
+            User savedUser = save(user, "ROLE_USER");
+            TaskList taskList = new TaskList("First Task List", savedUser);
             taskListRepo.save(taskList);
-            return user;
+            return savedUser;
         }
     }
-    public User getUser(UUID id){
-        return userRepo.getUserByUserID(id);
+    public User newUser(String uuid, String email, String password){
+        User user = new User(uuid, email, password);
+        if (qtyUsers() == 0) {
+            return newAdmin(user);
+        } else {
+            User savedUser = save(user, "ROLE_USER");
+            TaskList taskList = new TaskList("First Task List", savedUser);
+            taskListRepo.save(taskList);
+            return savedUser;
+        }
     }
-    public DTOUser getUserDTO(UUID id){
-        return userMapper.toDto(userRepo.getUserByUserID(id));
+    public DTOUserDetails newUserDTO(String email, String password){
+        return userDetailsMapper.toDto(newUser(email, password));
     }
+    public User getUser(UUID id){ return userRepo.getUserByUserID(id); }
+    public LoginDTO getUserDTO(UUID id){ return loginMapper.toDto(getUser(id)); }
     // UserDetails Section
-
     public User findUserDetailsByUserID(UUID id){ return userRepo.getUserByUserID(id); }
-    public User updateDetails(UUID id, User details){
+    public DTOUserDetails findUserDetailsByUserIDDTO(UUID id){
+        return userDetailsMapper.toDto(findUserDetailsByUserID(id));
+        // TODO Change to UserDetails
+    }
+    public User updateDetails(UUID id, DTOUserDetails details){
+        //TODO change to UserDetails
         User userDetails = userRepo.getUserByUserID(id);
         userDetails.updateDetails(details.getEmail(), details.getFirstName(), details.getLastName(), details.getBirthDate());
         return userRepo.save(userDetails);
+    }
+    public DTOUserDetails updateDetailsDTO(UUID id, DTOUserDetails details){
+        return userDetailsMapper.toDto(updateDetails(id, details));
     }
     /** Loads the user by its username, in this case the email adress
      *

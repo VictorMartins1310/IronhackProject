@@ -70,9 +70,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/login/**").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll() //TODO verify how to make it work with security
-                .requestMatchers(GET, "/users/me").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .requestMatchers(GET, "/users/me").permitAll()
                 .requestMatchers(GET, "/users").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers(POST, "/users").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/users").permitAll()
                 .requestMatchers(GET, "/todolist").hasAnyAuthority("ROLE_USER")
                 .anyRequest().authenticated());
         // add the custom authentication filter to the http security object

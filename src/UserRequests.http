@@ -1,33 +1,25 @@
-## Login
-POST http://localhost:8710/login
-Content-Type: Application/json
-
-{
-  "email" : "VictorMartins@mail.de",
-  "password" : "badPassword"
-}
 ###
-GET http://localhost:8710/users/me/
-Authorization: Bearer {{TokenAdmin}}
+GET http://localhost:8710/users/me
+Authorization: Bearer {{Token}}
 
 
 ### Add an User
-POST http://localhost:8710/users
+POST http://localhost:8710/users/register
 Content-Type: Application/json
-Authorization: Bearer {{TokenUser}}
+Authorization: Bearer {{Token}}
 
 {
-  "email" : "Victor@mail.de",
+  "email" : "Stupid@mail.de",
   "password" : "Victor"
 }
 ### Get All Users
 GET http://localhost:8710/users
-Authorization: Bearer {{TokenUser}}
+Authorization: Bearer {{Token}}
 
 ### Update Userdetails
-PATCH http://localhost:8710/users/482e883d-dbfe-46cf-b5f9-51fe9b632275/d
+PATCH http://localhost:8710/users/{{UserID}}/d
 Content-Type: Application/json
-Authorization: Bearer {{TokenUser}}
+Authorization: Bearer {{Token}}
 
 {
   "email" : "VictorMartins@mail.de",
@@ -38,5 +30,5 @@ Authorization: Bearer {{TokenUser}}
 }
 
 ### Get UserDetails by an ID
-GET http://localhost:8710/users/a47888b7-6f2b-483e-bf67-e6a3248345f7/d
+GET http://localhost:8710/users/{{UserID}}/d
 Authorization: Bearer {{Token}}

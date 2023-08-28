@@ -14,12 +14,12 @@ import java.util.List;
 @RequestMapping(name = "tasklist", value = "todolist/tasklist")
 public class TaskControllerImpl implements TaskController {
     private final TaskListService taskListService;
-    @PostMapping(value = "/{"+ taskLID + "}/" + routeAdd +"/new")
-    public TaskList addTask(@PathVariable(taskLID) Long taskID, @RequestBody Task task){
+    @PostMapping(value = "/{taskLID}/" + routeAdd +"/new")
+    public TaskList addTask(@PathVariable("taskLID") Long taskID, @RequestBody Task task){
         return taskListService.addTask2List(taskID, task);
     }
-    @GetMapping(value = "/{" + taskLID + "}/" + routeAdd)
-    public List<Task> getAllTasksOfTaskList(@PathVariable(taskLID) Long taskID){
+    @GetMapping(value = "/{taskLID}/" + routeAdd)
+    public List<Task> getAllTasksOfTaskList(@PathVariable("taskLID") Long taskID){
         return taskListService.getAllTasksOfTaskList(taskID);
     }
 }

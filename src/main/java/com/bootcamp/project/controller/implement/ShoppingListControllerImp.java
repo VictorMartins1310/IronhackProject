@@ -19,8 +19,8 @@ public class ShoppingListControllerImp implements ShoppingListController{
         return shoppingService.getShoppingList(id); // TODO Check if need change to TDO??
     }
 
-    @PostMapping(value = rootShoppingList + "/user/{" + userID + "}/new")
-    public DTOShoppingList newShoppingList(@PathVariable(userID) UUID uuid, @RequestBody DTOShoppingList shoppingList){
+    @PostMapping(value = rootShoppingList + "/user/{userID}")
+    public DTOShoppingList newShoppingList(@PathVariable("userID") UUID uuid, @RequestBody DTOShoppingList shoppingList){
         return shoppingService.newShoppingList(uuid, shoppingList);
     }
 }

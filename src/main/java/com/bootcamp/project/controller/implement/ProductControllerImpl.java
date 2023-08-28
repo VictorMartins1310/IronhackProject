@@ -3,8 +3,6 @@ package com.bootcamp.project.controller.implement;
 import com.bootcamp.project.controller.ProductController;
 import com.bootcamp.project.dto.DTOProduct;
 import com.bootcamp.project.dto.DTOShoppingList;
-import com.bootcamp.project.model.Product;
-import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.service.ShoppingListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +20,6 @@ public class ProductControllerImpl implements ProductController {
     }
     @GetMapping(value = "/{" + shoppingLID + "}/products")
     public List<DTOProduct> getAllProductsOfShoppingList(@PathVariable(shoppingLID) Long id){
-        return shoppingService.getAllProductsOfShoppingList(id);
+        return shoppingService.getAllProductsDTOOfShoppingList(id);
     }
 }

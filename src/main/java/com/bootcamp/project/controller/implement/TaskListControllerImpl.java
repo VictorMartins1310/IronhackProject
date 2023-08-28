@@ -19,15 +19,15 @@ public class TaskListControllerImpl implements TaskListController {
     private final TaskListService tasklistService;
     private final UserService userService;
 
-    @GetMapping(value = "/user/{" + userID + "}")
-    public List<TaskList> showTaskLists(@PathVariable(userID) UUID uuid){
+    @GetMapping(value = "/user/{userID}")
+    public List<TaskList> showTaskLists(@PathVariable("userID") UUID uuid){
         return tasklistService.getAllbyUser(uuid);
     }
-    @PostMapping(value = "/user/{" + userID + "}")
-    public TaskList  newTaskList(@PathVariable(userID) UUID uuid, TaskList taskList){
+    @PostMapping(value = "/user/{userID}")
+    public TaskList  newTaskList(@PathVariable("userID") UUID uuid, TaskList taskList){
         User user = userService.getUser(uuid);
         return tasklistService.newTaskList(uuid, new TaskList(taskList.getTodoListName(), user));
     }
-    @GetMapping(value = "/user/" + userID + "/{" + taskLID + "}")
-    public List<Task> tasksByID(@PathVariable(taskLID) Long id) { return tasklistService.getAllTasksOfTaskList(id); }
+    @GetMapping(value = "/user/userID/{taskLID}")
+    public List<Task> tasksByID(@PathVariable("taskLID") Long id) { return tasklistService.getAllTasksOfTaskList(id); }
 }

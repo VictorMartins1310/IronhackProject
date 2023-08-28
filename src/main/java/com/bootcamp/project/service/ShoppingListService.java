@@ -2,8 +2,8 @@ package com.bootcamp.project.service;
 
 import com.bootcamp.project.dto.DTOProduct;
 import com.bootcamp.project.dto.DTOShoppingList;
-import com.bootcamp.project.dto.DTOUser;
 import com.bootcamp.project.exception.ProjectException;
+import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.ShoppingListMapper;
 import com.bootcamp.project.mappers.ShoppingListMapperImpl;
 import com.bootcamp.project.model.*;
@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,6 +25,7 @@ public class ShoppingListService {
     private final UserService userService;
     //Mappers
     private final ShoppingListMapper shoppingListMapper;
+    private final ProductMapper productMapper;
 
 
     public ShoppingList getShoppingList(Long id){
@@ -39,20 +39,38 @@ public class ShoppingListService {
                 shoppingList.getMarketName());
         return shoppingListRepository.save(shopList);
     }
+    public ShoppingList newShoppingList(UUID uuid, ShoppingList shoppingList) {
+        User user = userService.getUser(uuid);
+        shoppingList.setUser(user);
+        return shoppingListRepository.save(shoppingList);
+    }
     public DTOShoppingList newShoppingList(UUID uuid, DTOShoppingList shoppingList) {
         User user = userService.getUser(uuid);
-        ShoppingList shopList2 = shoppingListMapper.toEntity(shoppingList);
-        shopList2.setUser(user);
-/*        ShoppingList shopList = new ShoppingList(
-                shoppingList.getTodoListName(),
-                user,
-                shoppingList.getMarketName());*/
-        shoppingListRepository.save(shopList2);
-        return shoppingListMapper.toDto(shopList2);
+        ShoppingList shopList = shoppingListMapper.toEntity(shoppingList);
+        shopList.setUser(user);
+        shoppingListRepository.save(shopList);
+        return shoppingListMapper.toDto(shopList);
     }
-    public List<DTOProduct> getAllProductsOfShoppingList(Long shoppingID){
+    public List<DTOProduct> getAllProductsDTOOfShoppingList(Long shoppingID){
+        // TODO change to Dto?
+        ShoppingList shopList = shoppingListRepository.findById(shoppingID).get();
+        return shopList.getProducts().stream().map(productMapper::toDto).toList();
+    }
+    public List<Product> getAllProductsOfShoppingList(Long shoppingID){
+        // TODO change to Dto?
         ShoppingList shopList = shoppingListRepository.findById(shoppingID).get();
         return shopList.getProducts();
+    }
+    public DTOShoppingList addProdut2List(Long shopID, DTOProduct prod){
+        ShoppingList todo;
+        if (shoppingListRepository.getShoppingListByTodoListID(shopID).isPresent()){
+            todo = shoppingListRepository.getShoppingListByTodoListID(shopID).get();
+            Product savedProd = prodService.newProduct(productMapper.toEntity(prod));
+            todo.addProduct(savedProd);
+            shoppingListRepository.save(todo);
+            return shoppingListMapper.toDto(todo);
+        } else
+            throw new ProjectException("Cannot find Shopping list");
     }
     public ShoppingList addProdut2List(Long shopID, Product prod){
         ShoppingList todo;

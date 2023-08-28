@@ -5,6 +5,9 @@ import lombok.Data;
 
 @Data
 public class DTOUserDetails {
+    @NotBlank(message = "E-Mail is Mandatory")
+    @Email(message = "E-Mail dont Follow rules")
+    private String email;
     @NotBlank
     @Max(message = "Reached Maximum of (64) Characters", value = 64)
     private String firstName;
