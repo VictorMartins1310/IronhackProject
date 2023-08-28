@@ -18,11 +18,4 @@ public class TodoListControllerImpl implements TodoListController {
     public List<ToDoList> getAllTodoListByID(@PathVariable("userID") UUID id){
         return toDoListService.findAllByUser(id);
     }
-
-// REMOVED from Interface, dont make sense create TodoList because creating Task or Shopping lists
-    @PostMapping(value = "/{ userID}")
-    public DTOToDoList newTodoList(@PathVariable("userID") UUID id, @RequestBody DTOToDoList todoListDTO){
-        return toDoListService.newTodoList(id, todoList);
-    }
-
 }
