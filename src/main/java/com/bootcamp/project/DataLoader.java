@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Profile("dev")
 public class DataLoader implements ApplicationListener<ApplicationReadyEvent> {
-
-
     private final UserService userService;
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {

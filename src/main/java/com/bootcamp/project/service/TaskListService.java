@@ -18,16 +18,13 @@ public class TaskListService {
     private final TaskService taskService;
     private final UserService userService;
 
-    public TaskList getTaskList(Long id){
-        return taskListRepository.getReferenceById(id);
-    }
     public TaskList newTaskList(UUID userID, TaskList taskList){
         User user = userService.getUser(userID);
         return taskListRepository.save(new TaskList(taskList.getTodoListName(), user));
     }
     public List<TaskList> getAllbyUser(UUID userID){
         User user = userService.findUserDetailsByUserID(userID);
-        return taskListRepository.findTaskListsByUser(user);
+        return taskListRepository.findTaskListsByUserAndActiveIsTrue(user);
     }
     public List<Task> getAllTasksOfTaskList(Long taskID){
         TaskList taskList = taskListRepository.findById(taskID).get();
@@ -45,12 +42,12 @@ public class TaskListService {
     }
     /** Function that deletes a TaskList by ID and only if the list is deactivated */
     public boolean deleteTaskList(Long id){
-        var shop = taskListRepository.findById(id);
-        if (shop.isPresent()){
-            if (!shop.get().getActive()) {
-                for (Task task : shop.get().getTasks())
-                    shop.get().getTasks().remove(task);
-                taskListRepository.delete(shop.get());
+        var taskList = taskListRepository.findById(id);
+        if (taskList.isPresent()){
+            if (!taskList.get().getActive()) {
+                for (Task task : taskList.get().getTasks())
+                    taskList.get().getTasks().remove(task);
+                taskListRepository.delete(taskList.get());
             }
             else return false;
         }else return false;

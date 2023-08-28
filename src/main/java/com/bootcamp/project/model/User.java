@@ -33,7 +33,7 @@ public class User {
         this.email = email;
         this.password = password;
     }
-    // Follow constroctur is used for Developer things, in case use every time the same UUID
+    /** Follow constroctur is used for Developer things, in case use every time the same UUID */
     public User(String uuid, String email, String password) {
         this.userID = UUID.fromString(uuid);
         this.email = email;

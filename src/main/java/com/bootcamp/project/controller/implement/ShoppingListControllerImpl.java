@@ -1,7 +1,7 @@
 package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.ShoppingListController;
-import com.bootcamp.project.dto.DTOShoppingList;
+import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.service.ShoppingListService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class ShoppingListControllerImpl implements ShoppingListController{
 
     @PostMapping(value = rootShoppingList + "/user/{userID}")
     @ResponseStatus(HttpStatus.CREATED)
-    public DTOShoppingList newShoppingList(@PathVariable("userID") UUID uuid, @RequestBody DTOShoppingList shoppingList){
+    public ShoppingListDTO newShoppingList(@PathVariable("userID") UUID uuid, @RequestBody ShoppingListDTO shoppingList){
         return shoppingService.newShoppingList(uuid, shoppingList);
     }
 }

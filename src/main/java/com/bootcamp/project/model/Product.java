@@ -35,7 +35,7 @@ public class Product {
 
     public Boolean productBought(int qty){
         this.qty -= qty;
-        this.status = this.qty >= 0;
+        this.status = this.qty <= 0;
         return status;
     }
 

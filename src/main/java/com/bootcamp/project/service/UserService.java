@@ -1,7 +1,7 @@
 package com.bootcamp.project.service;
 
 import com.bootcamp.project.dto.LoginDTO;
-import com.bootcamp.project.dto.DTOUserDetails;
+import com.bootcamp.project.dto.UserDetailsDTO;
 import com.bootcamp.project.mappers.UserDetailsMapper;
 import com.bootcamp.project.mappers.LoginMapper;
 import com.bootcamp.project.model.Role;
@@ -43,10 +43,10 @@ public class UserService implements UserDetailsService {
     /** Show all Users a funtion for a Admin
      * @return List of Users without Password
      */
-    public List<DTOUserDetails> showUsers(){  return userRepo.findAll().stream().map(userDetailsMapper::toDto).toList(); }
+    public List<UserDetailsDTO> showUsers(){  return userRepo.findAll().stream().map(userDetailsMapper::toDto).toList(); }
     /** This Function add new Role or get the Role by Name
-      * @param name String
-     * @return
+     * @param name String
+     * @return new Role
      */
     public Role addRole(String name){
         if (roleRepository.findByRole(name).isEmpty()) {
@@ -99,24 +99,24 @@ public class UserService implements UserDetailsService {
             return savedUser;
         }
     }
-    public DTOUserDetails newUserDTO(String email, String password){
+    public UserDetailsDTO newUserDTO(String email, String password){
         return userDetailsMapper.toDto(newUser(email, password));
     }
     public User getUser(UUID id){ return userRepo.getUserByUserID(id); }
     public LoginDTO getUserDTO(UUID id){ return loginMapper.toDto(getUser(id)); }
     // UserDetails Section
     public User findUserDetailsByUserID(UUID id){ return userRepo.getUserByUserID(id); }
-    public DTOUserDetails findUserDetailsByUserIDDTO(UUID id){
+    public UserDetailsDTO findUserDetailsByUserIDDTO(UUID id){
         return userDetailsMapper.toDto(findUserDetailsByUserID(id));
         // TODO Change to UserDetails
     }
-    public User updateDetails(UUID id, DTOUserDetails details){
+    public User updateDetails(UUID id, UserDetailsDTO details){
         //TODO change to UserDetails
         User userDetails = userRepo.getUserByUserID(id);
         userDetails.updateDetails(details.getEmail(), details.getFirstName(), details.getLastName(), details.getBirthDate());
         return userRepo.save(userDetails);
     }
-    public DTOUserDetails updateDetailsDTO(UUID id, DTOUserDetails details){
+    public UserDetailsDTO updateDetailsDTO(UUID id, UserDetailsDTO details){
         return userDetailsMapper.toDto(updateDetails(id, details));
     }
     /** Loads the user by its username, in this case the email adress

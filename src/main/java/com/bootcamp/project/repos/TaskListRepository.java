@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface TaskListRepository extends JpaRepository<TaskList, Long> {
     List<TaskList> findTaskListsByUser(User user);
-    List<Task> getAllByActive(Boolean active);
+    List<TaskList> findTaskListsByUserAndActiveIsTrue(User user);
 }

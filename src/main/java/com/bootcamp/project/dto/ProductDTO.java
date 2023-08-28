@@ -6,7 +6,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 @Data
-public class DTOProduct {
+public class ProductDTO {
     @Max(message = "Reached Maximum of (64) Characters", value = 64)
     private String name;
     @Max(message = "Reached Maximum of (64) Characters", value = 64)

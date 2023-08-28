@@ -27,15 +27,4 @@ public class RoleControllerImpl {// implements RoleController {
         userService.addRole(role);
     }
 
-    /**
-     * Add a role to a user
-     *
-     * @param roleToUserDTO DTO containing the username and role name
-     */
-/*    @PostMapping("addtouser")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void addRoleToUser(@RequestBody RoleToUserDto roleToUserDTO) {
-        userService.addRole(roleToUserDTO.getUsername(), roleToUserDTO.getRoleName());
-    }
-*/
 }

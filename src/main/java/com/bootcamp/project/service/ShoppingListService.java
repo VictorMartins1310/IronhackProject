@@ -1,11 +1,10 @@
 package com.bootcamp.project.service;
 
-import com.bootcamp.project.dto.DTOProduct;
-import com.bootcamp.project.dto.DTOShoppingList;
+import com.bootcamp.project.dto.ProductDTO;
+import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.exception.ProjectException;
 import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.ShoppingListMapper;
-import com.bootcamp.project.mappers.ShoppingListMapperImpl;
 import com.bootcamp.project.model.*;
 import com.bootcamp.project.repos.ShoppingListRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,14 +43,14 @@ public class ShoppingListService {
         shoppingList.setUser(user);
         return shoppingListRepository.save(shoppingList);
     }
-    public DTOShoppingList newShoppingList(UUID uuid, DTOShoppingList shoppingList) {
+    public ShoppingListDTO newShoppingList(UUID uuid, ShoppingListDTO shoppingList) {
         User user = userService.getUser(uuid);
         ShoppingList shopList = shoppingListMapper.toEntity(shoppingList);
         shopList.setUser(user);
         shoppingListRepository.save(shopList);
         return shoppingListMapper.toDto(shopList);
     }
-    public List<DTOProduct> getAllProductsDTOOfShoppingList(Long shoppingID){
+    public List<ProductDTO> getAllProductsDTOOfShoppingList(Long shoppingID){
         // TODO change to Dto?
         ShoppingList shopList = shoppingListRepository.findById(shoppingID).get();
         return shopList.getProducts().stream().map(productMapper::toDto).toList();
@@ -61,7 +60,7 @@ public class ShoppingListService {
         ShoppingList shopList = shoppingListRepository.findById(shoppingID).get();
         return shopList.getProducts();
     }
-    public DTOShoppingList addProdut2List(Long shopID, DTOProduct prod){
+    public ShoppingListDTO addProdut2List(Long shopID, ProductDTO prod){
         ShoppingList todo;
         if (shoppingListRepository.getShoppingListByTodoListID(shopID).isPresent()){
             todo = shoppingListRepository.getShoppingListByTodoListID(shopID).get();

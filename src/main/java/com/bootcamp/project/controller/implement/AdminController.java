@@ -1,6 +1,6 @@
 package com.bootcamp.project.controller.implement;
 
-import com.bootcamp.project.dto.DTOUserDetails;
+import com.bootcamp.project.dto.UserDetailsDTO;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.UUID;
 public class AdminController {
     private final UserService userService;
     @GetMapping("/users")
-    public List<DTOUserDetails> showAllUsers(){ return userService.showUsers(); }
+    public List<UserDetailsDTO> showAllUsers(){ return userService.showUsers(); }
     @GetMapping(value = "/users/{id}")
     @ResponseStatus(HttpStatus.FOUND)
     public User showDetails(@PathVariable(name = "id") UUID id){

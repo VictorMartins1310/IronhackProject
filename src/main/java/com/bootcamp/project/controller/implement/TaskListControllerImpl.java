@@ -20,6 +20,7 @@ public class TaskListControllerImpl implements TaskListController {
     private final TaskListService tasklistService;
     private final UserService userService;
 
+    /** Show all TaskLists by that an User have */
     @GetMapping(value = "/user/{userID}")
     public List<TaskList> showTaskLists(@PathVariable("userID") UUID uuid){
         return tasklistService.getAllbyUser(uuid);

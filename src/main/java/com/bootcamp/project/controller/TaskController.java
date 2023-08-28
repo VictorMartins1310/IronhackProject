@@ -7,4 +7,6 @@ public interface TaskController {
     String routeAdd = "tasks";
     Object addTask(Long todoID, Task task);
     Object getAllTasksOfTaskList(Long id);
+    void deleteTask(Long id);
+    Object UpdateTask();
 }
