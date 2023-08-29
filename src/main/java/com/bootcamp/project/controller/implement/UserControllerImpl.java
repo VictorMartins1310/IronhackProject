@@ -23,7 +23,6 @@ public class UserControllerImpl implements UserController {
     public UserDetailsDTO newUser(@RequestBody LoginDTO loginData){
         return userService.newUserDTO(loginData.getEmail(), loginData.getPassword());
     }
-    // User Details Part
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserDetailsDTO showDetails(@PathVariable(name = "id") UUID id){
