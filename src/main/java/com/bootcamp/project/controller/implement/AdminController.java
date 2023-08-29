@@ -15,11 +15,16 @@ import java.util.UUID;
 @RequestMapping(name = "admin", value = "admin")
 public class AdminController {
     private final UserService userService;
-    @GetMapping("/users")
+    @GetMapping(value ="/users")
     public List<UserDetailsDTO> showAllUsers(){ return userService.showUsers(); }
     @GetMapping(value = "/users/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public User showDetails(@PathVariable(name = "id") UUID id){
         return userService.findUserDetailsByUserID(id);
+    }
+    @DeleteMapping(value = "/users/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUserByID(@PathVariable(name = "id") UUID id){
+        userService.deleteUserByID(id);
     }
 }
