@@ -7,5 +7,4 @@ import java.util.UUID;
 public interface TaskListController {
     Object showTaskLists(UUID uuid);
     Object newTaskList(UUID uuid, TaskList taskList);
-    Object tasksByID(Long id);
 }

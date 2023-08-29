@@ -1,6 +1,5 @@
 package com.bootcamp.project.repos;
 
-import com.bootcamp.project.model.Task;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

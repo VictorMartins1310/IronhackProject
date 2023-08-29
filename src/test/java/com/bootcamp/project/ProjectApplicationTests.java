@@ -1,8 +1,6 @@
 package com.bootcamp.project;
 
-import com.bootcamp.project.model.User;
 import com.bootcamp.project.repos.UserRepository;
-import com.bootcamp.project.service.UserService;
 import jdk.jfr.Name;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

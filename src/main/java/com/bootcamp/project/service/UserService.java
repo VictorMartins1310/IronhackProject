@@ -92,12 +92,11 @@ public class UserService implements UserDetailsService {
         User user = new User(uuid, email, password);
         if (qtyUsers() == 0) {
             return newAdmin(user);
-        } else {
-            User savedUser = save(user, "ROLE_USER");
-            TaskList taskList = new TaskList("First Task List", savedUser);
-            taskListRepo.save(taskList);
-            return savedUser;
         }
+        User savedUser = save(user, "ROLE_USER");
+        TaskList taskList = new TaskList("First Task List", savedUser);
+        taskListRepo.save(taskList);
+        return savedUser;
     }
     public UserDetailsDTO newUserDTO(String email, String password){
         return userDetailsMapper.toDto(newUser(email, password));

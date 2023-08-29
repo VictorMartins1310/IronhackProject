@@ -94,7 +94,4 @@ public class ShoppingListService {
         }else return false;
         return true;
     }
-    public void deactivateAutomatic(){
-
-    }
 }

@@ -31,6 +31,4 @@ public class TaskListControllerImpl implements TaskListController {
         User user = userService.getUser(uuid);
         return tasklistService.newTaskList(uuid, new TaskList(taskList.getTodoListName(), user));
     }
-    @GetMapping(value = "/user/userID/{taskLID}")
-    public List<Task> tasksByID(@PathVariable("taskLID") Long id) { return tasklistService.getAllTasksOfTaskList(id); }
 }
