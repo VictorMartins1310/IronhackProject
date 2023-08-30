@@ -1,5 +1,5 @@
 ### Add new ShoppingList with SuperMarket Penny
-POST http://localhost:8710/todolist/shoppinglist/user/{{UserID}}/new
+POST http://localhost:8710/todolist/shoppinglist/user/{{UserID}}
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
@@ -9,7 +9,7 @@ Authorization: Bearer {{Token}}
 }
 
 ### Add Coca Cola to Penny Shopping List
-POST http://localhost:8710/todolist/shoppinglist/2/products/new
+POST http://localhost:8710/todolist/shoppinglist/2/products
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
@@ -22,7 +22,7 @@ Authorization: Bearer {{Token}}
 }
 
 ### Add Bananas to Penny Shopping List
-POST http://localhost:8710/todolist/shoppinglist/2/products/new
+POST http://localhost:8710/todolist/shoppinglist/2/products
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
@@ -70,9 +70,13 @@ Authorization: Bearer {{Token}}
   "type": "Drink"
 }
 ### Get ALDI Shopping List
-GET http://localhost:8710/todolist/shoppinglist/3
+GET http://localhost:8710/todolist/shoppinglist/1
 Authorization: Bearer {{Token}}
 
 ### Get Penny Shopping List
 GET http://localhost:8710/todolist/shoppinglist/2
+Authorization: Bearer {{Token}}
+
+###
+PATCH http://localhost:8710/todolist/shoppinglist/products/1/update?product=merda
 Authorization: Bearer {{Token}}

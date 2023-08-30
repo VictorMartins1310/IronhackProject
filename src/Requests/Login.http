@@ -9,7 +9,7 @@ Content-Type: Application/json
 
 ### Login Normal User
 POST http://localhost:8710/login
-Content-Type: App
+Content-Type: Application/json
 
 {
   "email" : "User@mail.de",

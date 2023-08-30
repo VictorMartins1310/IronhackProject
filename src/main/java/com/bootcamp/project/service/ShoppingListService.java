@@ -20,56 +20,13 @@ public class ShoppingListService {
     private final ShoppingListRepository shoppingListRepository;
     // Services
     private final ProductService prodService;
-    private final ToDoListService todoService;
-    private final UserService userService;
-    //Mappers
-    private final ShoppingListMapper shoppingListMapper;
-    private final ProductMapper productMapper;
-
 
     public ShoppingList getShoppingList(Long id){
         return shoppingListRepository.getShoppingListByTodoListID(id).get();
     }
-    public ShoppingList newShoppingList(Long todoID, ShoppingList shoppingList){
-        ToDoList todo = todoService.getTodoListByID(todoID);
-        ShoppingList shopList = new ShoppingList(
-                todo.getTodoListName(),
-                todo.getUser(),
-                shoppingList.getMarketName());
-        return shoppingListRepository.save(shopList);
-    }
-    public ShoppingList newShoppingList(UUID uuid, ShoppingList shoppingList) {
-        User user = userService.getUser(uuid);
+    public ShoppingList newShoppingList(User user, ShoppingList shoppingList) {
         shoppingList.setUser(user);
         return shoppingListRepository.save(shoppingList);
-    }
-    public ShoppingListDTO newShoppingList(UUID uuid, ShoppingListDTO shoppingList) {
-        User user = userService.getUser(uuid);
-        ShoppingList shopList = shoppingListMapper.toEntity(shoppingList);
-        shopList.setUser(user);
-        shoppingListRepository.save(shopList);
-        return shoppingListMapper.toDto(shopList);
-    }
-    public List<ProductDTO> getAllProductsDTOOfShoppingList(Long shoppingID){
-        // TODO change to Dto?
-        ShoppingList shopList = shoppingListRepository.findById(shoppingID).get();
-        return shopList.getProducts().stream().map(productMapper::toDto).toList();
-    }
-    public List<Product> getAllProductsOfShoppingList(Long shoppingID){
-        // TODO change to Dto?
-        ShoppingList shopList = shoppingListRepository.findById(shoppingID).get();
-        return shopList.getProducts();
-    }
-    public ShoppingListDTO addProdut2List(Long shopID, ProductDTO prod){
-        ShoppingList todo;
-        if (shoppingListRepository.getShoppingListByTodoListID(shopID).isPresent()){
-            todo = shoppingListRepository.getShoppingListByTodoListID(shopID).get();
-            Product savedProd = prodService.newProduct(productMapper.toEntity(prod));
-            todo.addProduct(savedProd);
-            shoppingListRepository.save(todo);
-            return shoppingListMapper.toDto(todo);
-        } else
-            throw new ProjectException("Cannot find Shopping list");
     }
     public ShoppingList addProdut2List(Long shopID, Product prod){
         ShoppingList todo;
@@ -82,16 +39,13 @@ public class ShoppingListService {
             throw new ProjectException("Cannot find Shopping list");
     }
     /** Function that deletes a ShoppingList by ID and only if the list is deactivated */
-    public boolean deleteShoppingList(Long id){
-        var shop = shoppingListRepository.findById(id);
-        if (shop.isPresent()){
-            if (!shop.get().getActive()) {
-                for (Product product : shop.get().getProducts())
-                    shop.get().getProducts().remove(product);
-                shoppingListRepository.delete(shop.get());
-            }
-            else return false;
-        }else return false;
-        return true;
+    public void deleteShoppingLists(User user){
+        List<ShoppingList> shopLists = shoppingListRepository.findShoppingListsByUser(user);
+        if (!shopLists.isEmpty())
+            shoppingListRepository.deleteAll(shopLists);
+/*        if (!shopLists.isEmpty())
+            for(ShoppingList sh : shopLists)
+                shoppingListRepository.delete(sh);
+*/
     }
 }

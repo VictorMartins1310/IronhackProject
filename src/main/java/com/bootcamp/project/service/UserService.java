@@ -1,14 +1,10 @@
 package com.bootcamp.project.service;
 
-import com.bootcamp.project.dto.LoginDTO;
-import com.bootcamp.project.dto.UserDetailsDTO;
-import com.bootcamp.project.mappers.UserDetailsMapper;
-import com.bootcamp.project.mappers.LoginMapper;
 import com.bootcamp.project.model.Role;
+import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.repos.RoleRepository;
-import com.bootcamp.project.repos.TaskListRepository;
 import com.bootcamp.project.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,12 +23,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     // Repositories Section
-    private final TaskListRepository taskListRepo;
-    private final RoleRepository roleRepository;
     private final UserRepository userRepo;
-    // Mappers Section
-    private final UserDetailsMapper userDetailsMapper;
-    private final LoginMapper loginMapper;
+    private final RoleRepository roleRepository;
+    // Service Section
+    private final TaskListService taskListService;
+    private final ShoppingListService shoppingListService;
+
     /**  Injects a bean of type PasswordEncoder into this class.
      * The bean is used for encoding passwords before storing them.
      */
@@ -43,7 +39,7 @@ public class UserService implements UserDetailsService {
     /** Show all Users a funtion for a Admin
      * @return List of Users without Password
      */
-    public List<UserDetailsDTO> showUsers(){  return userRepo.findAll().stream().map(userDetailsMapper::toDto).toList(); }
+    public List<User> showUsers(){  return userRepo.findAll(); }
     /** This Function add new Role or get the Role by Name
      * @param name String
      * @return new Role
@@ -55,11 +51,12 @@ public class UserService implements UserDetailsService {
             return roleRepository.findByRole(name).get();
     }
 
-    public User getUserByUserEmail(String email){
+    public User getUserByEmail(String email){
         return userRepo.getUserByEmail(email);
     }
 
-    public User newAdmin(User user){
+    public User newAdmin(String email, String password){
+        User user = new User(email, password);
         return save(user, "ROLE_ADMIN");
     }
 
@@ -79,44 +76,18 @@ public class UserService implements UserDetailsService {
      */
     public User newUser(String email, String password){
         User user = new User(email, password);
-        if (qtyUsers() == 0) {
-            return newAdmin(user);
-        } else {
-            User savedUser = save(user, "ROLE_USER");
-            TaskList taskList = new TaskList("First Task List", savedUser);
-            taskListRepo.save(taskList);
-            return savedUser;
-        }
-    }
-    public User newUser(String uuid, String email, String password){
-        User user = new User(uuid, email, password);
-        if (qtyUsers() == 0) {
-            return newAdmin(user);
-        }
         User savedUser = save(user, "ROLE_USER");
         TaskList taskList = new TaskList("First Task List", savedUser);
-        taskListRepo.save(taskList);
+        taskListService.newTaskList(savedUser, taskList);
         return savedUser;
     }
-    public UserDetailsDTO newUserDTO(String email, String password){
-        return userDetailsMapper.toDto(newUser(email, password));
-    }
     public User getUser(UUID id){ return userRepo.getUserByUserID(id); }
-    public LoginDTO getUserDTO(UUID id){ return loginMapper.toDto(getUser(id)); }
     // UserDetails Section
-    public User findUserDetailsByUserID(UUID id){ return userRepo.getUserByUserID(id); }
-    public UserDetailsDTO findUserDetailsByUserIDDTO(UUID id){
-        return userDetailsMapper.toDto(findUserDetailsByUserID(id));
-        // TODO Change to UserDetails
-    }
-    public User updateDetails(UUID id, UserDetailsDTO details){
-        //TODO change to UserDetails
+    public User findByUserID(UUID id){ return userRepo.getUserByUserID(id); }
+    public User updateDetails(UUID id, User details){
         User userDetails = userRepo.getUserByUserID(id);
         userDetails.updateDetails(details.getEmail(), details.getFirstName(), details.getLastName(), details.getBirthDate());
         return userRepo.save(userDetails);
-    }
-    public UserDetailsDTO updateDetailsDTO(UUID id, UserDetailsDTO details){
-        return userDetailsMapper.toDto(updateDetails(id, details));
     }
     /** Loads the user by its username, in this case the email adress
      *
@@ -127,7 +98,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // Retrieve user with the given username
-        User user = userRepo.getUserByEmail(email);
+        User user = getUserByEmail(email);
         // Check if user exists
         if (user == null) {
             throw new UsernameNotFoundException("User not found in the database");
@@ -145,7 +116,9 @@ public class UserService implements UserDetailsService {
         userRepo.delete(user);
     }
     public void deleteUserByID(UUID userID){
-        User user = findUserDetailsByUserID(userID);
+        User user = findByUserID(userID);
+        taskListService.deleteTasksLists(user);
+        shoppingListService.deleteShoppingLists(user);
         deleteUser(user);
     }
 }

@@ -1,4 +1,4 @@
-###
+### Who I am?
 GET http://localhost:8710/users/me
 Authorization: Bearer {{Token}}
 
@@ -13,18 +13,17 @@ Authorization: Bearer {{Token}}
   "password" : "Victor"
 }
 ### Update Userdetails
-PATCH http://localhost:8710/users/{{UserID}}/d
+PATCH http://localhost:8710/users/{{UserID}}
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
 {
   "email" : "VictorMartins@mail.de",
-  "password" : "badPassword",
   "firstName" : "Victor",
   "lastName" : "Fernandes Martins",
-  "birthDate" : "1990-10-13"
+  "birthDate": "1987-10-13"
 }
 
 ### Get UserDetails by an ID
-GET http://localhost:8710/users/{{UserID}}/d
+GET http://localhost:8710/users/{{UserID}}
 Authorization: Bearer {{Token}}

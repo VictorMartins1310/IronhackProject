@@ -1,7 +1,6 @@
 package com.bootcamp.project.service;
 
 import com.bootcamp.project.exception.ProjectException;
-import com.bootcamp.project.mappers.ToDoListMapper;
 import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.repos.ToDoListRepository;
@@ -18,10 +17,8 @@ public class ToDoListService {
     private final ToDoListRepository toDoListRepository;
     // Service Section
     private final UserService userService;
-    // Mapper Section
-    private final ToDoListMapper toDoListMapper;
     public ToDoList newTodoList(UUID id, ToDoList todo) {
-        User user = userService.findUserDetailsByUserID(id);
+        User user = userService.findByUserID(id);
         ToDoList newTodoList = new ToDoList(todo.getTodoListName(), user);
         return toDoListRepository.save(newTodoList);
     }

@@ -1,4 +1,4 @@
-### Add new ShoppingList
+### Add new TaskList
 POST http://localhost:8710/todolist/tasklist/user/{{UserID}}/new
 Content-Type: Application/json
 Authorization: Bearer {{Token}}

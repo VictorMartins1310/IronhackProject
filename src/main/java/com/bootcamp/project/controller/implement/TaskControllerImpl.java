@@ -25,15 +25,12 @@ public class TaskControllerImpl implements TaskController {
     @GetMapping(value = "/{taskLID}/")
     @ResponseStatus(HttpStatus.OK)
     public List<Task> getAllTasksOfTaskList(@PathVariable("taskLID") Long taskID){
-        return taskListService.getAllTasksOfTaskList(taskID);
+        TaskList taskL = taskListService.getTaskListByID(taskID);
+        return taskService.getAllTasksOfTaskList(taskL);
     }
-
     @Override
     @PutMapping(value = "/{taskID}")
     public void taskDone(@PathVariable("taskID") Long idTask) {
         taskService.taskDone(idTask);
     }
-    @GetMapping(value = "/user/userID/{taskLID}/tasks")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Task> tasksByID(@PathVariable("taskLID") Long id) { return taskListService.getAllTasksOfTaskList(id); }
 }

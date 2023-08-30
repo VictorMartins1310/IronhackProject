@@ -9,4 +9,5 @@ import java.util.List;
 public interface TaskListRepository extends JpaRepository<TaskList, Long> {
     List<TaskList> findTaskListsByUser(User user);
     List<TaskList> findTaskListsByUserAndActiveIsTrue(User user);
+    TaskList findTaskListByTodoListID(Long ID);
 }

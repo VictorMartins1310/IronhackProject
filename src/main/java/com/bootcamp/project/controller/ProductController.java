@@ -7,5 +7,5 @@ public interface ProductController {
     Object addProduct(Long todoID, ProductDTO product);
     Object getAllProductsOfShoppingList(Long id);
     Object boughtProduct(Long idOfProduct, int qty);
-    Object updateProduct(Long idOfProduct);
+    Object updateProduct(Long idOfProduct, String name);
 }

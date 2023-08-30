@@ -1,10 +1,12 @@
 package com.bootcamp.project.service;
 
 import com.bootcamp.project.model.Product;
+import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.repos.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,4 +26,8 @@ public class ProductService {
         }
         return productRepository.save(product.get());
     }
+    public List<Product> getAllProductsOfShoppingList(ShoppingList shopList){
+        return shopList.getProducts();
+    }
+
 }

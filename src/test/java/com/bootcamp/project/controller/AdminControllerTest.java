@@ -40,9 +40,9 @@ public class AdminControllerTest {
     }
     @Test public void testGetAllUsers() throws Exception {
         UserDetailsMapper userDetailsMapper = new UserDetailsMapperImpl();
-        List<UserDetailsDTO> usersDtos = new ArrayList<>();
-        usersDtos.add(userDetailsMapper.toDto(new User("6692c7ab-347e-4a6d-8fbf-99bcbf2c9cdd","Admin@mail.de")));
-        usersDtos.add(userDetailsMapper.toDto(new User("6692c7ab-347e-4a6d-8fbf-99bcbf2c9cde","User@mail.de", "badPassword")));
+        List<User> usersDtos = new ArrayList<>();
+        usersDtos.add(new User("Admin@mail.de","badPassword"));
+        usersDtos.add(new User("User@mail.de", "badPassword"));
         when(userService.showUsers()).thenReturn(usersDtos);
 
         mockMvc.perform(get("/admin/users"))

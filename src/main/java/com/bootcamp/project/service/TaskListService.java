@@ -16,19 +16,15 @@ public class TaskListService {
     private final TaskListRepository taskListRepository;
     // Services
     private final TaskService taskService;
-    private final UserService userService;
 
-    public TaskList newTaskList(UUID userID, TaskList taskList){
-        User user = userService.getUser(userID);
+    public TaskList newTaskList(User user, TaskList taskList){
         return taskListRepository.save(new TaskList(taskList.getTodoListName(), user));
     }
-    public List<TaskList> getAllbyUser(UUID userID){
-        User user = userService.findUserDetailsByUserID(userID);
+    public List<TaskList> getTaksListsbyUser(User user){
         return taskListRepository.findTaskListsByUserAndActiveIsTrue(user);
     }
-    public List<Task> getAllTasksOfTaskList(Long taskID){
-        TaskList taskList = taskListRepository.findById(taskID).get();
-        return taskList.getTasks();
+    public TaskList getTaskListByID(Long id){
+        return taskListRepository.findTaskListByTodoListID(id);
     }
     public TaskList addTask2List(Long taskID, Task task){
         TaskList taskList;
@@ -40,17 +36,14 @@ public class TaskListService {
         } else
             throw new ProjectException("Cannot find Task list");
     }
-    /** Function that deletes a TaskList by ID and only if the list is deactivated */
-    public boolean deleteTaskList(Long id){
-        var taskList = taskListRepository.findById(id);
-        if (taskList.isPresent()){
-            if (!taskList.get().getActive()) {
-                for (Task task : taskList.get().getTasks())
-                    taskList.get().getTasks().remove(task);
-                taskListRepository.delete(taskList.get());
-            }
-            else return false;
-        }else return false;
-        return true;
+    /** Function that deletes a TaskList by ID */
+    public void deleteTasksLists(User user){
+        List<TaskList> taskLists = taskListRepository.findTaskListsByUser(user);
+        if (!taskLists.isEmpty())
+            taskListRepository.deleteAll(taskLists);
+/*        if (!taskLists.isEmpty())
+            for(TaskList tk : taskLists)
+                taskListRepository.delete(tk);
+*/
     }
 }

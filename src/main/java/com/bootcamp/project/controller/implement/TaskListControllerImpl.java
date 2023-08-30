@@ -1,7 +1,6 @@
 package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.TaskListController;
-import com.bootcamp.project.model.Task;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.TaskListService;
@@ -25,13 +24,14 @@ public class TaskListControllerImpl implements TaskListController {
     @ResponseStatus(HttpStatus.CREATED)
     public TaskList  newTaskList(@PathVariable("userID") UUID uuid, TaskList taskList){
         User user = userService.getUser(uuid);
-        return tasklistService.newTaskList(uuid, new TaskList(taskList.getTodoListName(), user));
+        return tasklistService.newTaskList(user, new TaskList(taskList.getTodoListName(), user));
     }
     /** Show all TaskLists by that an User have */
     @GetMapping(value = "/user/{userID}")
     @ResponseStatus(HttpStatus.OK)
     public List<TaskList> showTaskLists(@PathVariable("userID") UUID uuid){
-        return tasklistService.getAllbyUser(uuid);
+        User user = userService.getUser(uuid);
+        return tasklistService.getTaksListsbyUser(user);
     }
     @PatchMapping(value = "/{idtasklist}")
     @ResponseStatus(HttpStatus.OK)
