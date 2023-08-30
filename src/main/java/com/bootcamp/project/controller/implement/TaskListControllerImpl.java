@@ -7,6 +7,7 @@ import com.bootcamp.project.service.TaskListService;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,18 +20,17 @@ public class TaskListControllerImpl implements TaskListController {
     private final TaskListService tasklistService;
     private final UserService userService;
 
+    private final User user = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     /** Create an TaskList */
     @PostMapping(value = "/user/{userID}")
     @ResponseStatus(HttpStatus.CREATED)
     public TaskList  newTaskList(@PathVariable("userID") UUID uuid, TaskList taskList){
-        User user = userService.getUser(uuid);
         return tasklistService.newTaskList(user, new TaskList(taskList.getTodoListName(), user));
     }
     /** Show all TaskLists by that an User have */
     @GetMapping(value = "/user/{userID}")
     @ResponseStatus(HttpStatus.OK)
     public List<TaskList> showTaskLists(@PathVariable("userID") UUID uuid){
-        User user = userService.getUser(uuid);
         return tasklistService.getTaksListsbyUser(user);
     }
     @PatchMapping(value = "/{idtasklist}")
@@ -41,5 +41,6 @@ public class TaskListControllerImpl implements TaskListController {
     @DeleteMapping(value = "/{idtasklist}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteTaskList(@PathVariable("idtasklist") Long taskListID){
+
     }
 }

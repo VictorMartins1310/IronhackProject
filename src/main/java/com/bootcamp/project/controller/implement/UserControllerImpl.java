@@ -20,22 +20,28 @@ public class UserControllerImpl implements UserController {
     private final UserService userService;
 
     private final UserDetailsMapper userDetailsMapper;
+    private final User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDetailsDTO newUser(@RequestBody LoginDTO loginData){
         return userDetailsMapper.toDto(userService.newUser(loginData.getEmail(), loginData.getPassword()));
     }
-    @GetMapping(value = "/{id}")
+    @PatchMapping(value = "/register/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDetailsDTO showDetails(@PathVariable(name = "id") UUID id){
-        return userDetailsMapper.toDto(userService.findByUserID(id));
+    public UserDetailsDTO updateDetailsOnRegister(@RequestBody UserDetailsDTO userDetails){
+        return userDetailsMapper.toDto(userService.updateDetails(loggedUser.getUserID(), loggedUser));
     }
-    @PatchMapping(value = "/{id}")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public UserDetailsDTO updateDetails(@PathVariable(name = "id") UUID id, @RequestBody UserDetailsDTO userDetails){
-        User user = userDetailsMapper.toEntity(userDetails);
-        return userDetailsMapper.toDto(userService.updateDetails(id, user));
+    public UserDetailsDTO showDetails(){
+        return userDetailsMapper.toDto(loggedUser);
+    }
+    @PatchMapping
+    @ResponseStatus(HttpStatus.OK)
+    public UserDetailsDTO updateDetails(@RequestBody UserDetailsDTO userDetails){
+        User newUserDetails = userDetailsMapper.toEntity(userDetails);
+        return userDetailsMapper.toDto(userService.updateDetails(loggedUser.getUserID(), newUserDetails));
     }
     @GetMapping("/me")
     @ResponseStatus(HttpStatus.OK)

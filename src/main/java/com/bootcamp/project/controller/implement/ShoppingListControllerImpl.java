@@ -9,6 +9,7 @@ import com.bootcamp.project.service.ShoppingListService;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -20,10 +21,10 @@ public class ShoppingListControllerImpl implements ShoppingListController{
     private final ShoppingListService shoppingLService;
     private final UserService userService;
     private final ShoppingListMapper shoppingLMapper;
+    private final User user = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     @PostMapping(value = "/user/{userID}")
     @ResponseStatus(HttpStatus.CREATED)
     public ShoppingListDTO newShoppingList(@PathVariable("userID") UUID uuid, @RequestBody ShoppingListDTO newShoppingData){
-        User user = userService.getUser(uuid);
         ShoppingList shopList2save = shoppingLMapper.toEntity(newShoppingData);
         return shoppingLMapper.toDto(shoppingLService.newShoppingList(user, shopList2save));
     }

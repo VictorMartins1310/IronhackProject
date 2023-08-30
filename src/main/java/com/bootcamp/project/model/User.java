@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import javax.swing.text.DateFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
 
 import static jakarta.persistence.FetchType.EAGER;
@@ -23,7 +25,7 @@ public class User {
     // User Details
     private String firstName;
     private String lastName;
-    private String birthDate;
+    private String birthDate; // TODO Change to Date
 
     @ManyToMany(fetch = EAGER)
     private Collection<Role> roles = new ArrayList<>();
