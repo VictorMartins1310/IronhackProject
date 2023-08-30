@@ -1,5 +1,5 @@
 ### Add new TaskList
-POST http://localhost:8710/todolist/tasklist/user/{{UserID}}/new
+POST http://localhost:8710/todolist/tasklist/user
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 

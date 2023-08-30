@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.UUID;
 
 public interface ShoppingListController {
-    Object newShoppingList(UUID uuid, ShoppingListDTO shoppingList);
+    Object newShoppingList(ShoppingListDTO shoppingList);
     Object showShoppingList(Long id);
+    void updateShoppingList(Long id);
+    Object showShoppingLists();
 }

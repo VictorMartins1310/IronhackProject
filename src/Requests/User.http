@@ -13,7 +13,7 @@ Authorization: Bearer {{Token}}
   "password" : "Victor"
 }
 ### Update Userdetails
-PATCH http://localhost:8710/users/{{UserID}}
+PATCH http://localhost:8710/users
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
@@ -25,5 +25,5 @@ Authorization: Bearer {{Token}}
 }
 
 ### Get UserDetails by an ID
-GET http://localhost:8710/users/{{UserID}}
+GET http://localhost:8710/users
 Authorization: Bearer {{Token}}

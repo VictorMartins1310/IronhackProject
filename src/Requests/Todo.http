@@ -1,11 +1,11 @@
-### Get TODOLIST by ID
-GET http://localhost:8710/todolist/{{UserID}}
+### Get All TODOLIST
+GET http://localhost:8710/todolist
 Authorization: Bearer {{Token}}
 
 ### Get All ShoppingLists by User
-GET http://localhost:8710/todolist/shoppinglist/user/{{UserID}}
+GET http://localhost:8710/todolist/shoppinglist
 Authorization: Bearer {{Token}}
 
 ### Get All TaskLists by User
-GET http://localhost:8710/todolist/tasklist/user/{{UserID}}
+GET http://localhost:8710/todolist/tasklist
 Authorization: Bearer {{Token}}

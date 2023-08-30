@@ -13,29 +13,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RestController
 @RequiredArgsConstructor
+@RestController
 @RequestMapping(value = "todolist/tasklist")
 public class TaskListControllerImpl implements TaskListController {
     private final TaskListService tasklistService;
     private final UserService userService;
 
-    private final User user = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     /** Create an TaskList */
-    @PostMapping(value = "/user/{userID}")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskList  newTaskList(@PathVariable("userID") UUID uuid, TaskList taskList){
-        return tasklistService.newTaskList(user, new TaskList(taskList.getTodoListName(), user));
+    public TaskList  newTaskList(TaskList taskList){
+        User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        return tasklistService.newTaskList(loggedUser, new TaskList(taskList.getTodoListName(), loggedUser));
     }
     /** Show all TaskLists by that an User have */
-    @GetMapping(value = "/user/{userID}")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<TaskList> showTaskLists(@PathVariable("userID") UUID uuid){
-        return tasklistService.getTaksListsbyUser(user);
+    public List<TaskList> showTaskLists(){
+        User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        return tasklistService.getTaksListsbyUser(loggedUser);
     }
     @PatchMapping(value = "/{idtasklist}")
     @ResponseStatus(HttpStatus.OK)
     public TaskList updateTaskList(@PathVariable("idtasklist") Long taskListID){
+        User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         return null; // TODO
     }
     @DeleteMapping(value = "/{idtasklist}")

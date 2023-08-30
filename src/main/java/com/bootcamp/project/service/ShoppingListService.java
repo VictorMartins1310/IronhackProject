@@ -24,6 +24,9 @@ public class ShoppingListService {
     public ShoppingList getShoppingList(Long id){
         return shoppingListRepository.getShoppingListByTodoListID(id).get();
     }
+    public List<ShoppingList> getShoppingLists(User user){
+        return shoppingListRepository.findShoppingListsByUser(user);
+    }
     public ShoppingList newShoppingList(User user, ShoppingList shoppingList) {
         shoppingList.setUser(user);
         return shoppingListRepository.save(shoppingList);

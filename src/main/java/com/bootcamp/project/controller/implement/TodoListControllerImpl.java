@@ -11,19 +11,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-@RestController
 @RequiredArgsConstructor
+@RestController
 @RequestMapping(name = "todoList", value = "todolist")
 public class TodoListControllerImpl implements TodoListController {
     // On this Controller is not so much to do
     private final ToDoListService toDoListService;
-    private final UserService userService;;
-    private final User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    private final UserService userService;
+
+
     /** Method that show all Lists that an User haves */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ToDoList> getAllTodoList(){
+        User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         return toDoListService.findAllByUser(loggedUser.getUserID());
     }
 }

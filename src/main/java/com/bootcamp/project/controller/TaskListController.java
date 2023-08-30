@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.UUID;
 
 public interface TaskListController {
-    Object newTaskList(UUID uuid, TaskList taskList);
-    Object showTaskLists(UUID uuid);
+    Object newTaskList(TaskList taskList);
+    Object showTaskLists();
     Object updateTaskList(Long taskListID);
     void deleteTaskList(Long taskListID);
 }
