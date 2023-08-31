@@ -19,8 +19,17 @@ public class TaskService {
     public Task newTask(Task task){ return taskRepository.save(task); }
     public void taskDone(Long id){
         Optional<Task> task = taskRepository.findById(id);
-        if (task.isPresent())
-            taskRepository.delete(task.get());
+        if (task.isPresent()) {
+            task.get().taskDone();
+            taskRepository.save(task.get());
+        }
+    }
+    public void updateTaskName(Long id, String name){
+        Optional<Task> task = taskRepository.findById(id);
+        if (task.isPresent()){
+            task.get().setTask(name);
+            taskRepository.save(task.get());
+        }
     }
     public List<Task> getAllTasksOfTaskList(TaskList taskList){
         return taskList.getTasks();

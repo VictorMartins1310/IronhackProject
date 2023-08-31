@@ -22,8 +22,8 @@ public class ShoppingList extends ToDoList{
             total = total.add(prod.totalPrice());
         return total;
     }
-    public ShoppingList(String todoListName, User user, String marketName) {
-        super(todoListName, user);
+    public ShoppingList(User user, String marketName) {
+        super("Shopping List " + marketName, user);
         this.marketName = marketName;
     }
 }

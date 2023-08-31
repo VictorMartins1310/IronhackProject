@@ -1,11 +1,11 @@
-### Get All TODOLIST
+### Get All TODOLIST (Logged In)
 GET http://localhost:8710/todolist
 Authorization: Bearer {{Token}}
 
-### Get All ShoppingLists by User
+### Get All ShoppingLists (Logged In)
 GET http://localhost:8710/todolist/shoppinglist
 Authorization: Bearer {{Token}}
 
-### Get All TaskLists by User
+### Get All TaskLists (Logged In)
 GET http://localhost:8710/todolist/tasklist
 Authorization: Bearer {{Token}}

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,19 +27,21 @@ public class ShoppingListControllerImpl implements ShoppingListController{
     @ResponseStatus(HttpStatus.CREATED)
     public ShoppingListDTO newShoppingList(@RequestBody ShoppingListDTO newShoppingData){
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        ShoppingList shopList2save = shoppingLMapper.toEntity(newShoppingData);
-        return shoppingLMapper.toDto(shoppingLService.newShoppingList(loggedUser, shopList2save));
+        return shoppingLMapper.toDto(shoppingLService.newShoppingList(loggedUser, newShoppingData.getMarketName()));
     }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ShoppingList> showShoppingLists(){
+    public List<ShoppingListDTO> showShoppingLists(){
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return shoppingLService.getShoppingLists(loggedUser);
+        List<ShoppingListDTO> shoppingListsDTO = new ArrayList<>();
+        for (ShoppingList shopL : shoppingLService.getShoppingLists(loggedUser))
+            shoppingListsDTO.add(shoppingLMapper.toDto(shopL));
+        return shoppingListsDTO;
     }
     @GetMapping(value = "/{shoppingLID}")
     @ResponseStatus(HttpStatus.OK)
-    public ShoppingList showShoppingList(@PathVariable("shoppingLID") Long id){
-        return shoppingLService.getShoppingList(id);
+    public ShoppingListDTO showShoppingList(@PathVariable("shoppingLID") Long id){
+        return shoppingLMapper.toDto(shoppingLService.getShoppingList(id));
     }
     @PatchMapping(value = "/{shoppingLID}")
     @ResponseStatus(HttpStatus.OK)

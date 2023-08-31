@@ -1,17 +1,15 @@
 package com.bootcamp.project.service;
 
-import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.exception.ProjectException;
-import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.ShoppingListMapper;
 import com.bootcamp.project.model.*;
 import com.bootcamp.project.repos.ShoppingListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,14 +19,16 @@ public class ShoppingListService {
     // Services
     private final ProductService prodService;
 
+    private final ShoppingListMapper shoppingListMapper;
+
     public ShoppingList getShoppingList(Long id){
         return shoppingListRepository.getShoppingListByTodoListID(id).get();
     }
     public List<ShoppingList> getShoppingLists(User user){
         return shoppingListRepository.findShoppingListsByUser(user);
     }
-    public ShoppingList newShoppingList(User user, ShoppingList shoppingList) {
-        shoppingList.setUser(user);
+    public ShoppingList newShoppingList(User user, String marketName) {
+        ShoppingList shoppingList = new ShoppingList(user, marketName);
         return shoppingListRepository.save(shoppingList);
     }
     public ShoppingList addProdut2List(Long shopID, Product prod){

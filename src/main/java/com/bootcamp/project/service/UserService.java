@@ -1,11 +1,11 @@
 package com.bootcamp.project.service;
 
 import com.bootcamp.project.model.Role;
-import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.repos.RoleRepository;
 import com.bootcamp.project.repos.UserRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

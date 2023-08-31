@@ -1,6 +1,5 @@
 package com.bootcamp.project.controller.implement;
 
-import com.bootcamp.project.mappers.UserDetailsMapper;
 import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
@@ -17,7 +16,6 @@ import java.util.UUID;
 public class AdminController {
     private final UserService userService;
 
-    private final UserDetailsMapper userDetailsMapper;
     /** Save a new role
      * @param role role to be saved
      */

@@ -1,9 +1,34 @@
 ### Add new TaskList
-POST http://localhost:8710/todolist/tasklist/user
+POST http://localhost:8710/todolist/tasklist
+Authorization: Bearer {{Token}}
+Content-Type: Application/json
+
+{
+  "todoListName": "TaskList HomeWork KAKKK"
+}
+
+### Add Task to TaskList
+POST http://localhost:8710/todolist/tasklist/1
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
 {
-  "todoListName": "TaskList HomeWork"
+  "task": "Work"
 
 }
+
+### Add Task to TaskList
+PATCH http://localhost:8710/todolist/tasklist/2?tklname=Foda-se pro caralho
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+
+### Task Done
+PATCH http://localhost:8710/todolist/tasklist/task/1/done
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+### Task Done
+PATCH http://localhost:8710/todolist/tasklist/task/1?tname=Updated Task Name
+Content-Type: Application/json
+Authorization: Bearer {{Token}}

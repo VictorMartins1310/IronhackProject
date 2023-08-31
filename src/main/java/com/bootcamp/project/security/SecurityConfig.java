@@ -75,6 +75,7 @@ public class SecurityConfig {
                 .requestMatchers(GET, "/users").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(POST, "/users").permitAll()
                 .requestMatchers(GET, "/todolist").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(GET, "/todolist/tasklist").hasAnyAuthority("ROLE_USER")
                 .anyRequest().authenticated());
         // add the custom authentication filter to the http security object
         http.addFilter(customAuthenticationFilter);

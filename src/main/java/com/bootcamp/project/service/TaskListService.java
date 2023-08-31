@@ -36,6 +36,11 @@ public class TaskListService {
         } else
             throw new ProjectException("Cannot find Task list");
     }
+    public TaskList updateTaskList(Long id, String newName){
+        TaskList taskList = taskListRepository.findTaskListByTodoListID(id);
+        taskList.setTodoListName(newName);
+        return taskListRepository.save(taskList);
+    }
     /** Function that deletes a TaskList by ID */
     public void deleteTasksLists(User user){
         List<TaskList> taskLists = taskListRepository.findTaskListsByUser(user);

@@ -1,5 +1,5 @@
 ### Add new ShoppingList with SuperMarket Penny
-POST http://localhost:8710/todolist/shoppinglist/user/{{UserID}}
+POST http://localhost:8710/todolist/shoppinglist
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
@@ -36,7 +36,7 @@ Authorization: Bearer {{Token}}
 
 
 ### Add new ShoppingList with SuperMarket ALDI
-POST http://localhost:8710/todolist/shoppinglist/user/{{UserID}}/new
+POST http://localhost:8710/todolist/shoppinglist
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
@@ -46,7 +46,7 @@ Authorization: Bearer {{Token}}
 }
 
 ### Add Super Bock to ALDI Shopping List
-POST http://localhost:8710/todolist/shoppinglist/3/products/new
+POST http://localhost:8710/todolist/shoppinglist/3/products
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
@@ -58,7 +58,7 @@ Authorization: Bearer {{Token}}
   "type": "Drink"
 }
 ### Add Pringles to ALDI Shopping List
-POST http://localhost:8710/todolist/shoppinglist/3/products/new
+POST http://localhost:8710/todolist/shoppinglist/3/products
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
@@ -70,13 +70,9 @@ Authorization: Bearer {{Token}}
   "type": "Drink"
 }
 ### Get ALDI Shopping List
-GET http://localhost:8710/todolist/shoppinglist/1
+GET http://localhost:8710/todolist/shoppinglist/3
 Authorization: Bearer {{Token}}
 
 ### Get Penny Shopping List
-GET http://localhost:8710/todolist/shoppinglist/2
-Authorization: Bearer {{Token}}
-
-###
-PATCH http://localhost:8710/todolist/shoppinglist/products/1/update?product=merda
+GET http://localhost:8710/todolist/shoppinglist/3
 Authorization: Bearer {{Token}}

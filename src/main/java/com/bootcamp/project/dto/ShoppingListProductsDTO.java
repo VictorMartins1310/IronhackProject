@@ -10,7 +10,8 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ShoppingListDTO extends ToDoListDTO{
+public class ShoppingListProductsDTO extends ToDoListDTO{
     @Max(message = "Reached Maximum of (64) Characters", value = 64)
     private String marketName;
+    private List<Product> products = new ArrayList<>();
 }

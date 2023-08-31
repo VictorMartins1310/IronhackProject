@@ -9,7 +9,6 @@ import com.bootcamp.project.model.Product;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.service.ProductService;
 import com.bootcamp.project.service.ShoppingListService;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

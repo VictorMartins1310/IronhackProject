@@ -22,16 +22,7 @@ public class Product {
     private int qty;
     private ProductType type;
     /** True means products bought, False means to be buyed */
-    private Boolean status;
-
-    public Product(String name, String brand, BigDecimal price, int qty, ProductType type) {
-        this.name = name;
-        this.brand = brand;
-        this.price = price;
-        this.qty = qty;
-        this.type = type;
-        this.status = false;
-    }
+    private Boolean status = false;
 
     public Boolean productBought(int qty){
         this.qty -= qty;
