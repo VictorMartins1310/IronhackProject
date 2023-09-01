@@ -86,6 +86,11 @@ public class UserService implements UserDetailsService {
             throw new ProjectException("User Not Found");
         return userRepo.getUserByUserID(id).get();
     }
+    public User findByUserEmail(String email){
+        if (userRepo.getUserByEmail(email).isEmpty())
+            throw new ProjectException("User Not Found");
+        return userRepo.getUserByEmail(email).get();
+    }
     public User updateDetails(UUID id, User details){
         if (userRepo.getUserByUserID(id).isEmpty())
             throw new ProjectException("User Not Found");
