@@ -32,7 +32,7 @@ public class TaskListControllerImpl implements TaskListController {
 //        return taskListMapper.toDto(taskList);
         return taskListMapper.toDto(taskListService.newTaskList(loggedUser, new TaskList(taskListDTO.getTodoListName(), loggedUser)));
     }
-    /** Show all TaskLists by that an User have */
+    /** Show all TaskLists by that a User have */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<TaskListDTO> showTaskLists(){

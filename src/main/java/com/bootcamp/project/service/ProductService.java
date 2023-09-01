@@ -1,13 +1,12 @@
 package com.bootcamp.project.service;
 
+import com.bootcamp.project.exception.ProjectException;
 import com.bootcamp.project.model.Product;
-import com.bootcamp.project.model.ProductType;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.repos.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +21,7 @@ public class ProductService {
     public Product productsBought(Long id, int qty) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isEmpty())
-            return null;
+            throw new ProjectException("Product not Fount");
         if (product.get().productBought(qty)) {
             productRepository.delete(product.get());
             return null;

@@ -20,7 +20,7 @@ public class TodoListControllerImpl implements TodoListController {
     private final UserService userService;
 
 
-    /** Method that show all Lists that an User haves */
+    /** Method that show all Lists that a User haves */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ToDoList> getAllTodoList(){
