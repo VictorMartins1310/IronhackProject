@@ -15,8 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
     /**
@@ -72,10 +71,22 @@ public class SecurityConfig {
                 .requestMatchers("/swagger-ui/**").permitAll() //TODO verify how to make it work with security
                 .requestMatchers("/admin/users").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(GET, "/users/me").permitAll()
-                .requestMatchers(GET, "/users").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(POST, "/users").permitAll()
+
+                .requestMatchers(GET, "/users").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(PATCH, "/users").hasAnyAuthority("ROLE_USER")
+
                 .requestMatchers(GET, "/todolist").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(GET, "/todolist/tasklist").hasAnyAuthority("ROLE_USER")
+
+                .requestMatchers(GET, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(POST, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(PATCH, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
+
+                .requestMatchers(GET, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(POST, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(PATCH, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
+
+
                 .anyRequest().authenticated());
         // add the custom authentication filter to the http security object
         http.addFilter(customAuthenticationFilter);

@@ -2,10 +2,33 @@
 GET http://localhost:8710/todolist
 Authorization: Bearer {{Token}}
 
+### Get All TaskLists (Logged In)
+GET http://localhost:8710/todolist/tasklist
+Authorization: Bearer {{Token}}
+
+### New TaskList to Logged In User
+POST http://localhost:8710/todolist/tasklist
+Authorization: Bearer {{Token}}
+Content-Type: Application/json
+
+{
+  "todoListName": "Test Task LIST"
+}
+
+### New ShoppingList to Logged In User
+POST http://localhost:8710/todolist/shoppinglist
+Authorization: Bearer {{Token}}
+Content-Type: Application/json
+
+{
+  "marketName": "NETTO"
+}
+
 ### Get All ShoppingLists (Logged In)
 GET http://localhost:8710/todolist/shoppinglist
 Authorization: Bearer {{Token}}
 
-### Get All TaskLists (Logged In)
-GET http://localhost:8710/todolist/tasklist
+
+### Update First ShoppingList to Logged In User
+PATCH http://localhost:8710/todolist/shoppinglist/2?market=Ok Shop
 Authorization: Bearer {{Token}}

@@ -85,7 +85,7 @@ public class UserService implements UserDetailsService {
     // UserDetails Section
     public User findByUserID(UUID id){ return userRepo.getUserByUserID(id); }
     public User updateDetails(UUID id, User details){
-        User userDetails = userRepo.getUserByUserID(id);
+        User userDetails =  userRepo.getUserByUserID(id);
         userDetails.updateDetails(details.getEmail(), details.getFirstName(), details.getLastName(), details.getBirthDate());
         return userRepo.save(userDetails);
     }

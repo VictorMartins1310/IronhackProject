@@ -9,11 +9,11 @@ Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
 {
-  "email" : "Stupid@mail.de",
+  "email" : "TestUser@mail.de",
   "password" : "Victor"
 }
 ### Update Userdetails
-PATCH http://localhost:8710/users
+PATCH http://localhost:8710/users/register/
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
@@ -24,6 +24,6 @@ Authorization: Bearer {{Token}}
   "birthDate": "1987-10-13"
 }
 
-### Get UserDetails by an ID
+### Get UserDetails by an Token
 GET http://localhost:8710/users
 Authorization: Bearer {{Token}}

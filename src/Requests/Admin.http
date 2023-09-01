@@ -7,6 +7,18 @@ Authorization: Bearer {{Token}}
 
 ROLE TEST
 
+### Update User Details (Admin)
+PATCH http://localhost:8710/users
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "email": "Admin@mail.de",
+  "firstName" : "Victor",
+  "lastName": "Martins",
+  "birthDate" : "1997-10-13"
+}
+
 ### Add an User
 POST http://localhost:8710/users/register
 Content-Type: Application/json

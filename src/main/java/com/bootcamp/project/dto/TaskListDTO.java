@@ -10,5 +10,5 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class TaskListDTO extends ToDoListDTO{
-    private List<Task> tasks = new ArrayList<>();
+    //private List<Task> tasks = new ArrayList<>();
 }

@@ -31,6 +31,14 @@ public class ShoppingListService {
         ShoppingList shoppingList = new ShoppingList(user, marketName);
         return shoppingListRepository.save(shoppingList);
     }
+
+    public void updateShoppingList(Long id, String shplname, String marketName){
+        ShoppingList shoppingList = shoppingListRepository.findById(id).get();
+        shoppingList.setTodoListName(shplname);
+        shoppingList.setMarketName(marketName);
+        shoppingListRepository.save(shoppingList);
+    }
+
     public ShoppingList addProdut2List(Long shopID, Product prod){
         ShoppingList todo;
         if (shoppingListRepository.getShoppingListByTodoListID(shopID).isPresent()){
