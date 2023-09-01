@@ -1,8 +1,6 @@
 package com.bootcamp.project.controller;
 
 import com.bootcamp.project.dto.TaskDTO;
-import com.bootcamp.project.model.Task;
-import org.springframework.web.bind.annotation.PathVariable;
 
 public interface TaskController {
     Object addTask(Long todoID, TaskDTO taskDTO);

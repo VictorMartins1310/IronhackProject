@@ -1,15 +1,11 @@
 package com.bootcamp.project.service;
 
-import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.exception.ProjectException;
-import com.bootcamp.project.mappers.ShoppingListMapper;
 import com.bootcamp.project.model.*;
 import com.bootcamp.project.repos.ShoppingListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,14 +16,15 @@ public class ShoppingListService {
     private final ShoppingListRepository shoppingListRepository;
     // Services
     private final ProductService prodService;
-
-    private final ShoppingListMapper shoppingListMapper;
-
     public ShoppingList getShoppingList(Long id) {
+        if (shoppingListRepository.getShoppingListByTodoListID(id).isEmpty())
+            throw new ProjectException("Shopping List " + id + " Not Found");
         return shoppingListRepository.getShoppingListByTodoListID(id).get();
     }
 
     public List<ShoppingList> getShoppingLists(User user) {
+        if (shoppingListRepository.findShoppingListsByUser(user).isEmpty())
+            throw new ProjectException("Shopping List Not Found");
         return shoppingListRepository.findShoppingListsByUser(user);
     }
 
@@ -37,6 +34,8 @@ public class ShoppingListService {
     }
 
     public void updateShoppingList(Long id, String shplname, String marketName) {
+        if (shoppingListRepository.findById(id).isEmpty())
+            throw new ProjectException("Shopping List " + id + " Not Found");
         ShoppingList shoppingList = shoppingListRepository.findById(id).get();
         shoppingList.setTodoListName(shplname);
         shoppingList.setMarketName(marketName);
