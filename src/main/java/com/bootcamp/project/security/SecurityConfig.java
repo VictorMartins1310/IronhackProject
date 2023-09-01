@@ -76,15 +76,15 @@ public class SecurityConfig {
                 .requestMatchers(GET, "/users").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(PATCH, "/users").hasAnyAuthority("ROLE_USER")
 
-                .requestMatchers(GET, "/todolist").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(GET, "/todolist/**").hasAnyAuthority("ROLE_USER")
 
-                .requestMatchers(GET, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(POST, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(PATCH, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
+//                .requestMatchers(GET, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
+//                .requestMatchers(POST, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
+//                .requestMatchers(PATCH, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
 
-                .requestMatchers(GET, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(POST, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(PATCH, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
+//                .requestMatchers(GET, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
+//                .requestMatchers(POST, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
+//                .requestMatchers(PATCH, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
 
 
                 .anyRequest().authenticated());

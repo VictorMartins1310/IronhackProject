@@ -28,7 +28,7 @@ public class ToDoListService {
         return toDoListRepository.findById(todoID).get();
     }
     public List<ToDoList> findAllByUser(UUID userID){
-        User user = userService.getUser(userID);
+        User user = userService.findByUserID(userID);
         if (toDoListRepository.findAllByUser(user).isEmpty()) {
             throw new ProjectException("0 Todo Lists Found");
         }

@@ -28,8 +28,9 @@ public class TaskListControllerImpl implements TaskListController {
     @ResponseStatus(HttpStatus.CREATED)
     public TaskListDTO newTaskList(@RequestBody TaskListDTO taskListDTO){
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        TaskList taskList = taskListService.newTaskList(loggedUser, new TaskList(taskListDTO.getTodoListName(), loggedUser));
-        return taskListMapper.toDto(taskList);
+//        TaskList taskList = taskListService.newTaskList(loggedUser, new TaskList(taskListDTO.getTodoListName(), loggedUser));
+//        return taskListMapper.toDto(taskList);
+        return taskListMapper.toDto(taskListService.newTaskList(loggedUser, new TaskList(taskListDTO.getTodoListName(), loggedUser)));
     }
     /** Show all TaskLists by that an User have */
     @GetMapping
@@ -45,7 +46,7 @@ public class TaskListControllerImpl implements TaskListController {
     }
     @DeleteMapping(value = "/{idtasklist}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTaskList(@PathVariable("idtasklist") Long taskListID){
-
+    public Boolean deleteTaskList(@PathVariable("idtasklist") Long taskListID){
+        return taskListService.deleteTasksLists(taskListID);
     }
 }

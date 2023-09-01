@@ -30,5 +30,5 @@ Authorization: Bearer {{Token}}
 }
 
 ### Delete User
-DELETE http://localhost:8710/admin/users/8ae3da39-7e4b-477b-afb5-31a3a65cb2bb
+DELETE http://localhost:8710/admin/users/c863651c-4a0a-4988-89f9-6a4bd2085ae3
 Authorization: Bearer {{Token}}

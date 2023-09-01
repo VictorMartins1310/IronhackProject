@@ -8,5 +8,5 @@ public interface TaskController {
     Object addTask(Long todoID, TaskDTO taskDTO);
     Object getAllTasksOfTaskList(Long id);
     void taskDone(Long id);
-    void updateTask(Long idTask, String taskName);
+    Object updateTask(Long idTask, String taskName);
 }

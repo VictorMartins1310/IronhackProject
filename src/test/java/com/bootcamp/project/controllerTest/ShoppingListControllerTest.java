@@ -1,4 +1,4 @@
-package com.bootcamp.project.controller;
+package com.bootcamp.project.controllerTest;
 
 import com.bootcamp.project.controller.implement.ShoppingListControllerImpl;
 import com.bootcamp.project.dto.ShoppingListDTO;
@@ -48,34 +48,9 @@ public class ShoppingListControllerTest {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    @DisplayName("Test: Get All Shoppinglists")
-    @WithMockUser(username = "testUser", roles = "USER")
-    @Test public void testGetAllShoppingLists() throws Exception {
-        Long shopID = 13L;
-        User user = new User("User@mail.de", "badPassword");
-
-        String shopname = "Test";
-
-        ShoppingList shoppingList = new ShoppingList(user, shopname);
-        shoppingList.setTodoListID(shopID);
-        List<ShoppingList> shoppingLists = new ArrayList<>();
-        shoppingLists.add(shoppingList);
-
-        ShoppingListDTO shoppingListDTO = new ShoppingListDTO();
-        shoppingListDTO.setMarketName(shopname);
-        List<ShoppingListDTO> shoppingListDTOs = new ArrayList<>();
-        shoppingLists.add(shoppingList);
-
-
-        when(shoppingListService.getShoppingLists(user)).thenReturn(shoppingLists);
-
-        mockMvc.perform(get("/todolist/shoppinglist"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTOs)));
-    }
     @DisplayName("Test: Create Shopping List")
     @WithMockUser(username = "testUser", roles = "USER")
-    @Test public void testCreate() throws Exception {
+    @Test public void testCreateShoppingList() throws Exception {
         Long shopID = 1L;
         User user = new User("User@mail.de", "badPassword");
 
@@ -104,4 +79,31 @@ public class ShoppingListControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(shoppingListDTO2)));
     }
+    @DisplayName("Test: Get All Shoppinglists")
+    @WithMockUser(username = "testUser", roles = "USER")
+    @Test public void testGetAllShoppingLists() throws Exception {
+        Long shopID = 13L;
+        User user = new User("User@mail.de", "badPassword");
+
+        String shopname = "Test";
+
+        ShoppingList shoppingList = new ShoppingList(user, shopname);
+        shoppingList.setTodoListID(shopID);
+        List<ShoppingList> shoppingLists = new ArrayList<>();
+        shoppingLists.add(shoppingList);
+
+        ShoppingListDTO shoppingListDTO = new ShoppingListDTO();
+        shoppingListDTO.setMarketName(shopname);
+        List<ShoppingListDTO> shoppingListDTOs = new ArrayList<>();
+        shoppingLists.add(shoppingList);
+
+
+        when(shoppingListService.getShoppingLists(user)).thenReturn(shoppingLists);
+
+        mockMvc.perform(get("/todolist/shoppinglist"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTOs)));
+    }
+
+    // TODO Implemente Update
 }

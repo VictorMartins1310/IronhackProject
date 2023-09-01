@@ -28,7 +28,13 @@ PATCH http://localhost:8710/todolist/tasklist/task/1/done
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
-### Task Done
+### Task Update
 PATCH http://localhost:8710/todolist/tasklist/task/1?tname=Updated Task Name
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
+
+### DELETE Task List
+DELETE http://localhost:8710/todolist/tasklist/4
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+

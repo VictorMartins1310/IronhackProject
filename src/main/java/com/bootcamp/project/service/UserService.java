@@ -1,11 +1,11 @@
 package com.bootcamp.project.service;
 
+import com.bootcamp.project.exception.ProjectException;
 import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.repos.RoleRepository;
 import com.bootcamp.project.repos.UserRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,10 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +33,7 @@ public class UserService implements UserDetailsService {
     // Method Section
     public long qtyUsers(){ return userRepo.count(); }
 
-    /** Show all Users a funtion for a Admin
+    /** Show all Users a funtion for an Admin
      * @return List of Users without Password
      */
     public List<User> showUsers(){  return userRepo.findAll(); }
@@ -52,7 +49,9 @@ public class UserService implements UserDetailsService {
     }
 
     public User getUserByEmail(String email){
-        return userRepo.getUserByEmail(email);
+        if (userRepo.getUserByEmail(email).isEmpty())
+            throw new ProjectException("User Not Found");
+        return userRepo.getUserByEmail(email).get();
     }
 
     public User newAdmin(String email, String password){
@@ -67,8 +66,8 @@ public class UserService implements UserDetailsService {
     }
 
     /** Creates a new User
-     * In case dont exist an User it will create an User with ADMIN ROLE
-     * Otherwise it creates an User with an Default TaskList and USER ROLE
+     * In case don't exist a User it will create a User with ADMIN ROLE
+     * Otherwise it creates a User with a Default TaskList and USER ROLE
 
      * @param email String
      * @param password String
@@ -81,11 +80,16 @@ public class UserService implements UserDetailsService {
         taskListService.newTaskList(savedUser, taskList);
         return savedUser;
     }
-    public User getUser(UUID id){ return userRepo.getUserByUserID(id); }
     // UserDetails Section
-    public User findByUserID(UUID id){ return userRepo.getUserByUserID(id); }
+    public User findByUserID(UUID id){
+        if (userRepo.getUserByUserID(id).isEmpty())
+            throw new ProjectException("User Not Found");
+        return userRepo.getUserByUserID(id).get();
+    }
     public User updateDetails(UUID id, User details){
-        User userDetails =  userRepo.getUserByUserID(id);
+        if (userRepo.getUserByUserID(id).isEmpty())
+            throw new ProjectException("User Not Found");
+        User userDetails =  userRepo.getUserByUserID(id).get();
         userDetails.updateDetails(details.getEmail(), details.getFirstName(), details.getLastName(), details.getBirthDate());
         return userRepo.save(userDetails);
     }
@@ -115,10 +119,11 @@ public class UserService implements UserDetailsService {
     public void deleteUser(User user){
         userRepo.delete(user);
     }
-    public void deleteUserByID(UUID userID){
+    public Boolean deleteUserByID(UUID userID){
         User user = findByUserID(userID);
         taskListService.deleteTasksLists(user);
         shoppingListService.deleteShoppingLists(user);
         deleteUser(user);
+        return true;
     }
 }

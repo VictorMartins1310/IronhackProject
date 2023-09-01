@@ -7,4 +7,5 @@ public interface ShoppingListController {
     Object showShoppingList(Long id);
     void updateShoppingList(Long id,String shplname, String marketName);
     Object showShoppingLists();
+    Boolean deleteShoppingList(Long id);
 }

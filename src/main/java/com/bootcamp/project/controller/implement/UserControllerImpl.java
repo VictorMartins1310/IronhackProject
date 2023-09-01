@@ -39,18 +39,18 @@ public class UserControllerImpl implements UserController {
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         return userDetailsMapper.toDto(userService.updateDetails(loggedUser.getUserID(), userDetailsMapped));
     }
+    /** This method was created for testing */
+    @PatchMapping(value = "/register/detailsT")
+    @ResponseStatus(HttpStatus.OK)
+    public UserDetailsDTO updateDetailsOnRegisterTest(@RequestBody User userDetails){
+        return userDetailsMapper.toDto(userService.updateDetails(userDetails.getUserID(), userDetails));
+    }
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
     public UserDetailsDTO updateDetails(@RequestBody UserDetailsDTO userDetails){
         User userDetailsMapped = userDetailsMapper.toEntity(userDetails);
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         return userDetailsMapper.toDto(userService.updateDetails(loggedUser.getUserID(), userDetailsMapped));
-    }
-    /** This method was created for testing */
-    @PatchMapping(value = "/register/detailsT")
-    @ResponseStatus(HttpStatus.OK)
-    public UserDetailsDTO updateDetailsOnRegisterTest(@RequestBody User userDetails){
-        return userDetailsMapper.toDto(userService.updateDetails(userDetails.getUserID(), userDetails));
     }
     @GetMapping("/me")
     @ResponseStatus(HttpStatus.OK)

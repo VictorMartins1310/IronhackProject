@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,7 +25,9 @@ public class TaskListService {
         return taskListRepository.findTaskListsByUserAndActiveIsTrue(user);
     }
     public TaskList getTaskListByID(Long id){
-        return taskListRepository.findTaskListByTodoListID(id);
+        if (taskListRepository.findTaskListByTodoListID(id).isEmpty())
+            throw new ProjectException("Task List " + id + " Not Found");
+        return taskListRepository.findTaskListByTodoListID(id).get();
     }
     public TaskList addTask2List(Long taskID, Task task){
         TaskList taskList;
@@ -37,7 +40,9 @@ public class TaskListService {
             throw new ProjectException("Cannot find Task list");
     }
     public TaskList updateTaskList(Long id, String newName){
-        TaskList taskList = taskListRepository.findTaskListByTodoListID(id);
+        if (taskListRepository.findTaskListByTodoListID(id).isEmpty())
+            throw new ProjectException("Task List " + id + " Not Found");
+        TaskList taskList = taskListRepository.findTaskListByTodoListID(id).get();
         taskList.setTodoListName(newName);
         return taskListRepository.save(taskList);
     }
@@ -46,9 +51,12 @@ public class TaskListService {
         List<TaskList> taskLists = taskListRepository.findTaskListsByUser(user);
         if (!taskLists.isEmpty())
             taskListRepository.deleteAll(taskLists);
-/*        if (!taskLists.isEmpty())
-            for(TaskList tk : taskLists)
-                taskListRepository.delete(tk);
-*/
+    }
+    public Boolean deleteTasksLists(Long id){
+        Optional<TaskList> taskList = taskListRepository.findById(id);
+        if (taskList.isPresent())
+            taskListRepository.delete(taskList.get());
+        else return false;
+        return true;
     }
 }
