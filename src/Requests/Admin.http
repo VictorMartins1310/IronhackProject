@@ -1,0 +1,34 @@
+### Get All Users
+GET http://localhost:8710/admin/users
+Authorization: Bearer {{Token}}
+### Post New Role
+POST http://localhost:8710/admin/roles
+Authorization: Bearer {{Token}}
+
+ROLE TEST
+
+### Update User Details (Admin)
+PATCH http://localhost:8710/users
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "email": "Admin@mail.de",
+  "firstName" : "Victor",
+  "lastName": "Martins",
+  "birthDate" : "1997-10-13"
+}
+
+### Add an User
+POST http://localhost:8710/users/register
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "email" : "Stupid@mail.de",
+  "password" : "Victor"
+}
+
+### Delete User
+DELETE http://localhost:8710/admin/users/c863651c-4a0a-4988-89f9-6a4bd2085ae3
+Authorization: Bearer {{Token}}

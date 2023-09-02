@@ -8,3 +8,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  mustache:
+    servlet:
+      cache: false
+  profiles:
+    active: dev
+server:
+  port: 8710

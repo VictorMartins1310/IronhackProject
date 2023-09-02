@@ -1,0 +1,82 @@
+### Add new ShoppingList with SuperMarket Penny
+POST http://localhost:8710/todolist/shoppinglist
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "todoListName": "ShoppingList Penny",
+  "marketName": "Penny"
+}
+
+### Add Coca Cola to Penny Shopping List
+POST http://localhost:8710/todolist/shoppinglist/3/products
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "name": "Coca Cola",
+  "brand": "Coca Cola Comp",
+  "price": 1.23,
+  "qty": 4,
+  "type": "Drink"
+}
+
+### Add Bananas to Penny Shopping List
+POST http://localhost:8710/todolist/shoppinglist/3/products
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "name": "Bananas",
+  "brand": "Chiquita",
+  "price": 1.23,
+  "qty": 1,
+  "type": "Fruit"
+}
+
+
+### Add new ShoppingList with SuperMarket ALDI
+POST http://localhost:8710/todolist/shoppinglist
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "todoListName": "ShoppingList ALDI",
+  "marketName": "ALDI"
+}
+
+### Add Super Bock to ALDI Shopping List
+POST http://localhost:8710/todolist/shoppinglist/3/products
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "name": "Beer",
+  "brand": "Super Bock",
+  "price": 1.23,
+  "qty": 24,
+  "type": "Drink"
+}
+### Add Pringles to ALDI Shopping List
+POST http://localhost:8710/todolist/shoppinglist/3/products
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "name": "Chips",
+  "brand": "Pringles",
+  "price": 2.23,
+  "qty": 5,
+  "type": "Drink"
+}
+### Get ALDI Shopping List
+GET http://localhost:8710/todolist/shoppinglist/3
+Authorization: Bearer {{Token}}
+
+### Get Penny Shopping List
+GET http://localhost:8710/todolist/shoppinglist/3
+Authorization: Bearer {{Token}}
+
+### Delete Shoping List
+DELETE http://localhost:8710/todolist/shoppinglist/3
+Authorization: Bearer {{Token}}
