@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/** This Controller is destined for Tasks
+* It can Create and Update a Task
+* A delete function here is not needed,it can only be deleted by deleting the Task List
+*/
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(name = "tasklist", value = "todolist/tasklist")

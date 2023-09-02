@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-
+/** A controller for User, here a User can Register and Update his Information */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(name = "users", value = "users")

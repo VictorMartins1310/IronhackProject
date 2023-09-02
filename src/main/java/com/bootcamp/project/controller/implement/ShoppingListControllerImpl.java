@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/** This Controller is destined for the Shopping List
+* It can Create, Update and Delete a Shopping List
+*/
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(name = "shoppinglist", value = "todolist/shoppinglist")

@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+/** This controller only have one function: Show All Lists (Task Lists & Shopping Lists) */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(name = "todoList", value = "todolist")

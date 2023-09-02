@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * This Controller is for Administration
+ * Main Functions:
+ *          - Listing all Users
+ *          - Delete a specific user
+ *          - Create a Role
+ */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(name = "admin", value = "admin")

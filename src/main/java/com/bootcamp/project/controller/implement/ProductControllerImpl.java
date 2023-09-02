@@ -13,9 +13,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
+/** This Controller is destined for Products
+ * It can Create and Update a Product
+ * A delete function here is not needed,it can only be deleted by deleting the Shopping List
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(name = "products", value = "todolist/shoppinglist")
