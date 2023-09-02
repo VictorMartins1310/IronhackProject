@@ -20,7 +20,7 @@ public class TaskListService {
     public TaskList newTaskList(User user, TaskList taskList){
         return taskListRepository.save(new TaskList(taskList.getTodoListName(), user));
     }
-    public List<TaskList> getTaksListsbyUser(User user){
+    public List<TaskList> getTaskListsByUser(User user){
         return taskListRepository.findTaskListsByUserAndActiveIsTrue(user);
     }
     public TaskList getTaskListByID(Long id){

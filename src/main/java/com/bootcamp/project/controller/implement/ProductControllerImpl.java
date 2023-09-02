@@ -40,7 +40,7 @@ public class ProductControllerImpl implements ProductController {
     @PatchMapping(value = "/{idOfShoppingList}/products/{idOfProduct}")
     @ResponseStatus(HttpStatus.OK)
     public Boolean boughtProduct(@PathVariable("idOfProduct") Long idOfProduct, int qty) {
-        productService.productsBought(idOfProduct, qty);
+        productService.productBought(idOfProduct, qty);
         return true;
         //TODO
     }

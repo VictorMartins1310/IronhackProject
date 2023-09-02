@@ -3,7 +3,6 @@ package com.bootcamp.project.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
@@ -26,6 +25,6 @@ public class ToDoList {
         this.active = true;
         this.creationDate = new Date();
     }
-    /** Function that deactivate an List */
+    /** Function that deactivate a List */
     public void deactivateList(){ this.active = false; }
 }

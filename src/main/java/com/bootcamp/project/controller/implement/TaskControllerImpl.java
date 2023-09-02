@@ -35,10 +35,12 @@ public class TaskControllerImpl implements TaskController {
     }
     @Override
     @PatchMapping(value = "/task/{taskID}/done")
+    @ResponseStatus(HttpStatus.OK)
     public void taskDone(@PathVariable("taskID") Long idTask) {
         taskService.taskDone(idTask);
     }
     @PatchMapping(value ="/task/{taskID}")
+    @ResponseStatus(HttpStatus.OK)
     public TaskDTO updateTask(@PathVariable("taskID") Long idTask, @RequestParam("tname") String taskName){
         return taskMapper.toDto(taskService.updateTaskName(idTask, taskName));
     }

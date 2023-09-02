@@ -1,7 +1,6 @@
 package com.bootcamp.project.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -15,6 +14,6 @@ public class UserDetailsDTO {
     @NotBlank
     @Max(message = "Reached Maximum of (128) Characters", value = 128)
     private String lastName;
-    @Max(message = "Formated Date: YYYY-MM-DD", value = 10)
+    @Max(message = "Formatted Date: YYYY-MM-DD", value = 10)
     private String birthDate;
 }

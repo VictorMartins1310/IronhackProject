@@ -12,6 +12,9 @@ import java.util.List;
 @Data
 @RequiredArgsConstructor
 public class ShoppingList extends ToDoList{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String marketName;
     @OneToMany
     private List<Product> products  = new ArrayList<>();

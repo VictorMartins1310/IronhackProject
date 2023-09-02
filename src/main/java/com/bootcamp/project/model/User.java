@@ -2,13 +2,10 @@ package com.bootcamp.project.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import javax.swing.text.DateFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.UUID;
 
 import static jakarta.persistence.FetchType.EAGER;

@@ -114,7 +114,7 @@ public class TaskListControllerTest {
 
         taskLists.add(taskListDTO1);
 
-        when(taskListMapper.toDtos(taskListService.getTaksListsbyUser(user))).thenReturn(taskLists);
+        when(taskListMapper.toDtos(taskListService.getTaskListsByUser(user))).thenReturn(taskLists);
         mockMvc.perform(
                 get("/todolist/tasklist"))
                 .andExpect(status().isOk())

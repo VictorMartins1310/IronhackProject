@@ -5,7 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity
@@ -19,6 +18,4 @@ public class Role {
 
     public Role(String role) { this.role = role; }
 
-    //    public int getRoleID(){ return roleID; }
-    private String getRoleName(){ return role; }
 }

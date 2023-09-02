@@ -49,7 +49,7 @@ public class ShoppingListControllerImpl implements ShoppingListController{
         shoppingLService.updateShoppingList(id, shplname, marketName);
     }
     @DeleteMapping(value = "/{shoppingLID}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public Boolean deleteShoppingList(@PathVariable("shoppingLID") Long id){
         return shoppingLService.deleteShoppingLists(id);
     }
