@@ -33,13 +33,13 @@ public class ShoppingListService {
         return shoppingListRepository.save(shoppingList);
     }
 
-    public void updateShoppingList(Long id, String shplname, String marketName) {
-        if (shoppingListRepository.findById(id).isEmpty())
+    public ShoppingList updateShoppingList(Long id, String toDoListName, String marketName) {
+        if (shoppingListRepository.findShoppingListByTodoListID(id).isEmpty())
             throw new ProjectException("Shopping List " + id + " Not Found");
-        ShoppingList shoppingList = shoppingListRepository.findById(id).get();
-        shoppingList.setTodoListName(shplname);
+        ShoppingList shoppingList = shoppingListRepository.findShoppingListByTodoListID(id).get();
+        shoppingList.setTodoListName(toDoListName);
         shoppingList.setMarketName(marketName);
-        shoppingListRepository.save(shoppingList);
+        return shoppingListRepository.save(shoppingList);
     }
 
     public ShoppingList addProdut2List(Long shopID, Product prod) {

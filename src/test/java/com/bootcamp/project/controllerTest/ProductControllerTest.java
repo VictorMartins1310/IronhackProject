@@ -96,7 +96,6 @@ public class ProductControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(shoppingListDTO)));
     }
-
     @DisplayName("Test: Update a Product")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test

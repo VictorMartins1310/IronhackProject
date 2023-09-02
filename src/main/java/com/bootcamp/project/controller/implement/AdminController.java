@@ -37,7 +37,6 @@ public class AdminController {
         return userService.findByUserID(id);
     }
     @DeleteMapping(value = "/users/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public Boolean deleteUserByID(@PathVariable(name = "id") UUID id){
         return userService.deleteUserByID(id);
     }

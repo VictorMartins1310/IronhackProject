@@ -24,13 +24,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.mockito.Mockito.when;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @AutoConfigureMockMvc
 @WebMvcTest(ShoppingListControllerImpl.class)
@@ -105,5 +105,66 @@ public class ShoppingListControllerTest {
                 .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTOs)));
     }
 
-    // TODO Implemente Update
+    @DisplayName("Test: Update Shopping List")
+    @WithMockUser(username = "testUser", roles = "USER")
+    @Test public void testUpdateShoppingList() throws Exception {
+        Long id = 13L;
+        User user = new User("User@mail.de", "badPassword");
+
+        user.setUserID(UUID.randomUUID());
+
+        String
+                todolistname = "Test Shopping List",
+                marketname = "Market Name",
+                newmarketname = "New Market Name";
+
+
+        ShoppingList shoppingListA = new ShoppingList(user, todolistname);
+        shoppingListA.setTodoListID(id);
+        shoppingListA.setTodoListName(todolistname);
+        shoppingListA.setMarketName(marketname);
+
+        ShoppingList shoppingListB = new ShoppingList(user, todolistname);
+        shoppingListB.setTodoListID(id);
+        shoppingListB.setTodoListName(todolistname);
+        shoppingListB.setMarketName(newmarketname);
+
+        System.out.println(objectMapper.writeValueAsString(shoppingListA));
+        System.out.println(objectMapper.writeValueAsString(shoppingListB));
+
+        when(shoppingListService.updateShoppingList(id, todolistname, marketname)).thenReturn(shoppingListB);
+
+        mockMvc.perform(
+                        patch("/todolist/shoppinglist/{id}", id.toString())
+                                .queryParam("todolistname", todolistname)
+                                .queryParam("marketname", newmarketname))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("Test: Delete Shopping List")
+    @WithMockUser(username = "testUser", roles = "USER")
+    @Test public void testDeleteShoppingList() throws Exception {
+
+        UUID uuid = UUID.randomUUID();
+        User user = new User("email@mail.com", "DumpPass1234");
+        user.setUserID(uuid);
+        Long id = 13L;
+        String todoListName1 = "TASK LIST TODO";
+        String todoListName2 = "NEW TASK LIST NAME";
+        ShoppingList shopList1 = new ShoppingList(user, todoListName1);
+        ShoppingList shopList2 = new ShoppingList(user, todoListName2);
+
+        shopList1.setTodoListID(id);
+        shopList2.setTodoListID(id);
+
+        System.out.println(objectMapper.writeValueAsString(shopList1));
+        System.out.println(objectMapper.writeValueAsString(shopList2));
+
+        when(shoppingListService.deleteShoppingLists(id)).thenReturn(true);
+        mockMvc.perform(
+                        delete("/todolist/shoppinglist/{id}", id.toString()))
+                .andExpect(status().isNoContent());
+    }
+
+
 }

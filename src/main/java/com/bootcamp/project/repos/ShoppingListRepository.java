@@ -13,4 +13,5 @@ public interface ShoppingListRepository extends JpaRepository<ShoppingList, Long
     Optional<ShoppingList> getShoppingListByTodoListID(Long id);
     List<ShoppingList> findShoppingListsByUser(User user);
     void deleteShoppingListsByUser(User user);
+    Optional<ShoppingList> findShoppingListByTodoListID(Long ID);
 }
