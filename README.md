@@ -28,7 +28,7 @@ A controller for Show All Lists (Task Lists & Shopping Lists)
   route: /todolist/
 
 A controller for User where can Register and Update Personal Details Like Name or Birthdate
-route: /users/register
+  route: /users/register
 
 # Presentation Link
 https://docs.google.com/presentation/d/e/2PACX-1vQ4MyzatYmPyUV9BSf2KgvEEEDE-vI8ai_IJIxei_6VUmRdQDiIjhsbK2XNRACJWk0obLnlB-RuCSJz/pub?start=false&loop=false&delayms=3000
