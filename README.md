@@ -9,7 +9,8 @@ The Project needs a MySQL Database with name Project
 The Project haves in Total 7 Controllers, one for every Table/Class
 
 An Controller Named Admin: in this Controller a Admin can see all Users and Delete a specific one, additionally can create Roles
-Its Accessible functions over /admin /admin/users /admin/users/{id}
+  routes: /admin /admin/users 
+          /admin/users/{id}
 
 A Controller for Shopping List 
   route: /todolist/shoppinglists
