@@ -166,6 +166,6 @@ public class TaskListControllerTest {
         //when(taskListService.deleteTasksLists(id)).thenReturn();
         mockMvc.perform(
                 delete("/todolist/tasklist/{id}", id.toString()))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 }

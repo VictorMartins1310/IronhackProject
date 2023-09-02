@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -30,6 +31,9 @@ public class ProductControllerImpl implements ProductController {
         Product product = productMapper.toEntity(productDTO);
         return shoppingLMapper.toDto(shoppingService.addProdut2List(todoID, product));
     }
+
+    // A get Product dont make sense here, it makes sense get All Products but make sense Update a Product
+
     @GetMapping(value = "/{idOfShoppingList}/products")
     public List<ProductDTO> getAllProductsOfShoppingList(@PathVariable("idOfShoppingList") Long id){
         ShoppingList shpL = shoppingService.getShoppingList(id);
@@ -37,20 +41,27 @@ public class ProductControllerImpl implements ProductController {
     }
 
     @Override
-    @PatchMapping(value = "/{idOfShoppingList}/products/{idOfProduct}")
+    @PatchMapping(value = "/{idOfShoppingList}/products/{idOfProduct}/bought/{qty}")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean boughtProduct(@PathVariable("idOfProduct") Long idOfProduct, int qty) {
+    public Boolean boughtProduct(@PathVariable("idOfProduct") Long idOfProduct, @RequestParam("qty") int qty) {
         productService.productBought(idOfProduct, qty);
         return true;
-        //TODO
     }
-    @Override
-    @PatchMapping(value = "/{idOfShoppingList}/products/{idOfProduct}/update")//TODO Think about resolve better path
+    @PatchMapping(value = "/{idOfShoppingList}/product/{idOfProduct}/update")
     @ResponseStatus(HttpStatus.OK)
-    public String updateProduct(@PathVariable("idOfProduct") Long idOfProduct, @RequestParam(value = "product", required = false) String name) {
-        if (!name.isBlank())
-            return "Funciona";
-        //TODO
-        return "Nao funcionou";
+    public Product updateProduct(
+            @PathVariable("idOfProduct") Long idOfProduct,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "brand", required = false) String brand,
+            @RequestParam(value = "name", required = false) String price
+            ) {
+        Product product = productService.findProductById(idOfProduct);
+        if (!name.isEmpty())
+            product.setName(name);
+        if (!brand.isEmpty())
+            product.setBrand(brand);
+        if (!price.isEmpty())
+            product.setPrice(new BigDecimal(price));
+        return productService.save(product);
     }
 }

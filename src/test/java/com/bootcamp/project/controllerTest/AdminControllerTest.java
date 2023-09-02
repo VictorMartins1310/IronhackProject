@@ -70,6 +70,6 @@ public class AdminControllerTest {
 
         mockMvc.perform(
                         delete("/admin/users/{uuid}", uuid.toString()))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 }

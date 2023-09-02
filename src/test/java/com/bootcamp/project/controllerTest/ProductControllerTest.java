@@ -35,21 +35,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @WebMvcTest(ProductControllerImpl.class)
 public class ProductControllerTest {
-    @Autowired private MockMvc mockMvc;
-    @Autowired private ObjectMapper objectMapper;
-    @Autowired private WebApplicationContext webApplicationContext;
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
-    @MockBean private ShoppingListMapper shoppingLMapper;
-    @MockBean private ProductService productService;
-    @MockBean private ShoppingListService shoppingLService;
-    @MockBean private ProductMapper productMapper;
+    @MockBean
+    private ShoppingListMapper shoppingLMapper;
+    @MockBean
+    private ProductService productService;
+    @MockBean
+    private ShoppingListService shoppingLService;
+    @MockBean
+    private ProductMapper productMapper;
+
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
+
     @DisplayName("Test: Create a Product")
     @WithMockUser(username = "testUser", roles = "USER")
-    @Test public void testCreateProduct() throws Exception {
+    @Test
+    public void testCreateProduct() throws Exception {
         Long id = 13L;
         String name = "Coca Cola",
                 brand = "Coca Cola Company";
@@ -78,7 +88,6 @@ public class ProductControllerTest {
 
         ShoppingListDTO shoppingListDTO = new ShoppingListDTO();
 
-
         when(shoppingLMapper.toDto(shoppingLService.addProdut2List(id, product1))).thenReturn(shoppingListDTO);
         mockMvc.perform(post("/todolist/shoppinglist/{idOfShoppingList}/products", id.toString())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -86,13 +95,36 @@ public class ProductControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(shoppingListDTO)));
     }
-    @DisplayName("Test: Get a Product")
-    @WithMockUser(username = "testUser", roles = "USER")
-    @Test public void testGetProduct() throws Exception {}
+
     @DisplayName("Test: Update a Product")
     @WithMockUser(username = "testUser", roles = "USER")
-    @Test public void testUpdateProduct() throws Exception {
-    }
+    @Test
+    public void testUpdateProduct() throws Exception {
+        Long id = 13L;
+        String name = "Coca Cola",
+                brand = "Coca Cola Company";
+        int qty = 4;
+        ProductType productType = ProductType.Drink;
+        BigDecimal price = new BigDecimal("1.23");
 
-    // TODO Implement this tests
+        Product product1 = new Product();
+        product1.setName(name);
+        product1.setBrand(brand);
+        product1.setPrice(price);
+        product1.setQty(qty);
+        product1.setType(productType);
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName(name);
+        productDTO.setBrand(brand);
+        productDTO.setPrice(price);
+        productDTO.setQty(qty);
+        productDTO.setType(productType);
+
+        when(shoppingLMapper.toDto(shoppingLService.addProdut2List(id, product1))).thenReturn(shoppingListDTO);
+        mockMvc.perform(post("/todolist/shoppinglist/{idOfShoppingList}/products", id.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(productDTO)))
+                .andExpect(status().isOk());
+    }
 }

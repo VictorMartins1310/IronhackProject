@@ -27,5 +27,12 @@ public class ProductService {
     public List<Product> getAllProductsOfShoppingList(ShoppingList shopList){
         return shopList.getProducts();
     }
-
+    public Product findProductById(Long id) {
+        if (productRepository.findById(id).isEmpty())
+            throw new ProjectException("Product not Fount");
+        return productRepository.findById(id).get();
+    }
+    public Product save(Product product){
+        return productRepository.save(product);
+    }
 }
