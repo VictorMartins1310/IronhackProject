@@ -55,13 +55,7 @@ public class ProductControllerImpl implements ProductController {
             @RequestParam(value = "brand", required = false) String brand,
             @RequestParam(value = "name", required = false) String price
             ) {
-        Product product = productService.findProductById(idOfProduct);
-        if (!name.isEmpty())
-            product.setName(name);
-        if (!brand.isEmpty())
-            product.setBrand(brand);
-        if (!price.isEmpty())
-            product.setPrice(new BigDecimal(price));
-        return productService.save(product);
+
+        return productService.updateProduct(idOfProduct, name, brand, price);
     }
 }

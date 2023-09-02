@@ -7,6 +7,7 @@ import com.bootcamp.project.repos.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,5 +35,17 @@ public class ProductService {
     }
     public Product save(Product product){
         return productRepository.save(product);
+    }
+    public Product updateProduct(Long idProduct, String name, String brand, String price){
+        var product = productRepository.findById(idProduct);
+        if (product.isPresent()){
+            if (!name.isEmpty())
+                product.get().setName(name);
+            if (!brand.isEmpty())
+                product.get().setBrand(brand);
+            if (!price.isEmpty())
+                product.get().setPrice(new BigDecimal(price));
+        }
+        return productRepository.save(product.get());
     }
 }

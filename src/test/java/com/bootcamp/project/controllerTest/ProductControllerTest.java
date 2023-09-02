@@ -28,6 +28,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -101,30 +102,32 @@ public class ProductControllerTest {
     @Test
     public void testUpdateProduct() throws Exception {
         Long id = 13L;
-        String name = "Coca Cola",
+        String nameA = "Coca Cola",
+                nameB = "Pepsi",
                 brand = "Coca Cola Company";
         int qty = 4;
         ProductType productType = ProductType.Drink;
-        BigDecimal price = new BigDecimal("1.23");
+        String price = "1.23";
 
         Product product1 = new Product();
-        product1.setName(name);
+        product1.setProductID(id);
+        product1.setName(nameA);
         product1.setBrand(brand);
-        product1.setPrice(price);
+        product1.setPrice(new BigDecimal(price));
         product1.setQty(qty);
         product1.setType(productType);
 
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setName(name);
-        productDTO.setBrand(brand);
-        productDTO.setPrice(price);
-        productDTO.setQty(qty);
-        productDTO.setType(productType);
+        Product product2 = new Product();
+        product2.setProductID(id);
+        product2.setName(nameB);
+        product2.setBrand(brand);
+        product2.setPrice(new BigDecimal(price));
+        product2.setQty(qty);
+        product2.setType(productType);
 
-        when(shoppingLMapper.toDto(shoppingLService.addProdut2List(id, product1))).thenReturn(shoppingListDTO);
-        mockMvc.perform(post("/todolist/shoppinglist/{idOfShoppingList}/products", id.toString())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(productDTO)))
+        when(productService.updateProduct(id,nameB, brand, price)).thenReturn(product2);
+        mockMvc.perform(patch("/todolist/shoppinglist/{idOfShoppingList}/product/{id}/update", id.toString(), id.toString())
+                        .param("name", nameB))
                 .andExpect(status().isOk());
     }
 }
