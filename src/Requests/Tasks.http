@@ -7,6 +7,10 @@ Content-Type: Application/json
   "todoListName": "TaskList HomeWork KAKKK"
 }
 
+###
+GET http://localhost:8710/todolist/tasklist/1
+Authorization: Bearer {{Token}}
+
 ### Add Task to TaskList
 POST http://localhost:8710/todolist/tasklist/1
 Content-Type: Application/json
