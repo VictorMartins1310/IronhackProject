@@ -1,12 +1,16 @@
 package com.bootcamp.project.service;
 
 import com.bootcamp.project.exception.ProjectException;
+import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.model.User;
+import com.bootcamp.project.repos.ShoppingListRepository;
+import com.bootcamp.project.repos.TaskListRepository;
 import com.bootcamp.project.repos.ToDoListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +36,14 @@ public class ToDoListService {
         if (toDoListRepository.findAllByUser(user).isEmpty()) {
             throw new ProjectException("0 Todo Lists Found");
         }
-        return toDoListRepository.findAllByUser(user);
+        return toDoListRepository.findToDoListsByUser(user);
+    }
+    public List<ToDoList> findAllByUser(User user){
+        if (toDoListRepository.findAllByUser(user).isEmpty()) {
+            throw new ProjectException("0 Todo Lists Found");
+        }
+        List<ToDoList> allLists = new ArrayList<>();
+    //    allLists = shoppingListRepository.findShoppingListsByUser(user).stream().toList().;
+        return toDoListRepository.findToDoListsByUser(user);
     }
 }

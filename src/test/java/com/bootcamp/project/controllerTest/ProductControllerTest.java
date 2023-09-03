@@ -4,7 +4,7 @@ import com.bootcamp.project.controller.implement.ProductControllerImpl;
 import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.mappers.ProductMapper;
-import com.bootcamp.project.mappers.ShoppingListMapper;
+import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Product;
 import com.bootcamp.project.model.ProductType;
 import com.bootcamp.project.model.ShoppingList;
@@ -44,7 +44,7 @@ public class ProductControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @MockBean
-    private ShoppingListMapper shoppingLMapper;
+    private TodoListMapper shoppingLMapper;
     @MockBean
     private ProductService productService;
     @MockBean

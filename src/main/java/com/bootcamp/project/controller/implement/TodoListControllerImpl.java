@@ -1,7 +1,8 @@
 package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.TodoListController;
-import com.bootcamp.project.model.ToDoList;
+import com.bootcamp.project.dto.ToDoListDTO;
+import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.ToDoListService;
 import com.bootcamp.project.service.UserService;
@@ -20,13 +21,14 @@ public class TodoListControllerImpl implements TodoListController {
     // On this Controller is not so much to do
     private final ToDoListService toDoListService;
     private final UserService userService;
+    private final TodoListMapper todoListMapper;
 
 
     /** Method that show all Lists that a User haves */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ToDoList> getAllTodoList(){
+    public List<ToDoListDTO> getAllTodoList(){
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return toDoListService.findAllByUser(loggedUser.getUserID());
+        return todoListMapper.toDtos(toDoListService.findAllByUser(loggedUser.getUserID()));
     }
 }

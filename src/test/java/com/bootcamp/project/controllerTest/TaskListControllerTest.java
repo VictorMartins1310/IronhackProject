@@ -2,9 +2,10 @@ package com.bootcamp.project.controllerTest;
 
 import com.bootcamp.project.controller.implement.TaskListControllerImpl;
 import com.bootcamp.project.dto.TaskListDTO;
-import com.bootcamp.project.mappers.TaskListMapper;
+import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.TaskList;
+import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.TaskListService;
 import com.bootcamp.project.service.UserService;
@@ -42,7 +43,7 @@ public class TaskListControllerTest {
     @Autowired private ObjectMapper objectMapper;
     @Autowired private WebApplicationContext webApplicationContext;
 
-    @MockBean private TaskListMapper taskListMapper;
+    @MockBean private TodoListMapper toDoListMapper;
     @MockBean private TaskListService taskListService;
     @MockBean private UserService userService;
 
@@ -83,7 +84,7 @@ public class TaskListControllerTest {
         System.out.println(objectMapper.writeValueAsString(taskList2));
         System.out.println(objectMapper.writeValueAsString(taskListDTOIN));
 
-        when(taskListMapper.toDto(taskListService.newTaskList(user, taskList1))).thenReturn(taskListDTOOUT);
+        when(toDoListMapper.toDto(taskListService.newTaskList(user, taskList1))).thenReturn(taskListDTOOUT);
         mockMvc.perform(
                 post("/todolist/tasklist")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -114,7 +115,7 @@ public class TaskListControllerTest {
 
         taskLists.add(taskListDTO1);
 
-        when(taskListMapper.toDtos(taskListService.getTaskListsByUser(user))).thenReturn(taskLists);
+        when(toDoListMapper.toTaskListsDtos(taskListService.getTaskListsByUser(user))).thenReturn(taskLists);
         mockMvc.perform(
                 get("/todolist/tasklist"))
                 .andExpect(status().isOk())

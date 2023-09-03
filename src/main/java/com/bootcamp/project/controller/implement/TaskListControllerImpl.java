@@ -2,7 +2,7 @@ package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.TaskListController;
 import com.bootcamp.project.dto.TaskListDTO;
-import com.bootcamp.project.mappers.TaskListMapper;
+import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.TaskListService;
@@ -24,7 +24,7 @@ public class TaskListControllerImpl implements TaskListController {
     private final TaskListService taskListService;
     private final UserService userService;
 
-    private final TaskListMapper taskListMapper;
+    private final TodoListMapper taskListMapper;
 
     /** Create an TaskList */
     @PostMapping
@@ -40,7 +40,7 @@ public class TaskListControllerImpl implements TaskListController {
     @ResponseStatus(HttpStatus.OK)
     public List<TaskListDTO> showTaskLists(){
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return taskListMapper.toDtos(taskListService.getTaskListsByUser(loggedUser));
+        return taskListMapper.toTaskListsDtos(taskListService.getTaskListsByUser(loggedUser));
     }
     @PatchMapping(value = "/{idtasklist}")
     @ResponseStatus(HttpStatus.OK)

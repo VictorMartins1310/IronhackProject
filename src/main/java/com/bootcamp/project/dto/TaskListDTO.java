@@ -1,10 +1,13 @@
 package com.bootcamp.project.dto;
 
+import com.bootcamp.project.model.Task;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = true)
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class TaskListDTO extends ToDoListDTO{
-    //private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<>();
 }

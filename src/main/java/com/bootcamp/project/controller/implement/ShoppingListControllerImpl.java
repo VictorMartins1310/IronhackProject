@@ -2,7 +2,7 @@ package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.ShoppingListController;
 import com.bootcamp.project.dto.ShoppingListDTO;
-import com.bootcamp.project.mappers.ShoppingListMapper;
+import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.ShoppingListService;
@@ -24,7 +24,7 @@ import java.util.List;
 public class ShoppingListControllerImpl implements ShoppingListController{
     private final ShoppingListService shoppingLService;
     private final UserService userService;
-    private final ShoppingListMapper shoppingLMapper;
+    private final TodoListMapper shoppingLMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

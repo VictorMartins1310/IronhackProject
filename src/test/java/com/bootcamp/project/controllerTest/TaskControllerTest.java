@@ -2,7 +2,6 @@ package com.bootcamp.project.controllerTest;
 
 import com.bootcamp.project.controller.implement.TaskControllerImpl;
 import com.bootcamp.project.dto.TaskDTO;
-import com.bootcamp.project.mappers.TaskListMapper;
 import com.bootcamp.project.mappers.TaskMapper;
 import com.bootcamp.project.model.Task;
 import com.bootcamp.project.model.TaskList;
@@ -40,7 +39,6 @@ public class TaskControllerTest {
 
     @MockBean private TaskListService taskListService;
     @MockBean private TaskService taskService;
-    @MockBean private TaskListMapper taskListMapper;
     @MockBean private TaskMapper taskMapper;
     @BeforeEach
     public void setUp() {

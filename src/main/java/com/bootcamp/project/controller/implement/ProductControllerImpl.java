@@ -4,7 +4,7 @@ import com.bootcamp.project.controller.ProductController;
 import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.mappers.ProductMapper;
-import com.bootcamp.project.mappers.ShoppingListMapper;
+import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Product;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.service.ProductService;
@@ -26,7 +26,7 @@ public class ProductControllerImpl implements ProductController {
     private final ShoppingListService shoppingService;
     private final ProductService productService;
 
-    private final ShoppingListMapper shoppingLMapper;
+    private final TodoListMapper shoppingLMapper;
     private final ProductMapper productMapper;
     @PostMapping(value = "/{idOfShoppingList}/products")
     @ResponseStatus(HttpStatus.CREATED)

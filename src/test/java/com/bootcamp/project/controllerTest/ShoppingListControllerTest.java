@@ -2,7 +2,7 @@ package com.bootcamp.project.controllerTest;
 
 import com.bootcamp.project.controller.implement.ShoppingListControllerImpl;
 import com.bootcamp.project.dto.ShoppingListDTO;
-import com.bootcamp.project.mappers.ShoppingListMapper;
+import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.ShoppingListService;
@@ -40,8 +40,8 @@ public class ShoppingListControllerTest {
     @Autowired private WebApplicationContext webApplicationContext;
 
     @MockBean private ShoppingListService shoppingListService;
-    @MockBean private  UserService userService;
-    @MockBean private ShoppingListMapper shoppingLMapper;
+    @MockBean private UserService userService;
+    @MockBean private TodoListMapper shoppingLMapper;
 
     @BeforeEach
     public void setUp() {
