@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -22,11 +23,19 @@ public class Product {
     private int qty;
     private ProductType type;
     /** True means products bought, False means to be bought */
-    private Boolean status = false;
+    private Boolean bought = false;
+
+    public Product(String name, String brand, BigDecimal price, int qty, ProductType type) {
+        this.name = name;
+        this.brand = brand;
+        this.price = price;
+        this.qty = qty;
+        this.type = type;
+    }
 
     public Product productBought(int qty){
         this.qty -= qty;
-        this.status = this.qty <= 0;
+        this.bought = this.qty <= 0;
         return this;
     }
 

@@ -3,6 +3,7 @@ package com.bootcamp.project.controller.implement;
 import com.bootcamp.project.controller.ProductController;
 import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListDTO;
+import com.bootcamp.project.exception.ProjectException;
 import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Product;
@@ -50,15 +51,17 @@ public class ProductControllerImpl implements ProductController {
         productService.productBought(idOfProduct, qty);
         return true;
     }
-    @PatchMapping(value = "/{idOfShoppingList}/product/{idOfProduct}/update")
+    @PatchMapping(value = "/{idOfShoppingList}/product/{idOfProduct}")
     @ResponseStatus(HttpStatus.OK)
     public Product updateProduct(
             @PathVariable("idOfProduct") Long idOfProduct,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "brand", required = false) String brand,
-            @RequestParam(value = "name", required = false) String price
+            @RequestParam(value = "price", required = false) String price
             ) {
-
-        return productService.updateProduct(idOfProduct, name, brand, price);
+        Product product = productService.getProductByID(idOfProduct);
+        if (product == null)
+            throw new ProjectException("Product not Found");
+        return productService.updateProduct(product, name, brand, price);
     }
 }

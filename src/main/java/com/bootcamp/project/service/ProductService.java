@@ -36,16 +36,19 @@ public class ProductService {
     public Product save(Product product){
         return productRepository.save(product);
     }
-    public Product updateProduct(Long idProduct, String name, String brand, String price){
-        var product = productRepository.findById(idProduct);
-        if (product.isPresent()){
-            if (!name.isEmpty())
-                product.get().setName(name);
-            if (!brand.isEmpty())
-                product.get().setBrand(brand);
-            if (!price.isEmpty())
-                product.get().setPrice(new BigDecimal(price));
-        }
-        return productRepository.save(product.get());
+    public Product updateProduct(Product product, String name, String brand, String price){
+        if (!name.isEmpty())
+            product.setName(name);
+        if (!brand.isEmpty())
+            product.setBrand(brand);
+        if (!price.isEmpty())
+            product.setPrice(new BigDecimal(price));
+        return save(product);
+    }
+    public Product getProductByID(Long id){
+        var product = productRepository.findProductByProductID(id);
+        if (product.isEmpty())
+            throw new ProjectException("Product not Found");
+        return product.get();
     }
 }

@@ -53,6 +53,10 @@ public class ShoppingListService {
             throw new ProjectException("Cannot find Shopping list");
     }
 
+    public ShoppingList save(ShoppingList shop){
+        return shoppingListRepository.save(shop);
+    }
+
     /**
      * Function that deletes a ShoppingList by ID and only if the list is deactivated
      */

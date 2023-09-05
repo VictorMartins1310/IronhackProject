@@ -23,7 +23,7 @@ public class ShoppingList extends ToDoList{
         return total;
     }
     public ShoppingList(User user, String marketName) {
-        super("Shopping List " + marketName, user);
+        super(marketName + " Shopping List", user);
         this.marketName = marketName;
     }
 }

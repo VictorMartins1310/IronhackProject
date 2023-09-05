@@ -2,6 +2,7 @@ package com.bootcamp.project.controllerTest;
 
 import com.bootcamp.project.controller.implement.ShoppingListControllerImpl;
 import com.bootcamp.project.dto.ShoppingListDTO;
+import com.bootcamp.project.dto.ShoppingListProductsDTO;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.model.User;
@@ -103,6 +104,27 @@ public class ShoppingListControllerTest {
         mockMvc.perform(get("/todolist/shoppinglist"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTOs)));
+    }
+    @DisplayName("Test: Get Shoppinglists + Products")
+    @WithMockUser(username = "testUser", roles = "USER")
+    @Test public void testGetShoppingList() throws Exception {
+        Long shopID = 13L;
+        User user = new User("User@mail.de", "badPassword");
+
+        String shopname = "Test";
+
+        ShoppingList shoppingList = new ShoppingList(user, shopname);
+        shoppingList.setTodoListID(shopID);
+
+        ShoppingListProductsDTO shoppingListDTO = new ShoppingListProductsDTO();
+
+
+
+        when(shoppingLMapper.toDTO(shoppingListService.getShoppingList(shopID))).thenReturn(shoppingListDTO);
+
+        mockMvc.perform(get("/todolist/shoppinglist/{shopID}", shopID.toString()))
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTO)));
     }
 
     @DisplayName("Test: Update Shopping List")

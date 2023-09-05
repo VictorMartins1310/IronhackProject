@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+
 /** A controller for User, here a User can Register and Update his Information */
 @RequiredArgsConstructor
 @RestController
@@ -28,28 +29,19 @@ public class UserControllerImpl implements UserController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public UserDetailsDTO showDetails(){
-        User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return userDetailsMapper.toDto(loggedUser);
+        return userDetailsMapper.toDto(userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     }
     @PatchMapping(value = "/register/details")
     @ResponseStatus(HttpStatus.OK)
-    public UserDetailsDTO updateDetailsOnRegister(@RequestBody UserDetailsDTO userDetails){
-        User userDetailsMapped = userDetailsMapper.toEntity(userDetails);
+    public UserDetailsDTO updateDetailsOnRegister(@RequestBody User userDetails) {
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return userDetailsMapper.toDto(userService.updateDetails(loggedUser.getUserID(), userDetailsMapped));
-    }
-    /** This method was created for testing */
-    @PatchMapping(value = "/register/detailsT")
-    @ResponseStatus(HttpStatus.OK)
-    public UserDetailsDTO updateDetailsOnRegisterTest(@RequestBody User userDetails){
-        return userDetailsMapper.toDto(userService.updateDetails(userDetails.getUserID(), userDetails));
+        return userDetailsMapper.toDto(userService.updateDetails(loggedUser, userDetails.getEmail(), userDetails.getFirstName(), userDetails.getBirthDate().toString()));
     }
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    public UserDetailsDTO updateDetails(@RequestBody UserDetailsDTO userDetails){
-        User userDetailsMapped = userDetailsMapper.toEntity(userDetails);
+    public UserDetailsDTO updateDetails(@RequestBody User userDetails) {
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return userDetailsMapper.toDto(userService.updateDetails(loggedUser.getUserID(), userDetailsMapped));
+        return userDetailsMapper.toDto(userService.updateDetails(loggedUser, userDetails.getEmail(), userDetails.getFirstName(), userDetails.getBirthDate().toString()));
     }
     @GetMapping("/me")
     @ResponseStatus(HttpStatus.OK)

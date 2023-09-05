@@ -1,10 +1,10 @@
 package com.bootcamp.project.controllerTest;
 
-import static org.mockito.Mockito.when;
 import com.bootcamp.project.controller.implement.UserControllerImpl;
 import com.bootcamp.project.dto.LoginDTO;
 import com.bootcamp.project.dto.UserDetailsDTO;
 import com.bootcamp.project.mappers.UserDetailsMapper;
+import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,16 +16,22 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
+
+
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @AutoConfigureMockMvc
 @WebMvcTest(UserControllerImpl.class)
@@ -36,6 +42,7 @@ public class UserControllerTest {
 
     @MockBean private UserService userService;
     @MockBean private UserDetailsMapper userDetailsMapper;
+
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -57,43 +64,82 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginDto)))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(userDto))); //https://github.com/json-path/JsonPath
+                .andExpect(content().json(objectMapper.writeValueAsString(userDto))); //https://github.com/json-path/JsonPath
     }
+
     @DisplayName("Test: Update UsersDetails")
     @WithMockUser(username = "testUser", roles = "USER")
-    @Test public void testUpdateUser() throws Exception {
-        String email = "User@mail.de",
-                pass = "pass1234";
-        UUID uuid = UUID.randomUUID();
+    @Test public void getUserDetails() throws Exception {
+        LocalDate birthdate = LocalDate.parse("1987-10-13");
+        String email = "Test@mail.de";
 
-        User userA = new User(email, pass);
-        userA.setUserID(uuid);
+        Role role = new Role();
+        role.setRole("USER_ROLE");
 
-
-        UserDetailsDTO userIn = new UserDetailsDTO();
-        userIn.setEmail(email);
-        userIn.setFirstName("Victor");
-        userIn.setLastName("Martins");
-        userIn.setBirthDate("1987-10-13");
-
+        User loggedUser = new User(email, "Test.1234");
+        loggedUser.setUserID(UUID.randomUUID());
+        loggedUser.setFirstName("Victor");
+        loggedUser.setLastName("Martins");
+        loggedUser.setBirthDate(birthdate);
+        loggedUser.addRole(role);
 
         UserDetailsDTO userOut = new UserDetailsDTO();
         userOut.setEmail(email);
         userOut.setFirstName("Victor");
         userOut.setLastName("Martins");
-        userOut.setBirthDate("1987-10-13");
+        userOut.setBirthDate(birthdate);
 
-        System.out.println(objectMapper.writeValueAsString(userA));
-        System.out.println(objectMapper.writeValueAsString(userIn));
-        System.out.println(objectMapper.writeValueAsString(userOut));
+        System.out.println("Logged User: " + objectMapper.writeValueAsString(loggedUser));
+        System.out.println("    UserOut: " + objectMapper.writeValueAsString(userOut));
 
-        when(userDetailsMapper.toDto(userService.updateDetails(uuid, userA))).thenReturn(userOut);
+
+        when(userDetailsMapper.toDto(userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()))).thenReturn(userOut);
 
         mockMvc.perform(
-                        patch("/users/register/detailsT") // Adapted because got Trouble with logged user
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(userA)))
+                        get("/users"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(userOut))); //https://github.com/json-path/JsonPath
+                .andExpect(content().json(objectMapper.writeValueAsString(userOut))); //https://github.com/json-path/JsonPath
+    }
+
+    @DisplayName("Test: Update UsersDetails")
+    @WithMockUser(username = "testUser", roles = "USER")
+    @Test public void testUpdateUser() throws Exception{
+        String email = "User@mail.de",
+                pass = "pass1234";
+        UUID uuid = UUID.randomUUID();
+
+
+        Role role = new Role();
+        role.setRole("USER_ROLE");
+
+        User userA = new User(email, pass);
+        userA.setUserID(uuid);
+
+
+        LocalDate birthdate = LocalDate.parse("1987-10-13");
+        UserDetailsDTO userIn = new UserDetailsDTO();
+        userIn.setEmail(email);
+        userIn.setFirstName("Victor");
+        userIn.setLastName("Martins");
+        userIn.setBirthDate(birthdate);
+
+        UserDetailsDTO userOut = new UserDetailsDTO();
+        userOut.setEmail(email);
+        userOut.setFirstName("Victor");
+        userOut.setLastName("Martins");
+        userOut.setBirthDate(birthdate);
+
+        System.out.println("User A: " + objectMapper.writeValueAsString(userA));
+        System.out.println("UserIn: " + objectMapper.writeValueAsString(userIn));
+        System.out.println("UserOut: " + objectMapper.writeValueAsString(userOut));
+
+        when(userDetailsMapper.toDto(userService.updateDetails(userA, userIn.getFirstName(), userIn.getLastName(), userIn.getBirthDate().toString()))).thenReturn(userOut);
+
+        mockMvc.perform(
+                        patch("/users/register/details") // Adapted because got Trouble with logged user
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(userIn)))
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(userOut))); //https://github.com/json-path/JsonPath
     }
 }

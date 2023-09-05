@@ -14,5 +14,5 @@ public class ProductDTO {
     private BigDecimal price;
     private int qty;
     private ProductType type;
-    private Boolean status = false;
+    private Boolean bought = false;
 }

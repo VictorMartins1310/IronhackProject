@@ -2,6 +2,7 @@ package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.ShoppingListController;
 import com.bootcamp.project.dto.ShoppingListDTO;
+import com.bootcamp.project.dto.ShoppingListProductsDTO;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.model.User;
@@ -43,8 +44,8 @@ public class ShoppingListControllerImpl implements ShoppingListController{
     }
     @GetMapping(value = "/{shoppingLID}")
     @ResponseStatus(HttpStatus.OK)
-    public ShoppingListDTO showShoppingList(@PathVariable("shoppingLID") Long id){
-        return shoppingLMapper.toDto(shoppingLService.getShoppingList(id));
+    public ShoppingListProductsDTO showShoppingList(@PathVariable("shoppingLID") Long id){
+        return shoppingLMapper.toDTO(shoppingLService.getShoppingList(id));
     }
     @PatchMapping(value = "/{shoppingLID}")
     public ShoppingList updateShoppingList(@PathVariable("shoppingLID") Long id, @RequestParam(value = "todolistname", required = false) String todolistname , @RequestParam("marketname") String marketname){

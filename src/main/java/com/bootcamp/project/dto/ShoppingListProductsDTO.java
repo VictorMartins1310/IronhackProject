@@ -13,5 +13,5 @@ import java.util.List;
 public class ShoppingListProductsDTO extends ToDoListDTO{
     @Max(message = "Reached Maximum of (64) Characters", value = 64)
     private String marketName;
-    private List<Product> products = new ArrayList<>();
+    private List<ProductDTO> products = new ArrayList<>();
 }

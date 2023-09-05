@@ -3,7 +3,9 @@ package com.bootcamp.project.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -23,7 +25,8 @@ public class User {
     // User Details
     private String firstName;
     private String lastName;
-    private String birthDate; // TODO Change to Date
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private LocalDate birthDate; // TODO Change to Date
 
     @ManyToMany(fetch = EAGER)
     private Collection<Role> roles = new ArrayList<>();
@@ -36,8 +39,7 @@ public class User {
         roles.add(role);
     }
 
-    public void updateDetails(String email, String firstName, String lastName, String birthDate){
-        setEmail(email);
+    public void updateDetails( String firstName, String lastName, LocalDate birthDate) {
         setFirstName(firstName);
         setLastName(lastName);
         setBirthDate(birthDate);

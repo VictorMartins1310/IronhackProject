@@ -29,6 +29,6 @@ public class TodoListControllerImpl implements TodoListController {
     @ResponseStatus(HttpStatus.OK)
     public List<ToDoListDTO> getAllTodoList(){
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return todoListMapper.toDtos(toDoListService.findAllByUser(loggedUser.getUserID()));
+        return todoListMapper.toDto(toDoListService.findAllByUser(loggedUser.getUserID()));
     }
 }

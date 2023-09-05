@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -48,12 +49,6 @@ public class UserService implements UserDetailsService {
             return roleRepository.findByRole(name).get();
     }
 
-    public User getUserByEmail(String email){
-        if (userRepo.getUserByEmail(email).isEmpty())
-            throw new ProjectException("User Not Found");
-        return userRepo.getUserByEmail(email).get();
-    }
-
     public User newAdmin(String email, String password){
         User user = new User(email, password);
         return save(user, "ROLE_ADMIN");
@@ -86,17 +81,16 @@ public class UserService implements UserDetailsService {
             throw new ProjectException("User Not Found");
         return userRepo.getUserByUserID(id).get();
     }
-    public User findByUserEmail(String email){
+    public User getUserByEmail(String email){
         if (userRepo.getUserByEmail(email).isEmpty())
             throw new ProjectException("User Not Found");
         return userRepo.getUserByEmail(email).get();
     }
-    public User updateDetails(UUID id, User details){
-        if (userRepo.getUserByUserID(id).isEmpty())
+    public User updateDetails(User loggedUser, String firstName, String lastName, String birthDate) {
+        if (userRepo.getUserByUserID(loggedUser.getUserID()).isEmpty())
             throw new ProjectException("User Not Found");
-        User userDetails =  userRepo.getUserByUserID(id).get();
-        userDetails.updateDetails(details.getEmail(), details.getFirstName(), details.getLastName(), details.getBirthDate());
-        return userRepo.save(userDetails);
+        loggedUser.updateDetails(firstName, lastName, LocalDate.parse(birthDate));
+        return userRepo.save(loggedUser);
     }
     /** Loads the user by its username, in this case the email adress
      *

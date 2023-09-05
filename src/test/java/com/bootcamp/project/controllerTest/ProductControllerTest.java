@@ -28,9 +28,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -94,7 +94,7 @@ public class ProductControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(productDTO)))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(shoppingListDTO)));
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTO)));
     }
     @DisplayName("Test: Update a Product")
     @WithMockUser(username = "testUser", roles = "USER")
@@ -116,6 +116,8 @@ public class ProductControllerTest {
         product1.setQty(qty);
         product1.setType(productType);
 
+        when(productService.newProduct(product1)).thenReturn(product1);
+
         Product product2 = new Product();
         product2.setProductID(id);
         product2.setName(nameB);
@@ -124,9 +126,13 @@ public class ProductControllerTest {
         product2.setQty(qty);
         product2.setType(productType);
 
-        when(productService.updateProduct(id,nameB, brand, price)).thenReturn(product2);
-        mockMvc.perform(patch("/todolist/shoppinglist/{idOfShoppingList}/product/{id}/update", id.toString(), id.toString())
-                        .param("name", nameB))
+        System.out.println(objectMapper.writeValueAsString(product1));
+        System.out.println(objectMapper.writeValueAsString(product2));
+
+        when(productService.getProductByID(id)).thenReturn(product1);
+        when(productService.updateProduct(product1, nameA, null, null)).thenReturn(product1);
+        mockMvc.perform(patch("/todolist/shoppinglist/{idOfShoppingList}/product/{id}", id.toString(), id.toString())
+                        .queryParam("name", nameB))
                 .andExpect(status().isOk());
     }
 }

@@ -2,6 +2,9 @@
 GET http://localhost:8710/users/me
 Authorization: Bearer {{Token}}
 
+### Get UserDetails
+GET http://localhost:8710/users
+Authorization: Bearer {{Token}}
 
 ### Add an User
 POST http://localhost:8710/users/register
@@ -13,12 +16,12 @@ Authorization: Bearer {{Token}}
   "password" : "Victor"
 }
 ### Update Userdetails
-PATCH http://localhost:8710/users/register/
+PATCH http://localhost:8710/users
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
 {
-  "email" : "VictorMartins@mail.de",
+  "email" : "TestUser@mail.de",
   "firstName" : "Victor",
   "lastName" : "Fernandes Martins",
   "birthDate": "1987-10-13"

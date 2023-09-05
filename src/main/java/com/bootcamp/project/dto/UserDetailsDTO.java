@@ -2,8 +2,12 @@ package com.bootcamp.project.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
+@NoArgsConstructor
 public class UserDetailsDTO {
     @NotBlank(message = "E-Mail is Mandatory")
     @Email(message = "E-Mail dont Follow rules")
@@ -15,5 +19,5 @@ public class UserDetailsDTO {
     @Max(message = "Reached Maximum of (128) Characters", value = 128)
     private String lastName;
     @Max(message = "Formatted Date: YYYY-MM-DD", value = 10)
-    private String birthDate;
+    private LocalDate birthDate;
 }
