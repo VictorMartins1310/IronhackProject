@@ -2,7 +2,9 @@ package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.TaskController;
 import com.bootcamp.project.dto.TaskDTO;
+import com.bootcamp.project.dto.TaskListTasksDTO;
 import com.bootcamp.project.mappers.TaskMapper;
+import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Task;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.service.TaskListService;
@@ -19,23 +21,23 @@ import java.util.List;
 */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(name = "tasklist", value = "todolist/tasklist")
+@RequestMapping(name = "tasklist", value = "todolist/tasklist/{taskLID}")
 public class TaskControllerImpl implements TaskController {
     private final TaskListService taskListService;
     private final TaskService taskService;
     private final TaskMapper taskMapper;
-    @PostMapping("/{taskLID}")
+    private final TodoListMapper taskListMapper;
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public List<TaskDTO> addTask(@PathVariable("taskLID") Long taskID, @RequestBody TaskDTO taskDTO){
         Task task = taskMapper.toEntity(taskDTO);
         TaskList taskList = taskListService.addTask2List(taskID, task);
         return taskMapper.toDto(taskService.getAllTasksOfTaskList(taskList));
     }
-    @GetMapping("/{taskLID}")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Task> getAllTasksOfTaskList(@PathVariable("taskLID") Long taskID){
-        TaskList taskL = taskListService.getTaskListByID(taskID);
-        return taskService.getAllTasksOfTaskList(taskL);
+    public TaskListTasksDTO getAllTasksOfTaskList(@PathVariable("taskLID") Long taskID){
+        return taskListMapper.toDTO(taskListService.getTaskListByID(taskID));
     }
     @Override
     @PatchMapping(value = "/task/{taskID}/done")

@@ -1,24 +1,32 @@
-### Add new TaskList
-POST http://localhost:8710/todolist/tasklist
-Authorization: Bearer {{Token}}
-Content-Type: Application/json
-
-{
-  "todoListName": "TaskList HomeWork KAKKK"
-}
-
 ### Get Tasks of Tasklist
-GET http://localhost:8710/todolist/tasklist/1
+GET http://localhost:8710/todolist/tasklist/5
 Authorization: Bearer {{Token}}
 
 ### Add Task to TaskList
-POST http://localhost:8710/todolist/tasklist/1
+POST http://localhost:8710/todolist/tasklist/5
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
 {
   "task": "Work"
+}
 
+### Add Task to TaskList
+POST http://localhost:8710/todolist/tasklist/5
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "task": "Cooking"
+}
+
+### Add Task to TaskList
+POST http://localhost:8710/todolist/tasklist/5
+Content-Type: Application/json
+Authorization: Bearer {{Token}}
+
+{
+  "task": "Cleaning"
 }
 
 ### Update a TaskList
@@ -26,14 +34,13 @@ PATCH http://localhost:8710/todolist/tasklist/1?tklname=Updated TaskList Name
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
-
 ### Task Done
-PATCH http://localhost:8710/todolist/tasklist/task/1/done
+PATCH http://localhost:8710/todolist/tasklist/task/2/done
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
 ### Task Update
-PATCH http://localhost:8710/todolist/tasklist/task/1?tname=Updated Task Name
+PATCH http://localhost:8710/todolist/tasklist/task/5?tname=Updated Task Name
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 

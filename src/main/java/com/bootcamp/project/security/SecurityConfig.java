@@ -69,13 +69,18 @@ public class SecurityConfig {
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/login/**").permitAll()
                 .requestMatchers("/admin/users").hasAnyAuthority("ROLE_ADMIN")
+
                 .requestMatchers(GET, "/users/me").permitAll()
                 .requestMatchers(POST, "/users").permitAll()
+                .requestMatchers(PATCH, "/users").permitAll()
 
                 .requestMatchers(GET, "/users").hasAnyAuthority("ROLE_USER")
                 .requestMatchers(PATCH, "/users").hasAnyAuthority("ROLE_USER")
 
                 .requestMatchers(GET, "/todolist/**").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(POST, "/todolist/**").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(PATCH, "/todolist/**").hasAnyAuthority("ROLE_USER")
+                .requestMatchers(DELETE, "/todolist/**").hasAnyAuthority("ROLE_USER")
 
 //                Follow URIs don't need anymore
 

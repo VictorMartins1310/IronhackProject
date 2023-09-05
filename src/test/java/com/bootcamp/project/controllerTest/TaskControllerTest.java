@@ -3,6 +3,7 @@ package com.bootcamp.project.controllerTest;
 import com.bootcamp.project.controller.implement.TaskControllerImpl;
 import com.bootcamp.project.dto.TaskDTO;
 import com.bootcamp.project.mappers.TaskMapper;
+import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Task;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.service.TaskListService;
@@ -40,6 +41,7 @@ public class TaskControllerTest {
     @MockBean private TaskListService taskListService;
     @MockBean private TaskService taskService;
     @MockBean private TaskMapper taskMapper;
+    @MockBean private TodoListMapper taskListMapper;
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -59,7 +61,7 @@ public class TaskControllerTest {
         taskDTO1.setTask(taskStr);
         TaskDTO taskDTO2 = new TaskDTO();
         taskDTO2.setTask(taskStr);
-        taskDTO2.setStatus(false);
+        taskDTO2.setDone(false);
 
         List<TaskDTO> taskDTOList = new ArrayList<>();
         taskDTOList.add(taskDTO2);
@@ -95,12 +97,12 @@ public class TaskControllerTest {
         taskDtoIn.setTask(taskIn);
         TaskDTO taskDtoOut = new TaskDTO();
         taskDtoOut.setTask(taskOut);
-        taskDtoOut.setStatus(false);
+        taskDtoOut.setDone(false);
 
         when((taskMapper.toDto(taskService.updateTaskName(taskID, taskIn)))).thenReturn(taskDtoOut);
 
         mockMvc.perform(
-                patch("/todolist/tasklist/task/{taskID}", taskID.toString())
+                patch("/todolist/tasklist/{tasklistID}/task/{taskID}", taskListID, taskID.toString())
                         .queryParam("tname", taskOut))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(taskDtoOut)));

@@ -35,13 +35,13 @@ public class UserControllerImpl implements UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserDetailsDTO updateDetailsOnRegister(@RequestBody User userDetails) {
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return userDetailsMapper.toDto(userService.updateDetails(loggedUser, userDetails.getEmail(), userDetails.getFirstName(), userDetails.getBirthDate().toString()));
+        return userDetailsMapper.toDto(userService.updateDetails(loggedUser, userDetails.getFirstName(), userDetails.getLastName(), userDetails.getBirthDate().toString()));
     }
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
     public UserDetailsDTO updateDetails(@RequestBody User userDetails) {
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return userDetailsMapper.toDto(userService.updateDetails(loggedUser, userDetails.getEmail(), userDetails.getFirstName(), userDetails.getBirthDate().toString()));
+        return userDetailsMapper.toDto(userService.updateDetails(loggedUser, userDetails.getFirstName(), userDetails.getLastName(), userDetails.getBirthDate().toString()));
     }
     @GetMapping("/me")
     @ResponseStatus(HttpStatus.OK)

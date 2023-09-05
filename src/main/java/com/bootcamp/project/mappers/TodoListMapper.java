@@ -1,10 +1,7 @@
 package com.bootcamp.project.mappers;
 
 
-import com.bootcamp.project.dto.ShoppingListDTO;
-import com.bootcamp.project.dto.ShoppingListProductsDTO;
-import com.bootcamp.project.dto.TaskListDTO;
-import com.bootcamp.project.dto.ToDoListDTO;
+import com.bootcamp.project.dto.*;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.ToDoList;
@@ -20,6 +17,7 @@ public interface TodoListMapper {
     TaskListDTO toDto (TaskList dto);
     ShoppingListDTO toDto(ShoppingList dto);
     ShoppingListProductsDTO toDTO(ShoppingList dto);
+    TaskListTasksDTO toDTO(TaskList dto);
     List<ToDoListDTO> toDto(List<ToDoList> dto);
 
     // TaskList Mapping Section

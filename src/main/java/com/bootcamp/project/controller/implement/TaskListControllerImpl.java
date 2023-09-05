@@ -2,6 +2,7 @@ package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.TaskListController;
 import com.bootcamp.project.dto.TaskListDTO;
+import com.bootcamp.project.dto.TaskListTasksDTO;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
@@ -43,8 +44,8 @@ public class TaskListControllerImpl implements TaskListController {
 
     @PatchMapping(value = "/{idtasklist}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskListDTO updateTaskList(@PathVariable("idtasklist") Long taskListID, @RequestParam(value = "tklname") String tklname){
-        return taskListMapper.toDto(taskListService.updateTaskList(taskListID, tklname));
+    public TaskListTasksDTO updateTaskList(@PathVariable("idtasklist") Long taskListID, @RequestParam(value = "tklname") String tklname){
+        return taskListMapper.toDTO(taskListService.updateTaskList(taskListID, tklname));
     }
 
     @DeleteMapping(value = "/{idtasklist}")

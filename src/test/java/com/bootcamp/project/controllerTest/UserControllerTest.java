@@ -64,7 +64,7 @@ public class UserControllerTest {
                 .andExpect(content().json(objectMapper.writeValueAsString(userDto))); //https://github.com/json-path/JsonPath
     }
 
-    @DisplayName("Test: Update UsersDetails")
+    @DisplayName("Test: Get UsersDetails")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void getUserDetails() throws Exception {
         LocalDate birthdate = LocalDate.parse("1987-10-13");
@@ -86,9 +86,6 @@ public class UserControllerTest {
         userOut.setLastName("Martins");
         userOut.setBirthDate(birthdate);
 
-        System.out.println("Logged User: " + objectMapper.writeValueAsString(loggedUser));
-        System.out.println("    UserOut: " + objectMapper.writeValueAsString(userOut));
-
 
         when(userDetailsMapper.toDto(userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()))).thenReturn(userOut);
 
@@ -98,20 +95,18 @@ public class UserControllerTest {
                 .andExpect(content().json(objectMapper.writeValueAsString(userOut))); //https://github.com/json-path/JsonPath
     }
 
-    @DisplayName("Test: Update UsersDetails")
+    @DisplayName("Test: Update UsersDetails on Register")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testUpdateUser() throws Exception{
         String email = "User@mail.de",
                 pass = "pass1234";
         UUID uuid = UUID.randomUUID();
 
-
         Role role = new Role();
         role.setRole("USER_ROLE");
 
         User userA = new User(email, pass);
         userA.setUserID(uuid);
-
 
         LocalDate birthdate = LocalDate.parse("1987-10-13");
         UserDetailsDTO userIn = new UserDetailsDTO();

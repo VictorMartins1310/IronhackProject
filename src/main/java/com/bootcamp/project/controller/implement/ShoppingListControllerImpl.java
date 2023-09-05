@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** This Controller is destined for the Shopping List
@@ -37,10 +36,7 @@ public class ShoppingListControllerImpl implements ShoppingListController{
     @ResponseStatus(HttpStatus.OK)
     public List<ShoppingListDTO> showShoppingLists(){
         User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        List<ShoppingListDTO> shoppingListsDTO = new ArrayList<>();
-        for (ShoppingList shopL : shoppingLService.getShoppingLists(loggedUser))
-            shoppingListsDTO.add(shoppingLMapper.toDto(shopL));
-        return shoppingListsDTO;
+        return shoppingLMapper.toShoppingListDtos(shoppingLService.getShoppingLists(loggedUser));
     }
     @GetMapping(value = "/{shoppingLID}")
     @ResponseStatus(HttpStatus.OK)

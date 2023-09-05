@@ -2,6 +2,7 @@ package com.bootcamp.project.controllerTest;
 
 import com.bootcamp.project.controller.implement.TaskListControllerImpl;
 import com.bootcamp.project.dto.TaskListDTO;
+import com.bootcamp.project.dto.TaskListTasksDTO;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.TaskList;
@@ -47,6 +48,13 @@ public class TaskListControllerTest {
     @MockBean private UserService userService;
 
 
+    private final User user = new User("email@mail.com", "DumpPass1234");
+    private final String todoListName1 = "TASK LIST TODO";
+    private final String todoListName2 = "NEW TASK LIST NAME";
+    private final Long id = 13L;
+    TaskListDTO taskListDTOIN = new TaskListDTO();
+    TaskListDTO taskListDTOOUT = new TaskListDTO();
+
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -54,22 +62,16 @@ public class TaskListControllerTest {
     @DisplayName("Test: Create Task List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testCreateTaskList() throws Exception {
-        User user = new User("email@mail.com", "DumpPass1234");
         Role role = new Role();
         role.setRoleID(1);
         role.setRole("USER");
         user.addRole(role);
-        Long id = 13L;
         user.setUserID(UUID.randomUUID());
         Date date = new Date();
-        String todoListName1 = "TASK LIST TODO";
-        String todoListName2 = "NEW TASK LIST NAME";
         TaskList taskList1 = new TaskList(todoListName1, user);
         TaskList taskList2 = new TaskList(todoListName2, user);
 
-        TaskListDTO taskListDTOIN = new TaskListDTO();
         taskListDTOIN.setTodoListName(todoListName1);
-        TaskListDTO taskListDTOOUT = new TaskListDTO();
         taskListDTOIN.setTodoListName(todoListName2);
 
         taskList1.setTodoListID(id);
@@ -90,10 +92,6 @@ public class TaskListControllerTest {
     @DisplayName("Test: Get All Task Lists")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testGetAllTaskLists() throws Exception {
-        User user = new User("email@mail.com", "DumpPass1234");
-        Long id = 13L;
-        String todoListName1 = "TASK LIST TODO";
-        String todoListName2 = "NEW TASK LIST NAME";
         TaskList taskList1 = new TaskList(todoListName1, user);
         TaskList taskList2 = new TaskList(todoListName2, user);
 
@@ -117,21 +115,17 @@ public class TaskListControllerTest {
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testUpdateTaskList() throws Exception {
         UUID uuid = UUID.randomUUID();
-        User user = new User("email@mail.com", "DumpPass1234");
         user.setUserID(uuid);
-        Long id = 13L;
-        String todoListName1 = "TASK LIST TODO";
-        String todoListName2 = "NEW TASK LIST NAME";
         TaskList taskList1 = new TaskList(todoListName1, user);
         TaskList taskList2 = new TaskList(todoListName2, user);
 
-        TaskListDTO taskListDTO = new TaskListDTO();
+        TaskListTasksDTO taskListDTO = new TaskListTasksDTO();
         taskListDTO.setTodoListName(todoListName2);
 
         taskList1.setTodoListID(id);
         taskList2.setTodoListID(id);
 
-        when(taskListMapper.toDto(taskListService.updateTaskList(id, todoListName2))).thenReturn(taskListDTO);
+        when(taskListMapper.toDTO(taskListService.updateTaskList(id, todoListName2))).thenReturn(taskListDTO);
         mockMvc.perform(
                 patch("/todolist/tasklist/{id}", id.toString())
                         .queryParam("tklname", todoListName2))
@@ -145,8 +139,6 @@ public class TaskListControllerTest {
         User user = new User("email@mail.com", "DumpPass1234");
         user.setUserID(uuid);
         Long id = 13L;
-        String todoListName1 = "TASK LIST TODO";
-        String todoListName2 = "NEW TASK LIST NAME";
         TaskList taskList1 = new TaskList(todoListName1, user);
         TaskList taskList2 = new TaskList(todoListName2, user);
 

@@ -1,18 +1,3 @@
-
-### Add new ShoppingList with SuperMarket ALDI
-POST http://localhost:8710/todolist/shoppinglist
-Content-Type: Application/json
-Authorization: Bearer {{Token}}
-
-{
-  "todoListName": "ShoppingList ALDI",
-  "marketName": "ALDI"
-}
-
-### Get All Shopping List
-GET http://localhost:8710/todolist/shoppinglist
-Authorization: Bearer {{Token}}
-
 ### Get Products of ALDI
 GET http://localhost:8710/todolist/shoppinglist/2
 Authorization: Bearer {{Token}}

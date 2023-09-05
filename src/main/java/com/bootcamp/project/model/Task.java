@@ -13,7 +13,7 @@ public class Task {
     private Long taskID;
     private String task;
     /** True means Done, False to be Do */
-    private Boolean status = false;
+    private Boolean done = false;
 
-    public void taskDone(){ this.status = true; }
+    public void taskDone(){ this.done = true; }
 }

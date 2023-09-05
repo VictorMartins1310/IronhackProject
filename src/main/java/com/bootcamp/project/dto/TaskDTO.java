@@ -7,5 +7,5 @@ import lombok.Data;
 public class TaskDTO {
     @Max(message = "Reached Maximum of (64) Characters", value = 64)
     private String task;
-    private Boolean status = false;
+    private Boolean done = false;
 }

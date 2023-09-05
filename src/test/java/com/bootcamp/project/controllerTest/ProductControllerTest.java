@@ -3,6 +3,7 @@ package com.bootcamp.project.controllerTest;
 import com.bootcamp.project.controller.implement.ProductControllerImpl;
 import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListDTO;
+import com.bootcamp.project.dto.ShoppingListProductsDTO;
 import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Product;
@@ -86,14 +87,14 @@ public class ProductControllerTest {
         productDTO.setQty(qty);
         productDTO.setType(productType);
 
-        ShoppingListDTO shoppingListDTO = new ShoppingListDTO();
+        ShoppingListProductsDTO shoppingListProductsDTO = new ShoppingListProductsDTO();
 
-        when(shoppingLMapper.toDto(shoppingLService.addProduct2List(id, product1))).thenReturn(shoppingListDTO);
+        when(shoppingLMapper.toDTO(shoppingLService.addProduct2List(id, product1))).thenReturn(shoppingListProductsDTO);
         mockMvc.perform(post("/todolist/shoppinglist/{idOfShoppingList}/products", id.toString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(productDTO)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTO)));
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListProductsDTO)));
     }
     @DisplayName("Test: Update a Product")
     @WithMockUser(username = "testUser", roles = "USER")

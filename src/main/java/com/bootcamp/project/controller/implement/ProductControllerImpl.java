@@ -3,6 +3,7 @@ package com.bootcamp.project.controller.implement;
 import com.bootcamp.project.controller.ProductController;
 import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListDTO;
+import com.bootcamp.project.dto.ShoppingListProductsDTO;
 import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Product;
@@ -27,15 +28,15 @@ public class ProductControllerImpl implements ProductController {
     private final ProductMapper productMapper;
     @PostMapping(value = "/products")
     @ResponseStatus(HttpStatus.CREATED)
-    public ShoppingListDTO addProduct(@PathVariable("idOfShoppingList") Long todoID, @RequestBody ProductDTO productDTO){
+    public ShoppingListProductsDTO addProduct(@PathVariable("idOfShoppingList") Long todoID, @RequestBody ProductDTO productDTO){
         Product product = productMapper.toEntity(productDTO);
-        return shoppingLMapper.toDto(shoppingService.addProduct2List(todoID, product));
+        return shoppingLMapper.toDTO(shoppingService.addProduct2List(todoID, product));
     }
 
     // A get Product dont make sense here, it makes sense get All Products but make sense Update a Product
 
     @Override
-    @PatchMapping(value = "/products/{idOfProduct}/bought/{qty}")
+    @PatchMapping(value = "/products/{idOfProduct}/bought")
     @ResponseStatus(HttpStatus.OK)
     public Boolean boughtProduct(@PathVariable("idOfProduct") Long idOfProduct, @RequestParam("qty") int qty) {
         productService.productBought(idOfProduct, qty);

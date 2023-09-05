@@ -6,19 +6,27 @@ Authorization: Bearer {{Token}}
 GET http://localhost:8710/todolist/tasklist
 Authorization: Bearer {{Token}}
 
+### Get All ShoppingLists (Logged In)
+GET http://localhost:8710/todolist/shoppinglist
+Authorization: Bearer {{Token}}
+
 ### New TaskList to Logged In User
 POST http://localhost:8710/todolist/tasklist
 Authorization: Bearer {{Token}}
 Content-Type: Application/json
 
 {
-  "todoListName": "Test Task LIST"
+  "todoListName": "TaskList HomeWork"
 }
 
-### Get All ShoppingLists (Logged In)
-GET http://localhost:8710/todolist/shoppinglist
+### Add new ShoppingList with SuperMarket LIDL
+POST http://localhost:8710/todolist/shoppinglist
+Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
+{
+  "marketName": "LIDL"
+}
 
 ### Update First ShoppingList to Logged In User
 PATCH http://localhost:8710/todolist/shoppinglist/2?marketname=Updated ShopName
