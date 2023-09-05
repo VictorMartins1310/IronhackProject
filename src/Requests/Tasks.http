@@ -7,7 +7,7 @@ Content-Type: Application/json
   "todoListName": "TaskList HomeWork KAKKK"
 }
 
-###
+### Get Tasks of Tasklist
 GET http://localhost:8710/todolist/tasklist/1
 Authorization: Bearer {{Token}}
 
@@ -21,8 +21,8 @@ Authorization: Bearer {{Token}}
 
 }
 
-### Add Task to TaskList
-PATCH http://localhost:8710/todolist/tasklist/2?tklname=Foda-se pro caralho
+### Update a TaskList
+PATCH http://localhost:8710/todolist/tasklist/1?tklname=Updated TaskList Name
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
@@ -38,7 +38,7 @@ Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
 ### DELETE Task List
-DELETE http://localhost:8710/todolist/tasklist/4
+DELETE http://localhost:8710/todolist/tasklist/5
 Content-Type: Application/json
 Authorization: Bearer {{Token}}
 

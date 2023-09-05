@@ -7,7 +7,6 @@ import com.bootcamp.project.repos.ToDoListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,8 +38,6 @@ public class ToDoListService {
         if (toDoListRepository.findAllByUser(user).isEmpty()) {
             throw new ProjectException("0 Todo Lists Found");
         }
-        List<ToDoList> allLists = new ArrayList<>();
-    //    allLists = shoppingListRepository.findShoppingListsByUser(user).stream().toList().;
         return toDoListRepository.findToDoListsByUser(user);
     }
 }

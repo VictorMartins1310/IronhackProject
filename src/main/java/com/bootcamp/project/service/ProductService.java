@@ -18,7 +18,8 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public Product newProduct(Product product){
-        return productRepository.save(product); }
+        return productRepository.save(product);
+    }
     public Product productBought(Long id, int qty) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isEmpty())

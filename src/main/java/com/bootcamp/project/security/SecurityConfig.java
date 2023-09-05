@@ -68,7 +68,6 @@ public class SecurityConfig {
         // modify this to have different configurations
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/login/**").permitAll()
-                .requestMatchers("/swagger-ui/**").permitAll() //TODO verify how to make it work with security
                 .requestMatchers("/admin/users").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(GET, "/users/me").permitAll()
                 .requestMatchers(POST, "/users").permitAll()
@@ -77,6 +76,8 @@ public class SecurityConfig {
                 .requestMatchers(PATCH, "/users").hasAnyAuthority("ROLE_USER")
 
                 .requestMatchers(GET, "/todolist/**").hasAnyAuthority("ROLE_USER")
+
+//                Follow URIs don't need anymore
 
 //                .requestMatchers(GET, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
 //                .requestMatchers(POST, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")

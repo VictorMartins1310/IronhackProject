@@ -21,5 +21,5 @@ Authorization: Bearer {{Token}}
 
 
 ### Update First ShoppingList to Logged In User
-PATCH http://localhost:8710/todolist/shoppinglist/3?market=Updated ShopName
+PATCH http://localhost:8710/todolist/shoppinglist/2?marketname=Updated ShopName
 Authorization: Bearer {{Token}}

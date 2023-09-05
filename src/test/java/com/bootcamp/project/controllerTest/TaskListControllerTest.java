@@ -42,7 +42,7 @@ public class TaskListControllerTest {
     @Autowired private ObjectMapper objectMapper;
     @Autowired private WebApplicationContext webApplicationContext;
 
-    @MockBean private TodoListMapper toDoListMapper;
+    @MockBean private TodoListMapper taskListMapper;
     @MockBean private TaskListService taskListService;
     @MockBean private UserService userService;
 
@@ -79,7 +79,7 @@ public class TaskListControllerTest {
         taskList1.setTasks(new ArrayList<>());
         taskList2.setTasks(new ArrayList<>());
 
-        when(toDoListMapper.toDto(taskListService.newTaskList(user, taskList1))).thenReturn(taskListDTOOUT);
+        when(taskListMapper.toDto(taskListService.newTaskList(user, taskList1))).thenReturn(taskListDTOOUT);
         mockMvc.perform(
                 post("/todolist/tasklist")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -107,7 +107,7 @@ public class TaskListControllerTest {
 
         taskLists.add(taskListDTO1);
 
-        when(toDoListMapper.toTaskListsDtos(taskListService.getTaskListsByUser(user))).thenReturn(taskLists);
+        when(taskListMapper.toTaskListsDtos(taskListService.getTaskListsByUser(user))).thenReturn(taskLists);
         mockMvc.perform(
                 get("/todolist/tasklist"))
                 .andExpect(status().isOk())
@@ -125,15 +125,18 @@ public class TaskListControllerTest {
         TaskList taskList1 = new TaskList(todoListName1, user);
         TaskList taskList2 = new TaskList(todoListName2, user);
 
+        TaskListDTO taskListDTO = new TaskListDTO();
+        taskListDTO.setTodoListName(todoListName2);
+
         taskList1.setTodoListID(id);
         taskList2.setTodoListID(id);
 
-        when(taskListService.updateTaskList(id, todoListName2)).thenReturn(taskList2);
+        when(taskListMapper.toDto(taskListService.updateTaskList(id, todoListName2))).thenReturn(taskListDTO);
         mockMvc.perform(
                 patch("/todolist/tasklist/{id}", id.toString())
                         .queryParam("tklname", todoListName2))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(taskList2)));
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(taskListDTO)));
     }
     @DisplayName("Test: Delete Task List")
     @WithMockUser(username = "testUser", roles = "USER")

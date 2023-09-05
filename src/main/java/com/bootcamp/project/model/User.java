@@ -26,7 +26,7 @@ public class User {
     private String firstName;
     private String lastName;
     @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private LocalDate birthDate; // TODO Change to Date
+    private LocalDate birthDate;
 
     @ManyToMany(fetch = EAGER)
     private Collection<Role> roles = new ArrayList<>();

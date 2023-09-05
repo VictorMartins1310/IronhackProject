@@ -9,28 +9,26 @@ Authorization: Bearer {{Token}}
   "marketName": "ALDI"
 }
 
-
-### Get ALDI Shopping List
+### Get All Shopping List
 GET http://localhost:8710/todolist/shoppinglist
 Authorization: Bearer {{Token}}
 
-### Get Penny Shopping List
+### Get Products of ALDI
 GET http://localhost:8710/todolist/shoppinglist/2
 Authorization: Bearer {{Token}}
-### Get Penny Shopping List
 
-GET http://localhost:8710/todolist/shoppinglist/2/products
+### Add Product to ALDI
+POST http://localhost:8710/todolist/shoppinglist/2/products
+Content-Type: Application/json
 Authorization: Bearer {{Token}}
 
-
-### Get Penny Shopping List
-GET http://localhost:8710/todolist/shoppinglist/3
-Authorization: Bearer {{Token}}
-
-
-### Get Penny Shopping List
-GET http://localhost:8710/todolist/shoppinglist/4
-Authorization: Bearer {{Token}}
+{
+  "name": "Coca Cola",
+  "brand": "Coca Cola Comp",
+  "price": 1.23,
+  "qty": 4,
+  "type": "Drink"
+}
 
 ### Delete Shoping List
 DELETE http://localhost:8710/todolist/shoppinglist/3

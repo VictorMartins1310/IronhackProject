@@ -88,7 +88,7 @@ public class ProductControllerTest {
 
         ShoppingListDTO shoppingListDTO = new ShoppingListDTO();
 
-        when(shoppingLMapper.toDto(shoppingLService.addProdut2List(id, product1))).thenReturn(shoppingListDTO);
+        when(shoppingLMapper.toDto(shoppingLService.addProduct2List(id, product1))).thenReturn(shoppingListDTO);
         mockMvc.perform(post("/todolist/shoppinglist/{idOfShoppingList}/products", id.toString())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(productDTO)))

@@ -42,15 +42,16 @@ public class ShoppingListService {
         return save(shoppingList);
     }
 
-    public ShoppingList addProdut2List(Long shopID, Product prod) {
-        ShoppingList todo;
-        if (shoppingListRepository.getShoppingListByTodoListID(shopID).isPresent()) {
-            todo = shoppingListRepository.getShoppingListByTodoListID(shopID).get();
+    public ShoppingList addProduct2List(Long shopID, Product prod) {
+        ShoppingList shoppingList = getShoppingList(shopID);
+        if (prod.getProductID() == null){
             Product savedProd = prodService.newProduct(prod);
-            todo.addProduct(savedProd);
-            return save(todo);
-        } else
-            throw new ProjectException("Cannot find Shopping list");
+            shoppingList.addProduct(savedProd);
+        } else {
+            // This was created for DataLoader, but gaves me a Lazy Exception, so it works but can be Deleted
+            shoppingList.addProduct(prod);
+        }
+        return save(shoppingList);
     }
 
     public ShoppingList save(ShoppingList shop){

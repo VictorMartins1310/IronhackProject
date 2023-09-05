@@ -87,8 +87,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         // Adding user details and roles to the token
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 12 * 60 * 60 * 1000))
-//                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) // TODO Remove comment befor submit Project
+                .withExpiresAt(new Date(System.currentTimeMillis() + 2 * 60 * 60 * 1000)) // for generating a 2 hours valid Token
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);

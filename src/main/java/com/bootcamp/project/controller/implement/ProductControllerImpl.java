@@ -29,7 +29,7 @@ public class ProductControllerImpl implements ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     public ShoppingListDTO addProduct(@PathVariable("idOfShoppingList") Long todoID, @RequestBody ProductDTO productDTO){
         Product product = productMapper.toEntity(productDTO);
-        return shoppingLMapper.toDto(shoppingService.addProdut2List(todoID, product));
+        return shoppingLMapper.toDto(shoppingService.addProduct2List(todoID, product));
     }
 
     // A get Product dont make sense here, it makes sense get All Products but make sense Update a Product
