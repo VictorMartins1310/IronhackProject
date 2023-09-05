@@ -3,18 +3,14 @@ package com.bootcamp.project.controller.implement;
 import com.bootcamp.project.controller.ProductController;
 import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListDTO;
-import com.bootcamp.project.exception.ProjectException;
 import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Product;
-import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.service.ProductService;
 import com.bootcamp.project.service.ShoppingListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /** This Controller is destined for Products
  * It can Create and Update a Product
@@ -22,14 +18,14 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(name = "products", value = "todolist/shoppinglist")
+@RequestMapping(name = "products", value = "todolist/shoppinglist/{idOfShoppingList}")
 public class ProductControllerImpl implements ProductController {
     private final ShoppingListService shoppingService;
     private final ProductService productService;
 
     private final TodoListMapper shoppingLMapper;
     private final ProductMapper productMapper;
-    @PostMapping(value = "/{idOfShoppingList}/products")
+    @PostMapping(value = "/products")
     @ResponseStatus(HttpStatus.CREATED)
     public ShoppingListDTO addProduct(@PathVariable("idOfShoppingList") Long todoID, @RequestBody ProductDTO productDTO){
         Product product = productMapper.toEntity(productDTO);
@@ -38,20 +34,14 @@ public class ProductControllerImpl implements ProductController {
 
     // A get Product dont make sense here, it makes sense get All Products but make sense Update a Product
 
-    @GetMapping(value = "/{idOfShoppingList}/products")
-    public List<ProductDTO> getAllProductsOfShoppingList(@PathVariable("idOfShoppingList") Long id){
-        ShoppingList shpL = shoppingService.getShoppingList(id);
-        return productService.getAllProductsOfShoppingList(shpL).stream().map(productMapper::toDto).toList();
-    }
-
     @Override
-    @PatchMapping(value = "/{idOfShoppingList}/products/{idOfProduct}/bought/{qty}")
+    @PatchMapping(value = "/products/{idOfProduct}/bought/{qty}")
     @ResponseStatus(HttpStatus.OK)
     public Boolean boughtProduct(@PathVariable("idOfProduct") Long idOfProduct, @RequestParam("qty") int qty) {
         productService.productBought(idOfProduct, qty);
         return true;
     }
-    @PatchMapping(value = "/{idOfShoppingList}/product/{idOfProduct}")
+    @PatchMapping(value = "/product/{idOfProduct}")
     @ResponseStatus(HttpStatus.OK)
     public Product updateProduct(
             @PathVariable("idOfProduct") Long idOfProduct,
@@ -59,9 +49,7 @@ public class ProductControllerImpl implements ProductController {
             @RequestParam(value = "brand", required = false) String brand,
             @RequestParam(value = "price", required = false) String price
             ) {
-        Product product = productService.getProductByID(idOfProduct);
-        if (product == null)
-            throw new ProjectException("Product not Found");
-        return productService.updateProduct(product, name, brand, price);
+
+        return productService.updateProduct(idOfProduct, name, brand, price);
     }
 }

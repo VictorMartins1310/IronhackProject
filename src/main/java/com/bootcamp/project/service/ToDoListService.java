@@ -1,11 +1,8 @@
 package com.bootcamp.project.service;
 
 import com.bootcamp.project.exception.ProjectException;
-import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.model.User;
-import com.bootcamp.project.repos.ShoppingListRepository;
-import com.bootcamp.project.repos.TaskListRepository;
 import com.bootcamp.project.repos.ToDoListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

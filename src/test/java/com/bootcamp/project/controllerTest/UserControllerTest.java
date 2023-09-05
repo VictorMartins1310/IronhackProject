@@ -21,11 +21,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
 import java.time.LocalDate;
 import java.util.UUID;
-
-
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -128,10 +125,6 @@ public class UserControllerTest {
         userOut.setFirstName("Victor");
         userOut.setLastName("Martins");
         userOut.setBirthDate(birthdate);
-
-        System.out.println("User A: " + objectMapper.writeValueAsString(userA));
-        System.out.println("UserIn: " + objectMapper.writeValueAsString(userIn));
-        System.out.println("UserOut: " + objectMapper.writeValueAsString(userOut));
 
         when(userDetailsMapper.toDto(userService.updateDetails(userA, userIn.getFirstName(), userIn.getLastName(), userIn.getBirthDate().toString()))).thenReturn(userOut);
 

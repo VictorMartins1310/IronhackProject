@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 import static com.bootcamp.project.model.ProductType.*;
 @Component
 @RequiredArgsConstructor

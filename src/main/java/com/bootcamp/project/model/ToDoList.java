@@ -2,18 +2,9 @@ package com.bootcamp.project.model;
 
 
 import jakarta.persistence.*;
-import jdk.jfr.Timestamp;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
 
 @Data
 @Entity

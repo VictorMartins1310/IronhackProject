@@ -1,6 +1,5 @@
 package com.bootcamp.project.dto;
 
-import com.bootcamp.project.model.Product;
 import jakarta.validation.constraints.Max;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

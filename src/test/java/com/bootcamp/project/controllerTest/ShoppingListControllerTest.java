@@ -18,7 +18,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.junit.jupiter.api.Test;
@@ -70,15 +69,12 @@ public class ShoppingListControllerTest {
 
 
         when(shoppingLMapper.toDto(shoppingListService.newShoppingList(user, shopname))).thenReturn(shoppingListDTO1);
-        System.out.println(objectMapper.writeValueAsString(shoppingList));
-        System.out.println(objectMapper.writeValueAsString(shoppingListDTO1));
-        System.out.println(objectMapper.writeValueAsString(shoppingListDTO2));
+
         mockMvc.perform(post("/todolist/shoppinglist")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(shoppingListDTO1)))
-
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(shoppingListDTO2)));
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTO2)));
     }
     @DisplayName("Test: Get All Shoppinglists")
     @WithMockUser(username = "testUser", roles = "USER")
@@ -119,7 +115,6 @@ public class ShoppingListControllerTest {
         ShoppingListProductsDTO shoppingListDTO = new ShoppingListProductsDTO();
 
 
-
         when(shoppingLMapper.toDTO(shoppingListService.getShoppingList(shopID))).thenReturn(shoppingListDTO);
 
         mockMvc.perform(get("/todolist/shoppinglist/{shopID}", shopID.toString()))
@@ -151,16 +146,14 @@ public class ShoppingListControllerTest {
         shoppingListB.setTodoListName(todolistname);
         shoppingListB.setMarketName(newmarketname);
 
-        System.out.println(objectMapper.writeValueAsString(shoppingListA));
-        System.out.println(objectMapper.writeValueAsString(shoppingListB));
 
-        when(shoppingListService.updateShoppingList(id, todolistname, marketname)).thenReturn(shoppingListB);
+        when(shoppingListService.updateShoppingList(id, null, newmarketname)).thenReturn(shoppingListB);
 
         mockMvc.perform(
                         patch("/todolist/shoppinglist/{id}", id.toString())
-                                .queryParam("todolistname", todolistname)
                                 .queryParam("marketname", newmarketname))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListB)));
     }
 
     @DisplayName("Test: Delete Shopping List")
@@ -179,14 +172,9 @@ public class ShoppingListControllerTest {
         shopList1.setTodoListID(id);
         shopList2.setTodoListID(id);
 
-        System.out.println(objectMapper.writeValueAsString(shopList1));
-        System.out.println(objectMapper.writeValueAsString(shopList2));
-
         when(shoppingListService.deleteShoppingLists(id)).thenReturn(true);
         mockMvc.perform(
                         delete("/todolist/shoppinglist/{id}", id.toString()))
                 .andExpect(status().isNoContent());
     }
-
-
 }

@@ -5,7 +5,6 @@ import com.bootcamp.project.dto.TaskListDTO;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.TaskList;
-import com.bootcamp.project.model.ToDoList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.TaskListService;
 import com.bootcamp.project.service.UserService;
@@ -80,10 +79,6 @@ public class TaskListControllerTest {
         taskList1.setTasks(new ArrayList<>());
         taskList2.setTasks(new ArrayList<>());
 
-        System.out.println(objectMapper.writeValueAsString(taskList1));
-        System.out.println(objectMapper.writeValueAsString(taskList2));
-        System.out.println(objectMapper.writeValueAsString(taskListDTOIN));
-
         when(toDoListMapper.toDto(taskListService.newTaskList(user, taskList1))).thenReturn(taskListDTOOUT);
         mockMvc.perform(
                 post("/todolist/tasklist")
@@ -104,9 +99,6 @@ public class TaskListControllerTest {
 
         taskList1.setTodoListID(id);
         taskList2.setTodoListID(id);
-
-        System.out.println(objectMapper.writeValueAsString(taskList1));
-        System.out.println(objectMapper.writeValueAsString(taskList2));
 
         List<TaskListDTO> taskLists = new ArrayList<>();
 
@@ -136,9 +128,6 @@ public class TaskListControllerTest {
         taskList1.setTodoListID(id);
         taskList2.setTodoListID(id);
 
-        System.out.println(objectMapper.writeValueAsString(taskList1));
-        System.out.println(objectMapper.writeValueAsString(taskList2));
-
         when(taskListService.updateTaskList(id, todoListName2)).thenReturn(taskList2);
         mockMvc.perform(
                 patch("/todolist/tasklist/{id}", id.toString())
@@ -161,10 +150,7 @@ public class TaskListControllerTest {
         taskList1.setTodoListID(id);
         taskList2.setTodoListID(id);
 
-        System.out.println(objectMapper.writeValueAsString(taskList1));
-        System.out.println(objectMapper.writeValueAsString(taskList2));
-
-        //when(taskListService.deleteTasksLists(id)).thenReturn();
+        when(taskListService.deleteTasksLists(id)).thenReturn(true);
         mockMvc.perform(
                 delete("/todolist/tasklist/{id}", id.toString()))
                 .andExpect(status().isNoContent());

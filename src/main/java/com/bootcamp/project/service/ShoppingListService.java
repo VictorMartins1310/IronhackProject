@@ -30,7 +30,7 @@ public class ShoppingListService {
 
     public ShoppingList newShoppingList(User user, String marketName) {
         ShoppingList shoppingList = new ShoppingList(user, marketName);
-        return shoppingListRepository.save(shoppingList);
+        return save(shoppingList);
     }
 
     public ShoppingList updateShoppingList(Long id, String toDoListName, String marketName) {
@@ -39,7 +39,7 @@ public class ShoppingListService {
         ShoppingList shoppingList = shoppingListRepository.findShoppingListByTodoListID(id).get();
         shoppingList.setTodoListName(toDoListName);
         shoppingList.setMarketName(marketName);
-        return shoppingListRepository.save(shoppingList);
+        return save(shoppingList);
     }
 
     public ShoppingList addProdut2List(Long shopID, Product prod) {
@@ -48,7 +48,7 @@ public class ShoppingListService {
             todo = shoppingListRepository.getShoppingListByTodoListID(shopID).get();
             Product savedProd = prodService.newProduct(prod);
             todo.addProduct(savedProd);
-            return shoppingListRepository.save(todo);
+            return save(todo);
         } else
             throw new ProjectException("Cannot find Shopping list");
     }
@@ -57,9 +57,6 @@ public class ShoppingListService {
         return shoppingListRepository.save(shop);
     }
 
-    /**
-     * Function that deletes a ShoppingList by ID and only if the list is deactivated
-     */
     public void deleteShoppingLists(User user) {
         List<ShoppingList> shopLists = shoppingListRepository.findShoppingListsByUser(user);
         if (!shopLists.isEmpty())

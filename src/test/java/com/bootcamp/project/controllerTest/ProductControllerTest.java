@@ -22,7 +22,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -116,8 +115,6 @@ public class ProductControllerTest {
         product1.setQty(qty);
         product1.setType(productType);
 
-        when(productService.newProduct(product1)).thenReturn(product1);
-
         Product product2 = new Product();
         product2.setProductID(id);
         product2.setName(nameB);
@@ -126,13 +123,10 @@ public class ProductControllerTest {
         product2.setQty(qty);
         product2.setType(productType);
 
-        System.out.println(objectMapper.writeValueAsString(product1));
-        System.out.println(objectMapper.writeValueAsString(product2));
-
-        when(productService.getProductByID(id)).thenReturn(product1);
-        when(productService.updateProduct(product1, nameA, null, null)).thenReturn(product1);
+        when(productService.updateProduct(product1.getProductID(), nameB, null, null)).thenReturn(product2);
         mockMvc.perform(patch("/todolist/shoppinglist/{idOfShoppingList}/product/{id}", id.toString(), id.toString())
                         .queryParam("name", nameB))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(product2)));
     }
 }

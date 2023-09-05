@@ -64,12 +64,10 @@ public class AdminControllerTest {
         UserDetailsDTO userB = new UserDetailsDTO();
         userB.setEmail(email);
 
-        System.out.println(objectMapper.writeValueAsString(userA));
-
-        when(userService.deleteUserByID(uuid)).thenReturn(true);
+        when(userService.deleteUserByID(uuid)).thenReturn(null);
 
         mockMvc.perform(
                         delete("/admin/users/{uuid}", uuid.toString()))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 }

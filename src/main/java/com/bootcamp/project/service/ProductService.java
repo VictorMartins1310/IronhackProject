@@ -36,7 +36,10 @@ public class ProductService {
     public Product save(Product product){
         return productRepository.save(product);
     }
-    public Product updateProduct(Product product, String name, String brand, String price){
+    public Product updateProduct(Long productID, String name, String brand, String price){
+        var product = findProductById(productID);
+        if (product == null)
+            throw new ProjectException("product not found");
         if (!name.isEmpty())
             product.setName(name);
         if (!brand.isEmpty())

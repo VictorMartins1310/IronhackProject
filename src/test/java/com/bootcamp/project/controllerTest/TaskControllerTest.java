@@ -97,11 +97,6 @@ public class TaskControllerTest {
         taskDtoOut.setTask(taskOut);
         taskDtoOut.setStatus(false);
 
-        System.out.println(objectMapper.writeValueAsString(taskList));
-        System.out.println(objectMapper.writeValueAsString(task1));
-        System.out.println(objectMapper.writeValueAsString(taskDtoIn));
-        System.out.println(objectMapper.writeValueAsString(taskDtoOut));
-
         when((taskMapper.toDto(taskService.updateTaskName(taskID, taskIn)))).thenReturn(taskDtoOut);
 
         mockMvc.perform(
