@@ -105,14 +105,12 @@ public class ProductControllerTest {
         product2.setProductID(productID);
 
 
-        System.out.println(objectMapper.writeValueAsString(product));
-        System.out.println(objectMapper.writeValueAsString(product2));
+        when(productService.updateProduct(productID, newProductName, null, null)).thenReturn(product2);
 
-        when(productService.updateProduct(productID, product.getName(), product.getBrand(), product.getPrice().toString())).thenReturn(product);
-
-        mockMvc.perform(patch("/todolist/shoppinglist/{idOfShoppingList}/product/{id}", productID.toString(), productID.toString())
+        mockMvc.perform(
+                patch("/todolist/shoppinglist/{idOfShoppingList}/product/{id}", productID.toString(), productID.toString())
                         .queryParam("name", newProductName))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(product2)));
+                .andExpect(content().json(objectMapper.writeValueAsString(product2))); //change to get Fail
     }
 }

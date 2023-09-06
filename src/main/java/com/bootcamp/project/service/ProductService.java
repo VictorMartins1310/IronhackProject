@@ -41,11 +41,11 @@ public class ProductService {
         var product = findProductById(productID);
         if (product == null)
             throw new ProjectException("product not found");
-        if (!name.isEmpty())
+        if (name != null)
             product.setName(name);
-        if (!brand.isEmpty())
+        if (brand != null)
             product.setBrand(brand);
-        if (!price.isEmpty())
+        if (price != null)
             product.setPrice(new BigDecimal(price));
         return save(product);
     }

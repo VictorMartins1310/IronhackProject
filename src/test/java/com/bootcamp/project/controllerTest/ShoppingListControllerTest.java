@@ -1,6 +1,7 @@
 package com.bootcamp.project.controllerTest;
 
 import com.bootcamp.project.controller.implement.ShoppingListControllerImpl;
+import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.dto.ShoppingListProductsDTO;
 import com.bootcamp.project.mappers.TodoListMapper;
@@ -47,8 +48,8 @@ public class ShoppingListControllerTest {
     private final User user = new User("email@mail.com", "DumpPass1234");
     private final UUID userID = UUID.randomUUID();
     String
-            marketNameIN = "Test Market",
-            marketNameOUT = "Test Market Updated";
+            marketNameIN = "ALDI",
+            marketNameOUT = "LIDL";
     private final ShoppingList shoppingList = new ShoppingList(user, marketNameIN);
     private final Long ShoppingListID = 13L;
     private final ShoppingListDTO shoppingListDTO1 = new ShoppingListDTO();
@@ -60,15 +61,14 @@ public class ShoppingListControllerTest {
         shoppingList.setTodoListID(ShoppingListID);
 
         shoppingListDTO1.setMarketName(marketNameIN);
+        shoppingListDTO2.setMarketName(marketNameOUT);
         shoppingListDTO1.setTodoListName(shoppingList.getTodoListName());
-
         shoppingListDTO2.setTodoListName(shoppingList.getTodoListName());
     }
 
     @DisplayName("Test: Create Shopping List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testCreateShoppingList() throws Exception {
-        shoppingListDTO2.setMarketName(marketNameIN);
 
         when(shoppingLMapper.toDto(shoppingListService.newShoppingList(user, marketNameIN))).thenReturn(shoppingListDTO1);
 
@@ -76,39 +76,44 @@ public class ShoppingListControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(shoppingListDTO1)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTO2)));
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTO1))); // change to shoppingListDTO2 for Fail Test
     }
     @DisplayName("Test: Get All Shoppinglists")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testGetAllShoppingLists() throws Exception {
 
-        List<ShoppingList> shoppingLists = new ArrayList<>();
-        shoppingLists.add(shoppingList);
+        List<ShoppingListDTO> shoppingListDto = new ArrayList<>();
+        shoppingListDto.add(shoppingListDTO1);
 
-        List<ShoppingListDTO> shoppingListDTOs = new ArrayList<>();
-        shoppingLists.add(shoppingList);
+        List<ShoppingListDTO> shoppingListDtoFail = new ArrayList<>();
+        shoppingListDtoFail.add(shoppingListDTO2);
 
-        when(shoppingListService.getShoppingLists(user)).thenReturn(shoppingLists);
+        when(shoppingLMapper.toShoppingListDtos(shoppingListService.getShoppingLists(user))).thenReturn(shoppingListDto);
 
         mockMvc.perform(get("/todolist/shoppinglist"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTOs)));
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDto))); // Change to shoppingListDtoFail for Fail Test
     }
     @DisplayName("Test: Get Shoppinglists + Products")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testGetShoppingList() throws Exception {
-        String shopname = "Test";
-
-        ShoppingList shoppingList = new ShoppingList(user, shopname);
         shoppingList.setTodoListID(ShoppingListID);
 
-        ShoppingListProductsDTO shoppingListDTO = new ShoppingListProductsDTO();
+        ProductDTO productDto1 = new ProductDTO();
+        productDto1.setName("Cola");
+        ShoppingListProductsDTO shoppingListDto = new ShoppingListProductsDTO();
+        shoppingListDto.getProducts().add(productDto1);
 
-        when(shoppingLMapper.toDTO(shoppingListService.getShoppingList(ShoppingListID))).thenReturn(shoppingListDTO);
+        ProductDTO productDto2 = new ProductDTO();
+        productDto2.setName("Pepsi");
+        ShoppingListProductsDTO shoppingListDtoFail = new ShoppingListProductsDTO();
+        shoppingListDtoFail.getProducts().add(productDto2);
+
+        when(shoppingLMapper.toDTO(shoppingListService.getShoppingList(ShoppingListID))).thenReturn(shoppingListDto);
 
         mockMvc.perform(get("/todolist/shoppinglist/{shopID}", ShoppingListID.toString()))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDTO)));
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListDto))); // Set shoppingListDtoFail to Fail Test
     }
 
     @DisplayName("Test: Update Shopping List")
@@ -116,6 +121,8 @@ public class ShoppingListControllerTest {
     @Test public void testUpdateShoppingList() throws Exception {
 
         user.setUserID(userID);
+
+        // TODO I was here
 
         String
                 todolistname = "Test Shopping List",
