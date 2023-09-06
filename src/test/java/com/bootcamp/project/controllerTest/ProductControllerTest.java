@@ -68,31 +68,30 @@ public class ProductControllerTest {
     public void testCreateProduct() throws Exception {
         Long ShoppingListID = 13L;
 
-        ShoppingListProductsDTO[] shoppingListProducts = {
-                new ShoppingListProductsDTO(),
-                new ShoppingListProductsDTO(),
-        };
+        ShoppingListProductsDTO shoppingListProducts = new ShoppingListProductsDTO();
+        ShoppingListProductsDTO shoppingListProducts2 = new ShoppingListProductsDTO();
 
-        ProductDTO productDto = new ProductDTO();
+        ProductDTO productDto1 = new ProductDTO();
+        ProductDTO productDto2 = new ProductDTO();
+        productDto1.setName(product.getName());
+        productDto2.setName("Pepsi");
 
         List<ProductDTO> productDTOList1 = new ArrayList<>();
-        productDto.setName(product.getName());
-        productDTOList1.add(productDto);
+        productDTOList1.add(productDto1);
 
         List<ProductDTO> productDTOList2 = new ArrayList<>();
-        productDto.setName("Pepsi");
-        productDTOList2.add(productDto);
-        productDto.setName(product.getName());
 
-        shoppingListProducts0.setProducts(productDTOList1);
-        shoppingListProducts1.setProducts(productDTOList2);
+        productDTOList2.add(productDto2);
 
-        when(shoppingLMapper.toDTO(shoppingLService.addProduct2List(ShoppingListID, product))).thenReturn(shoppingListProducts[0]);
+        shoppingListProducts.setProducts(productDTOList1);
+        shoppingListProducts2.setProducts(productDTOList2);
+
+        when(shoppingLMapper.toDTO(shoppingLService.addProduct2List(ShoppingListID, product))).thenReturn(shoppingListProducts);
         mockMvc.perform(post("/todolist/shoppinglist/{idOfShoppingList}/products", productID.toString())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(productDto)))
+                        .content(objectMapper.writeValueAsString(productDto1)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListProducts[1]))); // Change to 1 for fail
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListProducts))); // Change to 2 for fail
     }
     @DisplayName("Test: Update a Product")
     @WithMockUser(username = "testUser", roles = "USER")
@@ -102,18 +101,18 @@ public class ProductControllerTest {
         
         product.setProductID(productID);
 
-        Product productOut = new Product();
-        productOut.setProductID(productID);
-        productOut.setName(newProductName);
-        productOut.setBrand(product.getBrand());
-        productOut.setPrice(product.getPrice());
-        productOut.setQty(product.getQty());
-        productOut.setType(product.getType());
+        Product product2 = new Product(newProductName, product.getBrand(), product.getPrice(), product.getQty(), product.getType());
+        product2.setProductID(productID);
 
-        when(productService.updateProduct(productID, newProductName, null, null)).thenReturn(productOut);
+
+        System.out.println(objectMapper.writeValueAsString(product));
+        System.out.println(objectMapper.writeValueAsString(product2));
+
+        when(productService.updateProduct(productID, product.getName(), product.getBrand(), product.getPrice().toString())).thenReturn(product);
+
         mockMvc.perform(patch("/todolist/shoppinglist/{idOfShoppingList}/product/{id}", productID.toString(), productID.toString())
                         .queryParam("name", newProductName))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(productOut)));
+                .andExpect(content().json(objectMapper.writeValueAsString(product2)));
     }
 }
