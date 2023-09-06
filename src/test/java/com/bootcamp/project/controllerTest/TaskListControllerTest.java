@@ -69,51 +69,51 @@ public class TaskListControllerTest {
         taskList1.setTodoListID(todoListID);
         taskList2.setTodoListID(todoListID);
 
+        taskListDTOIN.setTodoListName(taskList1.getTodoListName());
+        taskListDTOOUT.setTodoListName(taskList2.getTodoListName());
     }
     @DisplayName("Test: Create Task List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testCreateTaskList() throws Exception {
-        when(taskListMapper.toDto(taskListService.newTaskList(user, taskList1))).thenReturn(taskListDTOOUT);
+        when(taskListMapper.toDto(taskListService.newTaskList(user, taskList1))).thenReturn(taskListDTOIN);
         mockMvc.perform(
                 post("/todolist/tasklist")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(taskListDTOIN)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(objectMapper.writeValueAsString(taskListDTOOUT)));
+                .andExpect(content().json(objectMapper.writeValueAsString(taskListDTOIN))); // CHange to Out for fail Test
     }
     @DisplayName("Test: Get All Task Lists")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testGetAllTaskLists() throws Exception {
-        List<TaskListDTO> taskLists = new ArrayList<>();
+        List<TaskListDTO> taskListsDTOsFail = new ArrayList<>();
+        List<TaskListDTO> taskListsDTOs = new ArrayList<>();
+        taskListsDTOs.add(taskListDTOIN);
 
-        taskListDTOIN.setTodoListName(taskList1.getTodoListName());
-
-        taskLists.add(taskListDTOIN);
-
-        when(taskListMapper.toTaskListsDtos(taskListService.getTaskListsByUser(user))).thenReturn(taskLists);
+        when(taskListMapper.toTaskListsDtos(taskListService.getTaskListsByUser(user))).thenReturn(taskListsDTOs);
         mockMvc.perform(
                 get("/todolist/tasklist"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(taskLists)));
+                .andExpect(content().json(objectMapper.writeValueAsString(taskListsDTOs))); // Change to taskListsDTOsFail for fail
     }
     @DisplayName("Test: Update Task List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testUpdateTaskList() throws Exception {
-        TaskListTasksDTO taskListDTO = new TaskListTasksDTO();
-        taskListDTO.setTodoListName(todoListName2);
+        TaskListTasksDTO taskListDTO1 = new TaskListTasksDTO();
+        TaskListTasksDTO taskListDTO2 = new TaskListTasksDTO();
+        taskListDTO1.setTodoListName(todoListName1);
+        taskListDTO2.setTodoListName(todoListName2);
 
-
-        when(taskListMapper.toDTO(taskListService.updateTaskList(todoListID, todoListName2))).thenReturn(taskListDTO);
+        when(taskListMapper.toDTO(taskListService.updateTaskList(todoListID, todoListName1))).thenReturn(taskListDTO1);
         mockMvc.perform(
                 patch("/todolist/tasklist/{id}", todoListID.toString())
-                        .queryParam("tklname", todoListName2))
+                        .queryParam("tklname", todoListName1))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(taskListDTO)));
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(taskListDTO1)));  // Change here to fail Test
     }
     @DisplayName("Test: Delete Task List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testDeleteTaskList() throws Exception {
-
         doNothing().when(taskListService).deleteTasksLists(todoListID);
         mockMvc.perform(
                 delete("/todolist/tasklist/{id}", todoListID.toString()))

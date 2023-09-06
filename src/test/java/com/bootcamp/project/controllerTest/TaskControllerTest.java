@@ -44,67 +44,63 @@ public class TaskControllerTest {
     @MockBean private TodoListMapper taskListMapper;
 
     private final Task task1 = new Task();
+    private final Task task2 = new Task();
+    private final TaskList taskList = new TaskList();
 
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+
+        Long taskID = 13L, taskListID = 13L;
+        String
+                taskIn = "Task1",
+                taskOut = "Task2";
+
+        task1.setTaskID(taskID);
+        task2.setTaskID(taskID);
+        task1.setTask(taskIn);
+        task2.setTask(taskOut);
+
+        taskList.setTodoListID(taskListID);
     }
     @DisplayName("Test: Create a Task")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testCreateTask() throws Exception {
-        String taskStr = "Task1";
-        Long id = 13L;
-        TaskList taskList = new TaskList();
-        taskList.setTodoListID(id);
+        TaskDTO taskDto = new TaskDTO();
 
-        task1.setTask(taskStr);
-        task1.setTaskID(id);
-        TaskDTO taskDTO1 = new TaskDTO();
-        taskDTO1.setTask(taskStr);
-        TaskDTO taskDTO2 = new TaskDTO();
-        taskDTO2.setTask(taskStr);
-        taskDTO2.setDone(false);
+        taskDto.setTask(task1.getTask());
+        taskDto.setDone(false);
 
-        List<TaskDTO> taskDTOList = new ArrayList<>();
-        taskDTOList.add(taskDTO2);
+        List<TaskDTO> taskListDtoFail = new ArrayList<>();
+        List<TaskDTO> taskListDto = new ArrayList<>();
+        taskListDto.add(taskDto);
 
-        when((taskMapper.toDto(taskService.getAllTasksOfTaskList(taskList)))).thenReturn(taskDTOList);
-        mockMvc.perform(post("/todolist/tasklist/{id}", id.toString())
+        when((taskMapper.toDto(taskService.getAllTasksOfTaskList(taskList)))).thenReturn(taskListDto);
+        mockMvc.perform(post("/todolist/tasklist/{id}", task1.getTaskID().toString())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(taskDTO1)))
+                .content(objectMapper.writeValueAsString(taskDto)))
             .andExpect(status().isCreated())
-            .andExpect(content().json(objectMapper.writeValueAsString(taskDTOList)));
+            .andExpect(content().json(objectMapper.writeValueAsString(taskListDto))); // For Fail test use taskListDtoFail
     }
 
     @DisplayName("Test: Update a Task")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testUpdateTask() throws Exception {
-        String
-                taskIn = "Task1",
-                taskOut = "Task2";
-        Long
-                taskID = 13L,
-                taskListID = 13L;
-
-        TaskList taskList = new TaskList();
-        taskList.setTodoListID(taskListID);
-
-        task1.setTask(taskIn);
-        task1.setTaskID(taskID);
-
         taskList.addTask(task1);
 
         TaskDTO taskDtoIn = new TaskDTO();
-        taskDtoIn.setTask(taskIn);
         TaskDTO taskDtoOut = new TaskDTO();
-        taskDtoOut.setTask(taskOut);
+
+        taskDtoIn.setTask(task1.getTask());
+        taskDtoIn.setDone(false);
+        taskDtoOut.setTask(task2.getTask());
         taskDtoOut.setDone(false);
 
-        when((taskMapper.toDto(taskService.updateTaskName(taskID, taskIn)))).thenReturn(taskDtoOut);
+        when((taskMapper.toDto(taskService.updateTaskName(task1.getTaskID(), taskDtoIn.getTask())))).thenReturn(taskDtoOut);
 
         mockMvc.perform(
-                patch("/todolist/tasklist/{tasklistID}/task/{taskID}", taskListID, taskID.toString())
-                        .queryParam("tname", taskOut))
+                patch("/todolist/tasklist/{tasklistID}/task/{taskID}", taskList.getTodoListID().toString(), task1.getTaskID().toString())
+                        .queryParam("tname", taskDtoIn.getTask()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(taskDtoOut)));
     }

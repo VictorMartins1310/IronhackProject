@@ -45,80 +45,86 @@ public class UserControllerTest {
             firstName = "Victor",
             lastName = "Martins";
 
-    private final User userIN = new User("email@mail.com", "Test.1234");
+    private final User user1 = new User("email@mail.com", "Test.1234");
+    private final User user2 = new User("other@mail.com", "Pass.1234");
     private final Role role = new Role();
-    private final UUID userID = UUID.randomUUID();
-
 
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         role.setRole("USER_ROLE");
 
-        userIN.setFirstName(firstName);
-        userIN.setLastName(lastName);
-        userIN.setBirthDate(birthdate);
-        userIN.addRole(role);
+        user1.setUserID(UUID.randomUUID());
+
+        user1.setFirstName(firstName);
+        user1.setLastName(lastName);
+        user1.setBirthDate(birthdate);
+        user1.addRole(role);
+        user2.setFirstName(firstName);
+        user2.setLastName(lastName);
+        user2.setBirthDate(birthdate);
+        user2.addRole(role);
     }
 
     @DisplayName("Test: Adding new Users")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testCreateUser() throws Exception {
-        UserDetailsDTO userDto = new UserDetailsDTO();
         LoginDTO loginDto = new LoginDTO();
-        userDto.setEmail(userIN.getEmail()); userDto.setEmail(userIN.getPassword());
-        loginDto.setEmail(userIN.getEmail()); loginDto.setEmail(userIN.getPassword());
+        loginDto.setEmail(user1.getEmail()); loginDto.setPassword(user1.getPassword());
 
-        when(userDetailsMapper.toDto(userService.newUser("email@mail.com", "PassWORTd"))).thenReturn(userDto);
+        UserDetailsDTO userDto1 = new UserDetailsDTO(); UserDetailsDTO userDto2 = new UserDetailsDTO();
 
-        mockMvc.perform(
-                post("/users/register")
+        userDto1.setEmail(user1.getEmail()); userDto2.setEmail(user2.getEmail());
+
+        when(userDetailsMapper.toDto(userService.newUser("email@mail.com", "PassWORTd"))).thenReturn(userDto1);
+
+        mockMvc.perform(post("/users/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginDto)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(objectMapper.writeValueAsString(userDto))); //https://github.com/json-path/JsonPath
+                .andExpect(content().json(objectMapper.writeValueAsString(userDto1)));
     }
 
     @DisplayName("Test: Get UsersDetails")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void getUserDetails() throws Exception {
-        UserDetailsDTO userOut = new UserDetailsDTO();
-        userOut.setEmail(userIN.getEmail());
-        userOut.setFirstName(firstName);
-        userOut.setLastName(lastName);
-        userOut.setBirthDate(birthdate);
+        UserDetailsDTO userDetails = new UserDetailsDTO();
+        userDetails.setEmail(user1.getEmail());
+        userDetails.setFirstName(firstName);
+        userDetails.setLastName(lastName);
+        userDetails.setBirthDate(birthdate);
 
-
-        when(userDetailsMapper.toDto(userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()))).thenReturn(userOut);
+        when(userDetailsMapper.toDto(userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()))).thenReturn(userDetails);
 
         mockMvc.perform(
                         get("/users"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(userOut))); //https://github.com/json-path/JsonPath
+                .andExpect(content().json(objectMapper.writeValueAsString(userDetails))); //https://github.com/json-path/JsonPath
     }
 
     @DisplayName("Test: Update UsersDetails on Register")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testUpdateUser() throws Exception{
-        String email = userIN.getEmail();
+        UserDetailsDTO userDetailsDTO1 = new UserDetailsDTO(); UserDetailsDTO userDetailsDTO2 = new UserDetailsDTO();
+        userDetailsDTO1.setEmail(user1.getEmail());
+        userDetailsDTO1.setFirstName(firstName);
+        userDetailsDTO1.setLastName(lastName);
+        userDetailsDTO1.setBirthDate(birthdate);
 
-        UserDetailsDTO userInDto = new UserDetailsDTO();
-        userInDto.setEmail(email);
-        userInDto.setBirthDate(birthdate);
+        userDetailsDTO2.setEmail(user2.getEmail());
+        userDetailsDTO2.setFirstName(firstName);
+        userDetailsDTO2.setLastName(lastName);
+        userDetailsDTO2.setBirthDate(birthdate);
 
-        UserDetailsDTO userOutDto = new UserDetailsDTO();
-        userOutDto.setEmail(email);
-        userOutDto.setFirstName(firstName);
-        userOutDto.setLastName(lastName);
-        userOutDto.setBirthDate(birthdate);
-
-        when(userDetailsMapper.toDto(userService.updateDetails(userIN, userInDto.getFirstName(), userInDto.getLastName(), userInDto.getBirthDate().toString()))).thenReturn(userOutDto);
+        when(userDetailsMapper.toDto(
+                userService.updateDetails(user1, user1.getFirstName(), user1.getLastName(), user1.getBirthDate().toString())))
+                .thenReturn(userDetailsDTO1);
 
         mockMvc.perform(
-                        patch("/users/register/details") // Adapted because got Trouble with logged user
+                        patch("/users/register/details")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(userInDto)))
+                                .content(objectMapper.writeValueAsString(userDetailsDTO1)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(userOutDto))); //https://github.com/json-path/JsonPath
+                .andExpect(content().json(objectMapper.writeValueAsString(userDetailsDTO1))); // Change to userDetailsDTO2 for Fail Test
     }
 }
