@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,6 +36,8 @@ public class AdminControllerTest {
 
     @MockBean private UserService userService;
 
+    private final User user = new User("Admin@mail.de","badPassword");
+
     @BeforeEach public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
@@ -43,7 +45,7 @@ public class AdminControllerTest {
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testGetAllUsers() throws Exception {
         List<User> users = new ArrayList<>();
-        users.add(new User("Admin@mail.de","badPassword"));
+        users.add(user);
         users.add(new User("User@mail.de", "badPassword"));
 
         when(userService.showUsers()).thenReturn(users);
@@ -55,17 +57,12 @@ public class AdminControllerTest {
     @DisplayName("Test: Delete Users")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testDeleteUser() throws Exception {
-        String email = "User@mail.de",
-                pass = "pass1234";
         UUID uuid = UUID.randomUUID();
 
-        User userA = new User(email, pass);
-        userA.setUserID(uuid);
         UserDetailsDTO userB = new UserDetailsDTO();
-        userB.setEmail(email);
+        userB.setEmail(user.getEmail());
 
-        when(userService.deleteUserByID(uuid)).thenReturn(null);
-
+        doNothing().when(userService).deleteUserByID(uuid);
         mockMvc.perform(
                         delete("/admin/users/{uuid}", uuid.toString()))
                 .andExpect(status().isNoContent());

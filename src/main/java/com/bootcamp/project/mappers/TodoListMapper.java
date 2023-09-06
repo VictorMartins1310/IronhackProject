@@ -13,16 +13,13 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TodoListMapper {
     // TodoList Mapping Section
-    ToDoListDTO toDto (ToDoList dto);
-    TaskListDTO toDto (TaskList dto);
+    List<ToDoListDTO> toDto(List<ToDoList> dto);
+    // TaskList Mapping Section
+    TaskListDTO toDto(TaskList dto);
+    TaskListTasksDTO toDTO(TaskList dto);
+    List<TaskListDTO> toTaskListsDtos(List<TaskList> dtos);
+    // ShoppingList Mapping Section
     ShoppingListDTO toDto(ShoppingList dto);
     ShoppingListProductsDTO toDTO(ShoppingList dto);
-    TaskListTasksDTO toDTO(TaskList dto);
-    List<ToDoListDTO> toDto(List<ToDoList> dto);
-
-    // TaskList Mapping Section
-    List<TaskListDTO> toTaskListsDtos (List<TaskList> dtos);
-
     List<ShoppingListDTO> toShoppingListDtos (List<ShoppingList> dtos);
-
 }

@@ -51,11 +51,9 @@ public class TaskListService {
         if (!taskLists.isEmpty())
             taskListRepository.deleteAll(taskLists);
     }
-    public Boolean deleteTasksLists(Long id){
+    public void deleteTasksLists(Long id){
         Optional<TaskList> taskList = taskListRepository.findById(id);
         if (taskList.isPresent())
             taskListRepository.delete(taskList.get());
-        else return false;
-        return true;
     }
 }

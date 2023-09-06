@@ -118,13 +118,12 @@ public class UserService implements UserDetailsService {
     public void deleteUser(User user){
         userRepo.delete(user);
     }
-    public Boolean deleteUserByID(UUID userID){
+    public void deleteUserByID(UUID userID){
         User user = findByUserID(userID);
         if (user == null)
             throw new ProjectException("User not Found");
         taskListService.deleteTasksLists(user);
         shoppingListService.deleteShoppingLists(user);
         deleteUser(user);
-        return true;
     }
 }

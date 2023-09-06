@@ -6,5 +6,5 @@ public interface TaskListController {
     Object newTaskList(TaskListDTO taskListDTO);
     Object showTaskLists();
     Object updateTaskList(Long taskListID, String tklname);
-    Boolean deleteTaskList(Long taskListID);
+    void deleteTaskList(Long taskListID);
 }

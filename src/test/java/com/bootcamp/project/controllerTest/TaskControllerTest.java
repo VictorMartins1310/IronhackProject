@@ -42,6 +42,9 @@ public class TaskControllerTest {
     @MockBean private TaskService taskService;
     @MockBean private TaskMapper taskMapper;
     @MockBean private TodoListMapper taskListMapper;
+
+    private final Task task1 = new Task();
+
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -54,7 +57,6 @@ public class TaskControllerTest {
         TaskList taskList = new TaskList();
         taskList.setTodoListID(id);
 
-        Task task1 = new Task();
         task1.setTask(taskStr);
         task1.setTaskID(id);
         TaskDTO taskDTO1 = new TaskDTO();
@@ -87,7 +89,6 @@ public class TaskControllerTest {
         TaskList taskList = new TaskList();
         taskList.setTodoListID(taskListID);
 
-        Task task1 = new Task();
         task1.setTask(taskIn);
         task1.setTaskID(taskID);
 

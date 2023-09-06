@@ -40,19 +40,34 @@ public class UserControllerTest {
     @MockBean private UserService userService;
     @MockBean private UserDetailsMapper userDetailsMapper;
 
+    private final LocalDate birthdate = LocalDate.parse("1987-10-13");
+    private final String
+            firstName = "Victor",
+            lastName = "Martins";
+
+    private final User userIN = new User("email@mail.com", "Test.1234");
+    private final Role role = new Role();
+    private final UUID userID = UUID.randomUUID();
+
+
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        role.setRole("USER_ROLE");
+
+        userIN.setFirstName(firstName);
+        userIN.setLastName(lastName);
+        userIN.setBirthDate(birthdate);
+        userIN.addRole(role);
     }
 
     @DisplayName("Test: Adding new Users")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testCreateUser() throws Exception {
-        User user = new User("email@mail.com", "PassWORTd");
         UserDetailsDTO userDto = new UserDetailsDTO();
         LoginDTO loginDto = new LoginDTO();
-        userDto.setEmail(user.getEmail()); userDto.setEmail(user.getPassword());
-        loginDto.setEmail(user.getEmail()); loginDto.setEmail(user.getPassword());
+        userDto.setEmail(userIN.getEmail()); userDto.setEmail(userIN.getPassword());
+        loginDto.setEmail(userIN.getEmail()); loginDto.setEmail(userIN.getPassword());
 
         when(userDetailsMapper.toDto(userService.newUser("email@mail.com", "PassWORTd"))).thenReturn(userDto);
 
@@ -67,23 +82,10 @@ public class UserControllerTest {
     @DisplayName("Test: Get UsersDetails")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void getUserDetails() throws Exception {
-        LocalDate birthdate = LocalDate.parse("1987-10-13");
-        String email = "Test@mail.de";
-
-        Role role = new Role();
-        role.setRole("USER_ROLE");
-
-        User loggedUser = new User(email, "Test.1234");
-        loggedUser.setUserID(UUID.randomUUID());
-        loggedUser.setFirstName("Victor");
-        loggedUser.setLastName("Martins");
-        loggedUser.setBirthDate(birthdate);
-        loggedUser.addRole(role);
-
         UserDetailsDTO userOut = new UserDetailsDTO();
-        userOut.setEmail(email);
-        userOut.setFirstName("Victor");
-        userOut.setLastName("Martins");
+        userOut.setEmail(userIN.getEmail());
+        userOut.setFirstName(firstName);
+        userOut.setLastName(lastName);
         userOut.setBirthDate(birthdate);
 
 
@@ -98,36 +100,25 @@ public class UserControllerTest {
     @DisplayName("Test: Update UsersDetails on Register")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testUpdateUser() throws Exception{
-        String email = "User@mail.de",
-                pass = "pass1234";
-        UUID uuid = UUID.randomUUID();
+        String email = userIN.getEmail();
 
-        Role role = new Role();
-        role.setRole("USER_ROLE");
+        UserDetailsDTO userInDto = new UserDetailsDTO();
+        userInDto.setEmail(email);
+        userInDto.setBirthDate(birthdate);
 
-        User userA = new User(email, pass);
-        userA.setUserID(uuid);
+        UserDetailsDTO userOutDto = new UserDetailsDTO();
+        userOutDto.setEmail(email);
+        userOutDto.setFirstName(firstName);
+        userOutDto.setLastName(lastName);
+        userOutDto.setBirthDate(birthdate);
 
-        LocalDate birthdate = LocalDate.parse("1987-10-13");
-        UserDetailsDTO userIn = new UserDetailsDTO();
-        userIn.setEmail(email);
-        userIn.setFirstName("Victor");
-        userIn.setLastName("Martins");
-        userIn.setBirthDate(birthdate);
-
-        UserDetailsDTO userOut = new UserDetailsDTO();
-        userOut.setEmail(email);
-        userOut.setFirstName("Victor");
-        userOut.setLastName("Martins");
-        userOut.setBirthDate(birthdate);
-
-        when(userDetailsMapper.toDto(userService.updateDetails(userA, userIn.getFirstName(), userIn.getLastName(), userIn.getBirthDate().toString()))).thenReturn(userOut);
+        when(userDetailsMapper.toDto(userService.updateDetails(userIN, userInDto.getFirstName(), userInDto.getLastName(), userInDto.getBirthDate().toString()))).thenReturn(userOutDto);
 
         mockMvc.perform(
                         patch("/users/register/details") // Adapted because got Trouble with logged user
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(userIn)))
+                                .content(objectMapper.writeValueAsString(userInDto)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(userOut))); //https://github.com/json-path/JsonPath
+                .andExpect(content().json(objectMapper.writeValueAsString(userOutDto))); //https://github.com/json-path/JsonPath
     }
 }

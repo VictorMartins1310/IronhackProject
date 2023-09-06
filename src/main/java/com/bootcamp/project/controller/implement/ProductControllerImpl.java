@@ -2,7 +2,6 @@ package com.bootcamp.project.controller.implement;
 
 import com.bootcamp.project.controller.ProductController;
 import com.bootcamp.project.dto.ProductDTO;
-import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.dto.ShoppingListProductsDTO;
 import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.TodoListMapper;

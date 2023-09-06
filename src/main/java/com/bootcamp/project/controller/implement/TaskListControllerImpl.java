@@ -50,7 +50,7 @@ public class TaskListControllerImpl implements TaskListController {
 
     @DeleteMapping(value = "/{idtasklist}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Boolean deleteTaskList(@PathVariable("idtasklist") Long taskListID){
-        return taskListService.deleteTasksLists(taskListID);
+    public void deleteTaskList(@PathVariable("idtasklist") Long taskListID){
+        taskListService.deleteTasksLists(taskListID);
     }
 }

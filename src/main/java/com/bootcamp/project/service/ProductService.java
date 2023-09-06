@@ -20,11 +20,11 @@ public class ProductService {
     public Product newProduct(Product product){
         return productRepository.save(product);
     }
-    public Product productBought(Long id, int qty) {
+    public void productBought(Long id, int qty) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isEmpty())
             throw new ProjectException("Product not Fount");
-        return productRepository.save(product.get().productBought(qty));
+        save(product.get().productBought(qty));
     }
     public List<Product> getAllProductsOfShoppingList(ShoppingList shopList){
         return shopList.getProducts();

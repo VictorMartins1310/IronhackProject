@@ -26,10 +26,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -47,40 +47,32 @@ public class TaskListControllerTest {
     @MockBean private TaskListService taskListService;
     @MockBean private UserService userService;
 
-
     private final User user = new User("email@mail.com", "DumpPass1234");
+    private final UUID userID = UUID.randomUUID();
     private final String todoListName1 = "TASK LIST TODO";
     private final String todoListName2 = "NEW TASK LIST NAME";
-    private final Long id = 13L;
-    TaskListDTO taskListDTOIN = new TaskListDTO();
-    TaskListDTO taskListDTOOUT = new TaskListDTO();
+    private final Long todoListID = 13L;
+    private final TaskListDTO taskListDTOIN = new TaskListDTO();
+    private final TaskListDTO taskListDTOOUT = new TaskListDTO();
+    private final TaskList taskList1 = new TaskList(todoListName1, user);
+    private final TaskList taskList2 = new TaskList(todoListName2, user);
 
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        Role role = new Role();
+        role.setRoleID(1);
+        role.setRole("USER");
+
+        user.addRole(role);
+        user.setUserID(userID);
+        taskList1.setTodoListID(todoListID);
+        taskList2.setTodoListID(todoListID);
+
     }
     @DisplayName("Test: Create Task List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testCreateTaskList() throws Exception {
-        Role role = new Role();
-        role.setRoleID(1);
-        role.setRole("USER");
-        user.addRole(role);
-        user.setUserID(UUID.randomUUID());
-        Date date = new Date();
-        TaskList taskList1 = new TaskList(todoListName1, user);
-        TaskList taskList2 = new TaskList(todoListName2, user);
-
-        taskListDTOIN.setTodoListName(todoListName1);
-        taskListDTOIN.setTodoListName(todoListName2);
-
-        taskList1.setTodoListID(id);
-        taskList2.setTodoListID(id);
-        taskList1.setCreationDate(date);
-        taskList2.setCreationDate(date);
-        taskList1.setTasks(new ArrayList<>());
-        taskList2.setTasks(new ArrayList<>());
-
         when(taskListMapper.toDto(taskListService.newTaskList(user, taskList1))).thenReturn(taskListDTOOUT);
         mockMvc.perform(
                 post("/todolist/tasklist")
@@ -92,18 +84,11 @@ public class TaskListControllerTest {
     @DisplayName("Test: Get All Task Lists")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testGetAllTaskLists() throws Exception {
-        TaskList taskList1 = new TaskList(todoListName1, user);
-        TaskList taskList2 = new TaskList(todoListName2, user);
-
-        taskList1.setTodoListID(id);
-        taskList2.setTodoListID(id);
-
         List<TaskListDTO> taskLists = new ArrayList<>();
 
-        TaskListDTO taskListDTO1 = new TaskListDTO();
-        taskListDTO1.setTodoListName(taskList1.getTodoListName());
+        taskListDTOIN.setTodoListName(taskList1.getTodoListName());
 
-        taskLists.add(taskListDTO1);
+        taskLists.add(taskListDTOIN);
 
         when(taskListMapper.toTaskListsDtos(taskListService.getTaskListsByUser(user))).thenReturn(taskLists);
         mockMvc.perform(
@@ -114,20 +99,13 @@ public class TaskListControllerTest {
     @DisplayName("Test: Update Task List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testUpdateTaskList() throws Exception {
-        UUID uuid = UUID.randomUUID();
-        user.setUserID(uuid);
-        TaskList taskList1 = new TaskList(todoListName1, user);
-        TaskList taskList2 = new TaskList(todoListName2, user);
-
         TaskListTasksDTO taskListDTO = new TaskListTasksDTO();
         taskListDTO.setTodoListName(todoListName2);
 
-        taskList1.setTodoListID(id);
-        taskList2.setTodoListID(id);
 
-        when(taskListMapper.toDTO(taskListService.updateTaskList(id, todoListName2))).thenReturn(taskListDTO);
+        when(taskListMapper.toDTO(taskListService.updateTaskList(todoListID, todoListName2))).thenReturn(taskListDTO);
         mockMvc.perform(
-                patch("/todolist/tasklist/{id}", id.toString())
+                patch("/todolist/tasklist/{id}", todoListID.toString())
                         .queryParam("tklname", todoListName2))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(taskListDTO)));
@@ -135,19 +113,10 @@ public class TaskListControllerTest {
     @DisplayName("Test: Delete Task List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testDeleteTaskList() throws Exception {
-        UUID uuid = UUID.randomUUID();
-        User user = new User("email@mail.com", "DumpPass1234");
-        user.setUserID(uuid);
-        Long id = 13L;
-        TaskList taskList1 = new TaskList(todoListName1, user);
-        TaskList taskList2 = new TaskList(todoListName2, user);
 
-        taskList1.setTodoListID(id);
-        taskList2.setTodoListID(id);
-
-        when(taskListService.deleteTasksLists(id)).thenReturn(true);
+        doNothing().when(taskListService).deleteTasksLists(todoListID);
         mockMvc.perform(
-                delete("/todolist/tasklist/{id}", id.toString()))
+                delete("/todolist/tasklist/{id}", todoListID.toString()))
                 .andExpect(status().isNoContent());
     }
 }

@@ -64,11 +64,9 @@ public class ShoppingListService {
             shoppingListRepository.deleteAll(shopLists);
     }
 
-    public Boolean deleteShoppingLists(Long id) {
+    public void deleteShoppingLists(Long id) {
         Optional<ShoppingList> shoppingList = shoppingListRepository.findById(id);
-        if (shoppingList.isPresent())
+        if (shoppingList.isPresent() )
             shoppingListRepository.delete(shoppingList.get());
-        else return false;
-        return true;
     }
 }

@@ -2,7 +2,6 @@ package com.bootcamp.project.controllerTest;
 
 import com.bootcamp.project.controller.implement.ProductControllerImpl;
 import com.bootcamp.project.dto.ProductDTO;
-import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.dto.ShoppingListProductsDTO;
 import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.TodoListMapper;
@@ -27,6 +26,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -52,6 +53,10 @@ public class ProductControllerTest {
     @MockBean
     private ProductMapper productMapper;
 
+    private final Long productID = 13L;
+    private final Product product =
+            new Product("Coca Cola", "Coca Cola Company", new BigDecimal("1.23"), 4, ProductType.Drink);
+
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -61,73 +66,54 @@ public class ProductControllerTest {
     @WithMockUser(username = "testUser", roles = "USER")
     @Test
     public void testCreateProduct() throws Exception {
-        Long id = 13L;
-        String name = "Coca Cola",
-                brand = "Coca Cola Company";
-        int qty = 4;
-        ProductType productType = ProductType.Drink;
-        BigDecimal price = new BigDecimal("1.23");
+        Long ShoppingListID = 13L;
 
-        User user = new User();
+        ShoppingListProductsDTO[] shoppingListProducts = {
+                new ShoppingListProductsDTO(),
+                new ShoppingListProductsDTO(),
+        };
 
-        ShoppingList shoppingList = new ShoppingList(user, "Test Market");
-        shoppingList.setTodoListID(id);
+        ProductDTO productDto = new ProductDTO();
 
-        Product product1 = new Product();
-        product1.setName(name);
-        product1.setBrand(brand);
-        product1.setPrice(price);
-        product1.setQty(qty);
-        product1.setType(productType);
+        List<ProductDTO> productDTOList1 = new ArrayList<>();
+        productDto.setName(product.getName());
+        productDTOList1.add(productDto);
 
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setName(name);
-        productDTO.setBrand(brand);
-        productDTO.setPrice(price);
-        productDTO.setQty(qty);
-        productDTO.setType(productType);
+        List<ProductDTO> productDTOList2 = new ArrayList<>();
+        productDto.setName("Pepsi");
+        productDTOList2.add(productDto);
+        productDto.setName(product.getName());
 
-        ShoppingListProductsDTO shoppingListProductsDTO = new ShoppingListProductsDTO();
+        shoppingListProducts0.setProducts(productDTOList1);
+        shoppingListProducts1.setProducts(productDTOList2);
 
-        when(shoppingLMapper.toDTO(shoppingLService.addProduct2List(id, product1))).thenReturn(shoppingListProductsDTO);
-        mockMvc.perform(post("/todolist/shoppinglist/{idOfShoppingList}/products", id.toString())
+        when(shoppingLMapper.toDTO(shoppingLService.addProduct2List(ShoppingListID, product))).thenReturn(shoppingListProducts[0]);
+        mockMvc.perform(post("/todolist/shoppinglist/{idOfShoppingList}/products", productID.toString())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(productDTO)))
+                        .content(objectMapper.writeValueAsString(productDto)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListProductsDTO)));
+                .andExpect(content().json(objectMapper.writeValueAsString(shoppingListProducts[1]))); // Change to 1 for fail
     }
     @DisplayName("Test: Update a Product")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test
     public void testUpdateProduct() throws Exception {
-        Long id = 13L;
-        String nameA = "Coca Cola",
-                nameB = "Pepsi",
-                brand = "Coca Cola Company";
-        int qty = 4;
-        ProductType productType = ProductType.Drink;
-        String price = "1.23";
+        String  newProductName = "Pepsi";
+        
+        product.setProductID(productID);
 
-        Product product1 = new Product();
-        product1.setProductID(id);
-        product1.setName(nameA);
-        product1.setBrand(brand);
-        product1.setPrice(new BigDecimal(price));
-        product1.setQty(qty);
-        product1.setType(productType);
+        Product productOut = new Product();
+        productOut.setProductID(productID);
+        productOut.setName(newProductName);
+        productOut.setBrand(product.getBrand());
+        productOut.setPrice(product.getPrice());
+        productOut.setQty(product.getQty());
+        productOut.setType(product.getType());
 
-        Product product2 = new Product();
-        product2.setProductID(id);
-        product2.setName(nameB);
-        product2.setBrand(brand);
-        product2.setPrice(new BigDecimal(price));
-        product2.setQty(qty);
-        product2.setType(productType);
-
-        when(productService.updateProduct(product1.getProductID(), nameB, null, null)).thenReturn(product2);
-        mockMvc.perform(patch("/todolist/shoppinglist/{idOfShoppingList}/product/{id}", id.toString(), id.toString())
-                        .queryParam("name", nameB))
+        when(productService.updateProduct(productID, newProductName, null, null)).thenReturn(productOut);
+        mockMvc.perform(patch("/todolist/shoppinglist/{idOfShoppingList}/product/{id}", productID.toString(), productID.toString())
+                        .queryParam("name", newProductName))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(product2)));
+                .andExpect(content().json(objectMapper.writeValueAsString(productOut)));
     }
 }
