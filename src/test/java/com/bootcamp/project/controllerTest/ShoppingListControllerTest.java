@@ -47,7 +47,7 @@ public class ShoppingListControllerTest {
 
     private final User user = new User("email@mail.com", "DumpPass1234");
     private final UUID userID = UUID.randomUUID();
-    String
+    private final String
             marketNameIN = "ALDI",
             marketNameOUT = "LIDL";
     private final ShoppingList shoppingList = new ShoppingList(user, marketNameIN);
