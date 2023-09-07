@@ -11,4 +11,5 @@ public interface TaskListRepository extends JpaRepository<TaskList, Long> {
     List<TaskList> findTaskListsByUser(User user);
     List<TaskList> findTaskListsByUserAndActiveIsTrue(User user);
     Optional<TaskList> findTaskListByTodoListID(Long ID);
+    Integer countTaskListsByUser(User user);
 }

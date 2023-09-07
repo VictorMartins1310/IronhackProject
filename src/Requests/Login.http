@@ -15,3 +15,12 @@ Content-Type: Application/json
   "email" : "User@mail.de",
   "password" : "badPassword"
 }
+
+### Login Test User
+POST http://localhost:8710/login
+Content-Type: Application/json
+
+{
+  "email" : "TestUser@mail.de",
+  "password" : "Victor"
+}

@@ -139,7 +139,7 @@ public class ShoppingListControllerTest {
     @DisplayName("Test: Delete Shopping List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testDeleteShoppingList() throws Exception {
-        doNothing().when(shoppingListService).deleteShoppingLists(shoppingListID);
+        doNothing().when(shoppingListService).deleteShoppingList(shoppingListID);
         mockMvc.perform(
                         delete("/todolist/shoppinglist/{id}", shoppingListID.toString()))
                 .andExpect(status().isNoContent());

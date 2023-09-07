@@ -50,6 +50,6 @@ public class ShoppingListControllerImpl implements ShoppingListController{
     @DeleteMapping(value = "/{shoppingLID}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteShoppingList(@PathVariable("shoppingLID") Long id){
-        shoppingLService.deleteShoppingLists(id);
+        shoppingLService.deleteShoppingList(id);
     }
 }

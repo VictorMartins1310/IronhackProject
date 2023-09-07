@@ -15,9 +15,9 @@ Authorization: Bearer {{Token}}
 {
   "firstName" : "Victor",
   "lastName": "Martins",
-  "birthDate" : "1997-10-13"
+  "birthDate" : "1987-10-13"
 }
 
 ### Delete User
-DELETE http://localhost:8710/admin/users/c863651c-4a0a-4988-89f9-6a4bd2085ae3
+DELETE http://localhost:8710/admin/users/f0cab22f-ef83-4705-9947-af0717b657b2
 Authorization: Bearer {{Token}}

@@ -16,6 +16,11 @@ public class ShoppingListService {
     private final ShoppingListRepository shoppingListRepository;
     // Services
     private final ProductService prodService;
+
+    public Integer countShoppingListsByUser(User user){
+        return shoppingListRepository.countShoppingListsByUser(user);
+    }
+
     public ShoppingList getShoppingList(Long id) {
         if (shoppingListRepository.getShoppingListByTodoListID(id).isEmpty())
             throw new ProjectException("Shopping List " + id + " Not Found");
@@ -48,7 +53,7 @@ public class ShoppingListService {
             Product savedProd = prodService.newProduct(prod);
             shoppingList.addProduct(savedProd);
         } else {
-            // This was created for DataLoader, but gaves me a Lazy Exception, so it works but can be Deleted
+            // This was created for DataLoader, but gives me a Lazy Exception, so it works but can be Deleted
             shoppingList.addProduct(prod);
         }
         return save(shoppingList);
@@ -59,14 +64,17 @@ public class ShoppingListService {
     }
 
     public void deleteShoppingLists(User user) {
-        List<ShoppingList> shopLists = shoppingListRepository.findShoppingListsByUser(user);
-        if (!shopLists.isEmpty())
-            shoppingListRepository.deleteAll(shopLists);
+        if (countShoppingListsByUser(user) > 0)
+            for (ShoppingList shoppingList : getShoppingLists(user)) {
+                if (!shoppingList.getProducts().isEmpty())
+                    prodService.deleteProducts(shoppingList.getProducts());
+                deleteShoppingList(shoppingList.getTodoListID());
+            }
     }
 
-    public void deleteShoppingLists(Long id) {
-        Optional<ShoppingList> shoppingList = shoppingListRepository.findById(id);
-        if (shoppingList.isPresent() )
+    public void deleteShoppingList(Long productID) {
+        Optional<ShoppingList> shoppingList = shoppingListRepository.findById(productID);
+        if (shoppingList.isPresent())
             shoppingListRepository.delete(shoppingList.get());
     }
 }

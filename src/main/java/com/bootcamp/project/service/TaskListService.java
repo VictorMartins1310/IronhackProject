@@ -17,6 +17,10 @@ public class TaskListService {
     // Services
     private final TaskService taskService;
 
+    public Integer countTaskListsByUser(User user){
+        return taskListRepository.countTaskListsByUser(user);
+    }
+
     public TaskList newTaskList(User user, TaskList taskList){
         return taskListRepository.save(new TaskList(taskList.getTodoListName(), user));
     }
@@ -45,13 +49,16 @@ public class TaskListService {
         taskList.setTodoListName(newName);
         return taskListRepository.save(taskList);
     }
-    /** Function that deletes a TaskList by ID */
+    /** Function that deletes a TaskList by UserID */
     public void deleteTasksLists(User user){
-        List<TaskList> taskLists = taskListRepository.findTaskListsByUser(user);
-        if (!taskLists.isEmpty())
-            taskListRepository.deleteAll(taskLists);
+        if (countTaskListsByUser(user) > 0)
+            for (TaskList taskList : taskListRepository.findTaskListsByUser(user)){
+                if (!taskList.getTasks().isEmpty())
+                    taskService.deleteTasks(taskList.getTasks());
+                deleteTasksList(taskList.getTodoListID());
+            }
     }
-    public void deleteTasksLists(Long id){
+    public void deleteTasksList(Long id){
         Optional<TaskList> taskList = taskListRepository.findById(id);
         if (taskList.isPresent())
             taskListRepository.delete(taskList.get());

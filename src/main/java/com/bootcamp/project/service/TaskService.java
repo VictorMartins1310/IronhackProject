@@ -30,8 +30,20 @@ public class TaskService {
             throw new ProjectException("Task Not Found");
         task.get().setTask(name);
         return taskRepository.save(task.get());
-
     }
+    public void deleteTasks(List<Task> tasks){
+        for (Task task : tasks){
+            Long taskID = task.getTaskID();
+            tasks.remove(task);
+            deleteTask(taskID);
+        }
+    }
+    public void deleteTask(Long taskID){
+        var task = taskRepository.findById(taskID);
+        if (task.isPresent())
+            taskRepository.delete(task.get());
+    }
+
     public List<Task> getAllTasksOfTaskList(TaskList taskList){
         return taskList.getTasks();
     }

@@ -7,8 +7,6 @@ import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Product;
 import com.bootcamp.project.model.ProductType;
-import com.bootcamp.project.model.ShoppingList;
-import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.ProductService;
 import com.bootcamp.project.service.ShoppingListService;
 import com.fasterxml.jackson.databind.ObjectMapper;

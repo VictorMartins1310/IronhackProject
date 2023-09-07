@@ -114,7 +114,7 @@ public class TaskListControllerTest {
     @DisplayName("Test: Delete Task List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testDeleteTaskList() throws Exception {
-        doNothing().when(taskListService).deleteTasksLists(todoListID);
+        doNothing().when(taskListService).deleteTasksList(todoListID);
         mockMvc.perform(
                 delete("/todolist/tasklist/{id}", todoListID.toString()))
                 .andExpect(status().isNoContent());

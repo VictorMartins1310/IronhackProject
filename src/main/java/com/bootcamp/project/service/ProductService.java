@@ -55,4 +55,16 @@ public class ProductService {
             throw new ProjectException("Product not Found");
         return product.get();
     }
+    public void deleteProducts(List<Product> products){
+        for (Product product : products){
+            Long productID = product.getProductID();
+            products.remove(product);
+            deleteTask(productID);
+        }
+    }
+    public void deleteTask(Long productID){
+        var product = productRepository.findById(productID);
+        if (product.isPresent())
+            productRepository.delete(product.get());
+    }
 }
