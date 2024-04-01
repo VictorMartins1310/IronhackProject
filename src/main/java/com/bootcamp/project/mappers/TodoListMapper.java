@@ -15,8 +15,8 @@ public interface TodoListMapper {
     // TodoList Mapping Section
     List<ToDoListDTO> toDto(List<ToDoList> dto);
     // TaskList Mapping Section
-    TaskListDTO toDto(TaskList dto);
-    TaskListTasksDTO toDTO(TaskList dto);
+    TaskListDTO toTaskListDTO(TaskList dto);
+    TaskListTasksDTO toTaskListTasksDTO(TaskList dto);
     List<TaskListDTO> toTaskListsDtos(List<TaskList> dtos);
     // ShoppingList Mapping Section
     ShoppingListDTO toDto(ShoppingList dto);

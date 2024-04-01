@@ -1,42 +1,32 @@
 package com.bootcamp.project.controller.implement;
 
-import com.bootcamp.project.controller.ShoppingListController;
 import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.dto.ShoppingListProductsDTO;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.ShoppingList;
-import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.ShoppingListService;
 import com.bootcamp.project.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/** This Controller is destined for the Shopping List
-* It can Create, Update and Delete a Shopping List
-*/
-@RequiredArgsConstructor
 @RestController
 @RequestMapping(name = "shoppinglist", value = "todolist/shoppinglist")
-public class ShoppingListControllerImpl implements ShoppingListController{
-    private final ShoppingListService shoppingLService;
-    private final UserService userService;
-    private final TodoListMapper shoppingLMapper;
+public class ShoppingListControllerImpl extends com.bootcamp.project.controller.abstracts.ShoppingListController{
+    public ShoppingListControllerImpl(ShoppingListService shoppingLService, TodoListMapper shoppingLMapper, UserService userService) {
+        super(shoppingLService, shoppingLMapper, userService);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ShoppingListDTO newShoppingList(@RequestBody ShoppingListDTO newShoppingData){
-        User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return shoppingLMapper.toDto(shoppingLService.newShoppingList(loggedUser, newShoppingData.getMarketName()));
+        return shoppingLMapper.toDto(shoppingLService.newShoppingList(userService.getAutenticatedUser(), newShoppingData.getMarketName()));
     }
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ShoppingListDTO> showShoppingLists(){
-        User loggedUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        return shoppingLMapper.toShoppingListDtos(shoppingLService.getShoppingLists(loggedUser));
+        return shoppingLMapper.toShoppingListDtos(shoppingLService.getShoppingLists(userService.getAutenticatedUser()));
     }
     @GetMapping(value = "/{shoppingLID}")
     @ResponseStatus(HttpStatus.OK)

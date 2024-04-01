@@ -2,9 +2,11 @@ package com.bootcamp.project.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class LoginDTO {
+@EqualsAndHashCode(callSuper = true)
+public class LoginDTO extends UserDetailsDTO {
     @NotBlank(message = "E-Mail is Mandatory")
     @Email(message = "E-Mail dont Follow rules")
     private String email;

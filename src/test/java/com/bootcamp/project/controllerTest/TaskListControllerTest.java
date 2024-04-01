@@ -75,13 +75,13 @@ public class TaskListControllerTest {
     @DisplayName("Test: Create Task List")
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testCreateTaskList() throws Exception {
-        when(taskListMapper.toDto(taskListService.newTaskList(user, taskList1))).thenReturn(taskListDTOIN);
+        when(taskListMapper.toTaskListDTO(taskListService.newTaskList(user, taskList1))).thenReturn(taskListDTOIN);
         mockMvc.perform(
                 post("/todolist/tasklist")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(taskListDTOIN)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(objectMapper.writeValueAsString(taskListDTOIN))); // CHange to Out for fail Test
+                .andExpect(content().json(objectMapper.writeValueAsString(taskListDTOIN))); // Change to Out for fail Test
     }
     @DisplayName("Test: Get All Task Lists")
     @WithMockUser(username = "testUser", roles = "USER")
@@ -104,7 +104,7 @@ public class TaskListControllerTest {
         taskListDTO1.setTodoListName(todoListName1);
         taskListDTO2.setTodoListName(todoListName2);
 
-        when(taskListMapper.toDTO(taskListService.updateTaskList(todoListID, todoListName1))).thenReturn(taskListDTO1);
+        when(taskListMapper.toTaskListTasksDTO(taskListService.updateTaskList(todoListID, todoListName1))).thenReturn(taskListDTO1);
         mockMvc.perform(
                 patch("/todolist/tasklist/{id}", todoListID.toString())
                         .queryParam("tklname", todoListName1))

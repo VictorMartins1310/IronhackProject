@@ -1,12 +1,10 @@
 package com.bootcamp.project.controller;
 
-import com.bootcamp.project.dto.LoginDTO;
-import com.bootcamp.project.model.User;
+import com.bootcamp.project.dto.UserDetailsDTO;
+
 
 public interface UserController {
-    Object newUser(LoginDTO loginData);
-    Object updateDetailsOnRegister(User userDetails);
-    Object updateDetails(User userDetails);
+    Object updateUserDetails(UserDetailsDTO userDetails);
     Object showDetails();
     Object getMine();
 }

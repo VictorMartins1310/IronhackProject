@@ -70,6 +70,8 @@ public class SecurityConfig {
                 .requestMatchers("/login/**").permitAll()
                 .requestMatchers("/admin/users").hasAnyAuthority("ROLE_ADMIN")
 
+                .requestMatchers(POST, "/register").permitAll()
+
                 .requestMatchers(GET, "/users/me").permitAll()
                 .requestMatchers(POST, "/users").permitAll()
                 .requestMatchers(PATCH, "/users").permitAll()

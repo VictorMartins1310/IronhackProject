@@ -3,7 +3,7 @@ package com.bootcamp.project.controllerTest;
 import com.bootcamp.project.controller.implement.UserControllerImpl;
 import com.bootcamp.project.dto.LoginDTO;
 import com.bootcamp.project.dto.UserDetailsDTO;
-import com.bootcamp.project.mappers.UserDetailsMapper;
+import com.bootcamp.project.mappers.UserMapper;
 import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
@@ -38,7 +38,7 @@ public class UserControllerTest {
     @Autowired private WebApplicationContext webApplicationContext;
 
     @MockBean private UserService userService;
-    @MockBean private UserDetailsMapper userDetailsMapper;
+    @MockBean private UserMapper userMapper;
 
     private final LocalDate birthdate = LocalDate.parse("1987-10-13");
     private final String
@@ -70,19 +70,19 @@ public class UserControllerTest {
     @WithMockUser(username = "testUser", roles = "USER")
     @Test public void testCreateUser() throws Exception {
         LoginDTO loginDto = new LoginDTO();
-        loginDto.setEmail(user1.getEmail()); loginDto.setPassword(user1.getPassword());
+        loginDto.setEmail(user1.getEmail());
+        loginDto.setPassword(user1.getPassword());
 
-        UserDetailsDTO userDto1 = new UserDetailsDTO(); UserDetailsDTO userDto2 = new UserDetailsDTO();
+        UserDetailsDTO userDto = new UserDetailsDTO();
+        userDto.setEmail(user1.getEmail());
 
-        userDto1.setEmail(user1.getEmail()); userDto2.setEmail(user2.getEmail());
+        when(userMapper.toUserDetailsDto(userService.newUser("email@mail.com", "PassWORTd"))).thenReturn(userDto);
 
-        when(userDetailsMapper.toDto(userService.newUser("email@mail.com", "PassWORTd"))).thenReturn(userDto1);
-
-        mockMvc.perform(post("/users/register")
+        mockMvc.perform(post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginDto)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(objectMapper.writeValueAsString(userDto1)));
+                .andExpect(content().json(objectMapper.writeValueAsString(userDto)));
     }
 
     @DisplayName("Test: Get UsersDetails")
@@ -94,10 +94,10 @@ public class UserControllerTest {
         userDetails.setLastName(lastName);
         userDetails.setBirthDate(birthdate);
 
-        when(userDetailsMapper.toDto(userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()))).thenReturn(userDetails);
+        when(userMapper.toUserDetailsDto(userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()))).thenReturn(userDetails);
 
         mockMvc.perform(
-                        get("/users"))
+                        get("/userdetails"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(userDetails))); //https://github.com/json-path/JsonPath
     }
@@ -116,12 +116,12 @@ public class UserControllerTest {
         userDetailsDTO2.setLastName(lastName);
         userDetailsDTO2.setBirthDate(birthdate);
 
-        when(userDetailsMapper.toDto(
+        when(userMapper.toUserDetailsDto(
                 userService.updateDetails(user1, user1.getFirstName(), user1.getLastName(), user1.getBirthDate().toString())))
                 .thenReturn(userDetailsDTO1);
 
         mockMvc.perform(
-                        patch("/users/register/details")
+                        patch("/userdetails")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(userDetailsDTO1)))
                 .andExpect(status().isOk())

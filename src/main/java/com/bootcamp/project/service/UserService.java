@@ -8,6 +8,7 @@ import com.bootcamp.project.repos.RoleRepository;
 import com.bootcamp.project.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -125,5 +126,8 @@ public class UserService implements UserDetailsService {
         taskListService.deleteTasksLists(user);
         shoppingListService.deleteShoppingLists(user);
         deleteUser(user);
+    }
+    public User getAutenticatedUser(){
+        return getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }
