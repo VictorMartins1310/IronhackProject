@@ -1,6 +1,6 @@
 package com.bootcamp.project.controllerTest;
 
-import com.bootcamp.project.controller.implement.ProductControllerImpl;
+import com.bootcamp.project.controller.implement.rest.ProductControllerImpl;
 import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListProductsDTO;
 import com.bootcamp.project.mappers.ProductMapper;

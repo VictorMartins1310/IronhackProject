@@ -1,4 +1,4 @@
-package com.bootcamp.project.controller.implement;
+package com.bootcamp.project.controller.implement.rest;
 
 import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.User;

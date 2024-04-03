@@ -1,6 +1,6 @@
 package com.bootcamp.project.controllerTest;
 
-import com.bootcamp.project.controller.implement.UserControllerImpl;
+import com.bootcamp.project.controller.implement.rest.UserControllerImpl;
 import com.bootcamp.project.dto.LoginDTO;
 import com.bootcamp.project.dto.UserDetailsDTO;
 import com.bootcamp.project.mappers.UserMapper;

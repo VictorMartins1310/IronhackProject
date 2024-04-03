@@ -1,4 +1,4 @@
-package com.bootcamp.project.controller;
+package com.bootcamp.project.controller.interfaces;
 
 import com.bootcamp.project.dto.TaskDTO;
 

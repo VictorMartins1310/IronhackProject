@@ -1,13 +1,15 @@
 package com.bootcamp.project.controllerTest;
 
-import com.bootcamp.project.controller.implement.TaskListControllerImpl;
+import com.bootcamp.project.controller.implement.rest.TaskListControllerImpl;
 import com.bootcamp.project.dto.TaskListDTO;
 import com.bootcamp.project.dto.TaskListTasksDTO;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
+import com.bootcamp.project.service.ShoppingListService;
 import com.bootcamp.project.service.TaskListService;
+import com.bootcamp.project.service.ToDoListService;
 import com.bootcamp.project.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,6 +46,8 @@ public class TaskListControllerTest {
     @Autowired private WebApplicationContext webApplicationContext;
 
     @MockBean private TodoListMapper taskListMapper;
+    @MockBean private ToDoListService toDoListService;
+    @MockBean private ShoppingListService shoppingListService;
     @MockBean private TaskListService taskListService;
     @MockBean private UserService userService;
 

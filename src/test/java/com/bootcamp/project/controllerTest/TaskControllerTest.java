@@ -1,6 +1,6 @@
 package com.bootcamp.project.controllerTest;
 
-import com.bootcamp.project.controller.implement.TaskControllerImpl;
+import com.bootcamp.project.controller.implement.rest.TaskControllerImpl;
 import com.bootcamp.project.dto.TaskDTO;
 import com.bootcamp.project.mappers.TaskMapper;
 import com.bootcamp.project.mappers.TodoListMapper;

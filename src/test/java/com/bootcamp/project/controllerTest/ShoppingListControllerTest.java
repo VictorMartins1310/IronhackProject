@@ -1,6 +1,6 @@
 package com.bootcamp.project.controllerTest;
 
-import com.bootcamp.project.controller.implement.ShoppingListControllerImpl;
+import com.bootcamp.project.controller.implement.rest.ShoppingListControllerImpl;
 import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListDTO;
 import com.bootcamp.project.dto.ShoppingListProductsDTO;
@@ -8,6 +8,8 @@ import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.model.ShoppingList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.ShoppingListService;
+import com.bootcamp.project.service.TaskListService;
+import com.bootcamp.project.service.ToDoListService;
 import com.bootcamp.project.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,6 +44,8 @@ public class ShoppingListControllerTest {
     @Autowired private WebApplicationContext webApplicationContext;
 
     @MockBean private ShoppingListService shoppingListService;
+    @MockBean private TaskListService taskListService;
+    @MockBean private ToDoListService toDoListService;
     @MockBean private UserService userService;
     @MockBean private TodoListMapper shoppingLMapper;
 

@@ -7,7 +7,7 @@ import com.bootcamp.project.service.TaskService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class TaskController implements com.bootcamp.project.controller.TaskController {
+public abstract class TaskController implements com.bootcamp.project.controller.interfaces.TaskController {
     protected final TaskListService taskListService;
     protected final TaskService taskService;
     protected final TaskMapper taskMapper;

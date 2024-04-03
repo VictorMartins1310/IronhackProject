@@ -1,6 +1,6 @@
 package com.bootcamp.project.controllerTest;
 
-import com.bootcamp.project.controller.implement.AdminController;
+import com.bootcamp.project.controller.implement.rest.AdminController;
 import com.bootcamp.project.dto.UserDetailsDTO;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;

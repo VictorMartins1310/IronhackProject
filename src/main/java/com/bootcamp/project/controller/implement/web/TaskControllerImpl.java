@@ -1,5 +1,6 @@
-package com.bootcamp.project.controller.implement;
+package com.bootcamp.project.controller.implement.web;
 
+import com.bootcamp.project.controller.abstracts.TaskController;
 import com.bootcamp.project.dto.TaskDTO;
 import com.bootcamp.project.dto.TaskListTasksDTO;
 import com.bootcamp.project.mappers.TaskMapper;
@@ -19,7 +20,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping(name = "tasklist", value = "todolist/tasklist/{taskLID}")
-public class TaskControllerImpl extends com.bootcamp.project.controller.abstracts.TaskController {
+public class TaskControllerImpl extends TaskController {
     public TaskControllerImpl(TaskListService taskListService, TaskService taskService, TaskMapper taskMapper, TodoListMapper taskListMapper) {
         super(taskListService, taskService, taskMapper, taskListMapper);
     }

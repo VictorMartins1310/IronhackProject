@@ -4,10 +4,11 @@ import com.bootcamp.project.mappers.ProductMapper;
 import com.bootcamp.project.mappers.TodoListMapper;
 import com.bootcamp.project.service.ProductService;
 import com.bootcamp.project.service.ShoppingListService;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class ProductController implements com.bootcamp.project.controller.ProductController {
+public abstract class ProductController implements com.bootcamp.project.controller.interfaces.ProductController {
     protected final ShoppingListService shoppingService;
     protected final ProductService productService;
 
