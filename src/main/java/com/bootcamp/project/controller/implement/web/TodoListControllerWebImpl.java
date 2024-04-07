@@ -8,18 +8,18 @@ import com.bootcamp.project.service.TaskListService;
 import com.bootcamp.project.service.ToDoListService;
 import com.bootcamp.project.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /** This controller only have one function: Show All Lists (Task Lists & Shopping Lists) */
-@RestController
-@RequestMapping(name = "todoList", value = "todolist")
-public class TodoListControllerImpl extends TodoListController {
-    public TodoListControllerImpl(ToDoListService toDoListService, TaskListService taskListService, ShoppingListService shoppingLService, UserService userService, TodoListMapper todoListMapper) {
+@Controller
+@RequestMapping(name = "todoList", value = "web/todolist")
+public class TodoListControllerWebImpl extends TodoListController {
+    public TodoListControllerWebImpl(ToDoListService toDoListService, TaskListService taskListService, ShoppingListService shoppingLService, UserService userService, TodoListMapper todoListMapper) {
         super(toDoListService, taskListService, shoppingLService, userService, todoListMapper);
     }
 

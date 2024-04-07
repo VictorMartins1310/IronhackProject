@@ -10,6 +10,7 @@ import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.service.TaskListService;
 import com.bootcamp.project.service.TaskService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,10 +19,10 @@ import java.util.List;
 * It can Create and Update a Task
 * A delete function here is not needed,it can only be deleted by deleting the Task List
 */
-@RestController
-@RequestMapping(name = "tasklist", value = "todolist/tasklist/{taskLID}")
-public class TaskControllerImpl extends TaskController {
-    public TaskControllerImpl(TaskListService taskListService, TaskService taskService, TaskMapper taskMapper, TodoListMapper taskListMapper) {
+@Controller
+@RequestMapping(name = "webtasklist", value = "web/todolist/tasklist/{taskLID}")
+public class TaskControllerWebImpl extends TaskController {
+    public TaskControllerWebImpl(TaskListService taskListService, TaskService taskService, TaskMapper taskMapper, TodoListMapper taskListMapper) {
         super(taskListService, taskService, taskMapper, taskListMapper);
     }
 

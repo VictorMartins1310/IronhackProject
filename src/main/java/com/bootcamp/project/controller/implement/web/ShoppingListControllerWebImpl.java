@@ -10,16 +10,17 @@ import com.bootcamp.project.service.TaskListService;
 import com.bootcamp.project.service.ToDoListService;
 import com.bootcamp.project.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping(name = "shoppinglist", value = "todolist/shoppinglist")
-public class ShoppingListControllerImpl extends TodoListController {
+@Controller
+@RequestMapping(name = "webshoppinglist", value = "web/todolist/shoppinglist")
+public class ShoppingListControllerWebImpl extends TodoListController {
     private final TodoListMapper shoppingLMapper;
 
-    public ShoppingListControllerImpl(ToDoListService toDoListService, TaskListService taskListService, ShoppingListService shoppingLService, UserService userService, TodoListMapper todoListMapper, TodoListMapper shoppingLMapper) {
+    public ShoppingListControllerWebImpl(ToDoListService toDoListService, TaskListService taskListService, ShoppingListService shoppingLService, UserService userService, TodoListMapper todoListMapper, TodoListMapper shoppingLMapper) {
         super(toDoListService, taskListService, shoppingLService, userService, todoListMapper);
         this.shoppingLMapper = shoppingLMapper;
     }

@@ -9,6 +9,7 @@ import com.bootcamp.project.service.TaskListService;
 import com.bootcamp.project.service.ToDoListService;
 import com.bootcamp.project.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +18,13 @@ import java.util.List;
  * It can Create, Update and Delete a Task List
  */
 
-@RestController
-@RequestMapping(value = "todolist/tasklist")
-public class TaskListControllerImpl extends TodoListController {
+@Controller
+@RequestMapping(value = "web/todolist/tasklist")
+public class TaskListControllerWevImpl extends TodoListController {
 
     private final TodoListMapper taskListMapper;
 
-    public TaskListControllerImpl(ToDoListService toDoListService, TaskListService taskListService, ShoppingListService shoppingLService, UserService userService, TodoListMapper todoListMapper, TodoListMapper taskListMapper) {
+    public TaskListControllerWevImpl(ToDoListService toDoListService, TaskListService taskListService, ShoppingListService shoppingLService, UserService userService, TodoListMapper todoListMapper, TodoListMapper taskListMapper) {
         super(toDoListService, taskListService, shoppingLService, userService, todoListMapper);
         this.taskListMapper = taskListMapper;
     }
