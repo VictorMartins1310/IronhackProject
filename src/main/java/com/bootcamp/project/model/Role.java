@@ -18,4 +18,5 @@ public class Role {
 
     public Role(String role) { this.role = role; }
 
+    //todo maintain
 }

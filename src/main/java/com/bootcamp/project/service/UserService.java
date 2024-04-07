@@ -130,4 +130,6 @@ public class UserService implements UserDetailsService {
     public User getAutenticatedUser(){
         return getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     }
+
+    // Todo maintain
 }
