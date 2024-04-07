@@ -4,7 +4,6 @@ import com.bootcamp.project.controller.implement.rest.UserControllerImpl;
 import com.bootcamp.project.dto.LoginDTO;
 import com.bootcamp.project.dto.UserDetailsDTO;
 import com.bootcamp.project.mappers.UserMapper;
-import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,23 +46,23 @@ public class UserControllerTest {
 
     private final User user1 = new User("email@mail.com", "Test.1234");
     private final User user2 = new User("other@mail.com", "Pass.1234");
-    private final Role role = new Role();
+//    private final RoleOLD roleOLD = new RoleOLD();
 
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        role.setRole("USER_ROLE");
+//        roleOLD.setRole("USER_ROLE");
 
         user1.setUserID(UUID.randomUUID());
 
         user1.setFirstName(firstName);
         user1.setLastName(lastName);
         user1.setBirthDate(birthdate);
-        user1.addRole(role);
+//        user1.addRole(roleOLD);
         user2.setFirstName(firstName);
         user2.setLastName(lastName);
         user2.setBirthDate(birthdate);
-        user2.addRole(role);
+//        user2.addRole(roleOLD);
     }
 
     @DisplayName("Test: Adding new Users")

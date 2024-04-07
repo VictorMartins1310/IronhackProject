@@ -21,9 +21,6 @@ public class DataLoader implements ApplicationListener<ApplicationReadyEvent> {
     public void onApplicationEvent(ApplicationReadyEvent event) {
         long qtyUsers = userService.qtyUsers();
         if (qtyUsers == 0) {
-            userService.addRole("ROLE_ADMIN");
-            userService.addRole("ROLE_USER");
-
             User[] users = {
                     userService.newAdmin("Admin@mail.de", "badPassword"),
                     userService.newUser("User@mail.de", "badPassword")
