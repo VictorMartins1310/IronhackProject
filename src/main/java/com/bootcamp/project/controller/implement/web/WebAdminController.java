@@ -5,6 +5,7 @@ import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,9 +19,9 @@ import java.util.UUID;
  *          - Create a Role
  */
 @RequiredArgsConstructor
-@RestController
-@RequestMapping(name = "admin", value = "admin")
-public class AdminController {
+@Controller
+@RequestMapping(name = "webadmin", value = "web/admin")
+public class WebAdminController {
     private final UserService userService;
 
     /** Save a new role

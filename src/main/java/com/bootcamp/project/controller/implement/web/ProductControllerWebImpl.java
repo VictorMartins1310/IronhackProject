@@ -9,16 +9,17 @@ import com.bootcamp.project.model.Product;
 import com.bootcamp.project.service.ProductService;
 import com.bootcamp.project.service.ShoppingListService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /** This Controller is destined for Products
  * It can Create and Update a Product
  * A delete function here is not needed,it can only be deleted by deleting the Shopping List
  */
-@RestController
-@RequestMapping(name = "products", value = "todolist/shoppinglist/{idOfShoppingList}")
-public class ProductControllerImpl extends ProductController {
-    public ProductControllerImpl(ShoppingListService shoppingService, ProductService productService, TodoListMapper shoppingLMapper, ProductMapper productMapper) {
+@Controller
+@RequestMapping(name = "webproducts", value = "web/todolist/shoppinglist/{idOfShoppingList}")
+public class ProductControllerWebImpl extends ProductController {
+    public ProductControllerWebImpl(ShoppingListService shoppingService, ProductService productService, TodoListMapper shoppingLMapper, ProductMapper productMapper) {
         super(shoppingService, productService, shoppingLMapper, productMapper);
     }
 
