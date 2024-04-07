@@ -1,4 +1,4 @@
-package com.bootcamp.project.controller.implement;
+package com.bootcamp.project.controller.implement.web;
 
 import com.bootcamp.project.controller.abstracts.UserController;
 import com.bootcamp.project.dto.RegisterDTO;
@@ -7,11 +7,17 @@ import com.bootcamp.project.mappers.UserMapper;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-public class UserControllerImpl extends UserController {
-    public UserControllerImpl(UserService userService, UserMapper userMapper) {
+@Controller
+public class UserControllerWebImpl extends UserController {
+    public UserControllerWebImpl(UserService userService, UserMapper userMapper) {
         super(userService, userMapper);
+    }
+
+    @GetMapping("/login")
+    public String getToken(@RequestBody String token){
+        return "/web/welcome";
     }
 
     @PostMapping("register")

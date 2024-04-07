@@ -1,5 +1,6 @@
-package com.bootcamp.project.controller.implement;
+package com.bootcamp.project.controller.implement.rest;
 
+import com.bootcamp.project.controller.abstracts.ProductController;
 import com.bootcamp.project.dto.ProductDTO;
 import com.bootcamp.project.dto.ShoppingListProductsDTO;
 import com.bootcamp.project.mappers.ProductMapper;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping(name = "products", value = "todolist/shoppinglist/{idOfShoppingList}")
-public class ProductControllerImpl extends com.bootcamp.project.controller.abstracts.ProductController {
+public class ProductControllerImpl extends ProductController {
     public ProductControllerImpl(ShoppingListService shoppingService, ProductService productService, TodoListMapper shoppingLMapper, ProductMapper productMapper) {
         super(shoppingService, productService, shoppingLMapper, productMapper);
     }

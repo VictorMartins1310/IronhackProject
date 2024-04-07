@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -61,9 +62,19 @@ public class SecurityConfig {
         // set the URL that the filter should process
         customAuthenticationFilter.setFilterProcessesUrl("/login");
         // disable CSRF protection
-        http.csrf().disable();
+        http.csrf(AbstractHttpConfigurer::disable);
         // set the session creation policy to stateless
-        http.sessionManagement().sessionCreationPolicy( STATELESS);
+        http.sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(STATELESS));
+
+        http.formLogin((httpSecurityFormLoginConfigurer) -> httpSecurityFormLoginConfigurer
+                .loginPage("/web/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/web/welcome",true)
+                .failureUrl("/web/error")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .permitAll());
+
         // set up authorization for different request matchers and user roles
         // modify this to have different configurations
         http.authorizeHttpRequests((requests) -> requests
@@ -85,15 +96,6 @@ public class SecurityConfig {
                 .requestMatchers(DELETE, "/todolist/**").hasAnyAuthority("ROLE_USER")
 
 //                Follow URIs don't need anymore
-
-//                .requestMatchers(GET, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
-//                .requestMatchers(POST, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
-//                .requestMatchers(PATCH, "/todolist/tasklist/**").hasAnyAuthority("ROLE_USER")
-
-//                .requestMatchers(GET, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
-//                .requestMatchers(POST, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
-//                .requestMatchers(PATCH, "/todolist/shoppinglist/**").hasAnyAuthority("ROLE_USER")
-
 
                 .anyRequest().authenticated());
         // add the custom authentication filter to the http security object

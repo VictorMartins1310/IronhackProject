@@ -6,7 +6,7 @@ import com.bootcamp.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class UserController implements com.bootcamp.project.controller.UserController {
+public abstract class UserController implements com.bootcamp.project.controller.interfaces.UserController {
     protected final UserService userService;
     protected final UserMapper userMapper;
     public UserDetailsDTO getUserDetails(){
