@@ -4,7 +4,6 @@ import com.bootcamp.project.exception.ProjectException;
 import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
-import com.bootcamp.project.repos.RoleRepository;
 import com.bootcamp.project.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,7 +22,6 @@ import java.util.*;
 public class UserService implements UserDetailsService {
     // Repositories Section
     private final UserRepository userRepo;
-    private final RoleRepository roleRepository;
     // Service Section
     private final TaskListService taskListService;
     private final ShoppingListService shoppingListService;
@@ -39,24 +37,13 @@ public class UserService implements UserDetailsService {
      * @return List of Users without Password
      */
     public List<User> showUsers(){  return userRepo.findAll(); }
-    /** This Function add new Role or get the Role by Name
-     * @param name String
-     * @return new Role
-     */
-    public Role addRole(String name){
-        if (roleRepository.findByRole(name).isEmpty()) {
-            return roleRepository.save(new Role(name));
-        }else
-            return roleRepository.findByRole(name).get();
-    }
 
     public User newAdmin(String email, String password){
         User user = new User(email, password);
-        return save(user, "ROLE_ADMIN");
+        return save(user, Role.ROLE_ADMIN);
     }
 
-    public User save(User user, String role){
-        user.addRole(addRole(role));
+    public User save(User user, Role role){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
     }
@@ -71,7 +58,7 @@ public class UserService implements UserDetailsService {
      */
     public User newUser(String email, String password){
         User user = new User(email, password);
-        User savedUser = save(user, "ROLE_USER");
+        User savedUser = save(user, Role.ROLE_USER);
         TaskList taskList = new TaskList("First Task List", savedUser);
         taskListService.newTaskList(savedUser, taskList);
         return savedUser;
@@ -109,9 +96,8 @@ public class UserService implements UserDetailsService {
         } else {
             // Create a collection of SimpleGrantedAuthority objects from the user's roles
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            user.getRoles().forEach(role -> {
-                authorities.add(new SimpleGrantedAuthority(role.getRole()));
-            });
+            authorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
+
             // Return the user details, including the username, password, and authorities
             return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
         }

@@ -28,7 +28,7 @@ public class AdminController {
      */
     @PostMapping(value = "/roles")
     @ResponseStatus(HttpStatus.CREATED)
-    public Role saveRole(@RequestBody String role) { return userService.addRole(role); }
+    public Role saveRole(@RequestBody Role role) { return role; }
     @GetMapping(value ="/users")
     public List<User> showAllUsers(){ return userService.showUsers(); }
     @GetMapping(value = "/users/{id}")
