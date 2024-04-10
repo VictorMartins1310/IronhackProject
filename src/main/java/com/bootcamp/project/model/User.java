@@ -19,7 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userID;
-    @Column(unique=true) // for dont getting doubled email adresses
+    @Column(unique=true) // for don't getting doubled email addresses
     private String email;
     private String password;
     // User Details
