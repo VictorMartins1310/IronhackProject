@@ -4,7 +4,6 @@ import com.bootcamp.project.controller.implement.rest.TaskListControllerImpl;
 import com.bootcamp.project.dto.TaskListDTO;
 import com.bootcamp.project.dto.TaskListTasksDTO;
 import com.bootcamp.project.mappers.TodoListMapper;
-import com.bootcamp.project.model.Role;
 import com.bootcamp.project.model.TaskList;
 import com.bootcamp.project.model.User;
 import com.bootcamp.project.service.ShoppingListService;
@@ -64,11 +63,11 @@ public class TaskListControllerTest {
     @BeforeEach
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        Role role = new Role();
-        role.setRoleID(1);
-        role.setRole("USER");
+//        RoleOLD roleOLD = new RoleOLD();
+//        roleOLD.setRoleID(1);
+//        roleOLD.setRole("USER");
 
-        user.addRole(role);
+//        user.addRole(roleOLD);
         user.setUserID(userID);
         taskList1.setTodoListID(todoListID);
         taskList2.setTodoListID(todoListID);
