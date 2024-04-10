@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -72,8 +73,6 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/web/welcome",true)
                 .failureUrl("/web/error")
-                .usernameParameter("email")
-                .passwordParameter("password")
                 .permitAll());
 
         // set up authorization for different request matchers and user roles

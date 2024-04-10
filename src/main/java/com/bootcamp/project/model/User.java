@@ -28,15 +28,11 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate birthDate;
 
-    @ManyToMany(fetch = EAGER)
-    private Collection<Role> roles = new ArrayList<>();
+    private Role role;
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-    }
-    public void addRole(Role role){
-        roles.add(role);
     }
 
     public void updateDetails( String firstName, String lastName, LocalDate birthDate) {

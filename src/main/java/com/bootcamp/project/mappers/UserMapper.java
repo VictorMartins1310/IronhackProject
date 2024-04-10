@@ -20,7 +20,7 @@ public interface UserMapper {
     @Mapping(target = "userID", ignore = true)
     @Mapping(target = "firstName", ignore = true)
     @Mapping(target = "lastName", ignore = true)
-    @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "role", ignore = true)
     @Mapping(target = "birthDate", ignore = true)
     User toEntity (LoginDTO entity);
 
