@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -47,11 +48,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
      * @throws AuthenticationException
      */
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(
+            @NonNull HttpServletRequest request,
+            HttpServletResponse response) throws AuthenticationException {
         String email, password;
         // Using ObjectMapper to extract credentials from request body
         try {
-            if (request.getParameter("email") == null && request.getParameter("password") == null){
+            if (request.getContentType().equals(APPLICATION_JSON_VALUE)){
                 Map<String, String> credentials = new ObjectMapper().readValue(request.getInputStream(), Map.class);
                 email = credentials.get("email");
                 password = credentials.get("password");
@@ -59,7 +62,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 email = request.getParameter("email");
                 password = request.getParameter("password");
             }
-
 
             log.info("Username is: {}", email);
             log.info("Password is: {}", password);
@@ -85,7 +87,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
      * @throws ServletException
      */
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
+    protected void successfulAuthentication(
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            FilterChain chain,
+            @NonNull Authentication authentication) throws IOException, ServletException {
         // Cast the authentication principal to User object
         User user = (User) authentication.getPrincipal();
         // Creating an HMAC256 encoded JWT with secret key
@@ -105,5 +111,4 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         // Writing the token as response
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
-
 }
