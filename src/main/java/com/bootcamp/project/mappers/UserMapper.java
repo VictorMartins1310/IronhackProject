@@ -23,5 +23,6 @@ public interface UserMapper {
     @Mapping(target = "roles", ignore = true)
     @Mapping(target = "birthDate", ignore = true)
     User toEntity (LoginDTO entity);
+    //TODO MAINTAIN
 
 }
