@@ -48,17 +48,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
      */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        String email, password;
         // Using ObjectMapper to extract credentials from request body
         try {
-            if (request.getParameter("email") == null && request.getParameter("password") == null){
-                Map<String, String> credentials = new ObjectMapper().readValue(request.getInputStream(), Map.class);
-                email = credentials.get("email");
-                password = credentials.get("password");
-            }else{
-                email = request.getParameter("email");
-                password = request.getParameter("password");
-            }
+            Map<String, String> credentials = new ObjectMapper().readValue(request.getInputStream(), Map.class);
 
             //TODO maintain
 
